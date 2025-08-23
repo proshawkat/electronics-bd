@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\GeneralSettingController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -22,9 +24,11 @@ Route::middleware('auth')->group(function () {
  * Admin only routes
  */
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-       return view('dashboard');
-    });
+    Route::get('dashboard', [DashboardController::class, 'index']);
+
+    Route::get('general-settings', [GeneralSettingController::class, 'edit'])->name('general-settings.edit');
+    Route::post('general-settings', [GeneralSettingController::class, 'update'])->name('general-settings.update');
+
 
     // web.php
     Route::get('/get-subcategories/{category_id}', [CategoryController::class, 'getSubcategories']);

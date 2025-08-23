@@ -116,9 +116,9 @@
                     </a>
                 </li> 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                    <i class="nav-icon bi bi-circle-fill"></i>
-                    <p>General Settings</p>
+                    <a href="{{ route('admin.general-settings.edit'); }}" class="nav-link">
+                        <i class="nav-icon bi bi-circle-fill"></i>
+                        <p>General Settings</p>
                     </a>
                 </li> 
             </ul>  
