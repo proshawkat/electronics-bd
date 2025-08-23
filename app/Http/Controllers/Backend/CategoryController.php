@@ -73,4 +73,11 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->back()->with('success', 'Category deleted successfully!');
     }
+
+    public function getSubcategories($category_id)
+    {
+        $subcategories = Category::where('parent_id', $category_id)->pluck('name', 'id');
+
+        return response()->json($subcategories);
+    }
 }

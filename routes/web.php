@@ -11,10 +11,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -27,8 +23,12 @@ Route::middleware('auth')->group(function () {
  */
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
-        return "Welcome Admin!";
+       return view('dashboard');
     });
+
+    // web.php
+    Route::get('/get-subcategories/{category_id}', [CategoryController::class, 'getSubcategories']);
+
 
     Route::resource('categories', CategoryController::class);
     Route::resource('brands', BrandController::class);

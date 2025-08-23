@@ -10,16 +10,10 @@
         <link rel="preload" href="{{ asset('public/backend/css/adminlte.css') }}" as="style" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
         crossorigin="anonymous" media="print" onload="this.media='all'" />
-        <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css"
-        crossorigin="anonymous"
-        />
-        <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-        crossorigin="anonymous"
-        />
+        <link rel="stylesheet" href="{{ asset('public/backend/css/overlayscrollbars.min.css') }}" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" crossorigin="anonymous" />
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
+
         <link rel="stylesheet" href="{{ asset('public/backend/css/adminlte.css') }}" />
     </head>
     <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
@@ -58,10 +52,65 @@
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         crossorigin="anonymous"
         ></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
         <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
         crossorigin="anonymous"
         ></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
         <script src="{{ asset('public/backend/js/adminlte.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('#product-description').summernote({
+                height: 200,      
+                placeholder: 'Write here...',
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['fontsize', 'color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'table', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview']]
+                ]
+                });
+            });
+
+            $(document).ready(function () {
+                var selectedCategory = $('#selected_category').val();
+                var selectedSubCategory = $('#selected_sub_category').val();
+
+                if (selectedCategory) {
+                    $('#category_id').val(selectedCategory);
+
+                    $.ajax({
+                        url: '/electronics-bd/admin/get-subcategories/' + selectedCategory,
+                        type: 'GET',
+                        success: function (data) {
+                            $('#sub_category_id').html('<option value="">Choose...</option>');
+                            $.each(data, function (id, name) {
+                                var selected = (id == selectedSubCategory) ? 'selected' : '';
+                                $('#sub_category_id').append('<option value="' + id + '" ' + selected + '>' + name + '</option>');
+                            });
+                        }
+                    });
+                }
+
+                $('#category_id').on('change', function () {
+                    var category_id = $(this).val();
+                    $('#sub_category_id').html('<option value="">Choose...</option>');
+
+                    if (category_id) {
+                        $.ajax({
+                            url: '/electronics-bd/admin/get-subcategories/' + category_id,
+                            type: 'GET',
+                            success: function (data) {
+                                $.each(data, function (id, name) {
+                                    $('#sub_category_id').append('<option value="' + id + '">' + name + '</option>');
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

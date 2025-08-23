@@ -25,7 +25,7 @@
 <body class="login-page bg-body-secondary">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../index2.html"><b>Admin</b>LTE</a>
+            <a href="../index2.html"><b>Radio</b>Electric</a>
         </div>
         <div class="card">
             <div class="card-body login-card-body">

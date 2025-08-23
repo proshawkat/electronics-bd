@@ -14,12 +14,12 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::latest()->paginate(10);
-        return view('brands.index', compact('brands'));
+        return view('backend.brands.index', compact('brands'));
     }
 
     public function create()
     {
-        return view('brands.create');
+        return view('backend.brands.create');
     }
 
     public function store(Request $request)
@@ -35,12 +35,12 @@ class BrandController extends Controller
             'created_by' => Auth::id(),
         ]);
 
-        return redirect()->route('brands.index')->with('success', 'Brand created successfully.');
+        return redirect()->route('admin.brands.index')->with('success', 'Brand created successfully.');
     }
 
     public function edit(Brand $brand)
     {
-        return view('brands.edit', compact('brand'));
+        return view('backend.brands.edit', compact('brand'));
     }
 
     public function update(Request $request, Brand $brand)
@@ -55,12 +55,12 @@ class BrandController extends Controller
             'status' => $request->status ?? false,
         ]);
 
-        return redirect()->route('brands.index')->with('success', 'Brand updated successfully.');
+        return redirect()->route('admin.brands.index')->with('success', 'Brand updated successfully.');
     }
 
     public function destroy(Brand $brand)
     {
         $brand->delete();
-        return redirect()->route('brands.index')->with('success', 'Brand deleted successfully.');
+        return redirect()->route('admin.brands.index')->with('success', 'Brand deleted successfully.');
     }
 }
