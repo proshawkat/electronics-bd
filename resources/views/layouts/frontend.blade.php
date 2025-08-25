@@ -1,5 +1,16 @@
+@php
+    $routeName = Route::currentRouteName();
+    $customerPage = in_array($routeName, ['customer.login', 'customer.register']);
+    $leftMenuRoute = in_array($routeName, ['customer.login', 'customer.register']);
+@endphp
 <!doctype html>
-<html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents">
+@if($customerPage)
+    <html lang="en" class="desktop win chrome chrome139 webkit oc30 is-guest route-product-product product-1039 store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-2 one-column column-left flexbox no-touchevents flexbox no-touchevents">
+@else
+    <html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents">
+@endif
+
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -47,18 +58,37 @@
 
 	<div class="site-wrapper">
 		
-        @include('frontend.partials.header')
+    @include('frontend.partials.header')
 
+    @if(!request()->is('/'))
+        @php $items = $breadcrumbs ?? []; @endphp
+
+        @if(count($items))
+            <ul class="breadcrumb">
+                @foreach($items as $bc)
+                    <li>
+                        @if(!empty($bc['url']))
+                            <a href="{{ $bc['url'] }}">{{ $bc['title'] }}</a>
+                        @else
+                            {{ $bc['title'] }}
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    @endif
+
+    @unless($leftMenuRoute)
 		<div id="common-home" class="container">
 			<div class="row">
-
-				@include('frontend.partials.left-menu')
-
-                @yield('content')
-
-            </div>
+              @include('frontend.partials.left-menu')
+    @endunless          
+          @yield('content')
+    @unless($leftMenuRoute)   
+      </div>
 		</div>
-        @include('frontend.partials.footer')
+    @endunless
+    @include('frontend.partials.footer')
 		
 	</div> 
 

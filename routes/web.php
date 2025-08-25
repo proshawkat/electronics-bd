@@ -9,9 +9,32 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\GeneralSettingController;
 use App\Http\Controllers\WelcomeController;
-
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\Customer\Auth\LoginController;
+use App\Http\Controllers\Frontend\Customer\Auth\RegisterController;
+use App\Http\Controllers\Frontend\Customer\CustomerController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
+
+Route::prefix('category')->name('category.')->group(function () {
+    Route::get('/{slug}', [HomeController::class, 'categoryWiseProduct'])->name('show');
+    Route::get('/{slug}/{sub_slug}', [HomeController::class, 'subCategoryWiseProduct'])->name('sub.show');
+});
+
+Route::prefix('customer')->name('customer.')->group(function () {
+    Route::middleware('guest:customer')->group(function () {
+        Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+        Route::post('login', [LoginController::class, 'login'])->name('login.submit');
+
+        Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
+        Route::post('register', [RegisterController::class, 'register'])->name('register.submit');
+    });
+
+    Route::middleware('auth.customer')->group(function () {
+        Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('dashboard');
+        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

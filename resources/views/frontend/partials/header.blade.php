@@ -166,24 +166,33 @@
                         </a>
                         <div class="dropdown-menu j-dropdown" id="collapse-68a48eab91cc5">
                             <ul class="j-menu">
-                                <li class="menu-item main-menu-item-2 drop-menu">
-                                    <a href="">
-                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="12" cy="6" r="4" stroke="#1C274C" stroke-width="1.5"/>
-                                        <path d="M19.9975 18C20 17.8358 20 17.669 20 17.5C20 15.0147 16.4183 13 12 13C7.58172 13 4 15.0147 4 17.5C4 19.9853 4 22 12 22C14.231 22 15.8398 21.8433 17 21.5634" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
-                                        </svg>
-                                        <span class="links-text">Log in</span>
-                                    </a>
-                                </li>
+                                @if(Auth::guard('customer')->check())
+                                    <li class="menu-item main-menu-item-2 drop-menu">
+                                        <a href="{{ route('customer.dashboard') }}">Dashboard</a>
+                                    </li>
+                                    <li class="menu-item main-menu-item-3 drop-menu">    
+                                        <form action="{{ route('customer.logout') }}" method="POST">@csrf<button>Logout</button></form>
+                                    </li>    
+                                @else
+                                    <li class="menu-item main-menu-item-2 drop-menu">
+                                        <a href="{{ route('customer.login') }}">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="12" cy="6" r="4" stroke="#1C274C" stroke-width="1.5"/>
+                                            <path d="M19.9975 18C20 17.8358 20 17.669 20 17.5C20 15.0147 16.4183 13 12 13C7.58172 13 4 15.0147 4 17.5C4 19.9853 4 22 12 22C14.231 22 15.8398 21.8433 17 21.5634" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                            </svg>
+                                            <span class="links-text">Log in</span>
+                                        </a>
+                                    </li>
 
-                                <li class="menu-item main-menu-item-3 drop-menu">
-                                    <a href="#">
-                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20 18L17 18M17 18L14 18M17 18V15M17 18V21M11 21H4C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="#1C274C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        <span class="links-text">Register</span>
-                                    </a>
-                                </li>
+                                    <li class="menu-item main-menu-item-3 drop-menu">
+                                        <a href="{{ route('customer.register') }}">
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20 18L17 18M17 18L14 18M17 18V15M17 18V21M11 21H4C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="#1C274C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="links-text">Register</span>
+                                        </a>
+                                    </li>
+                                @endif     
                             </ul>
                         </div>
                     </li>
@@ -259,13 +268,21 @@
             <div class="mobile-top-menu-wrapper">
                 <div class="top-menu top-menu-13">
                     <ul class="j-menu">
-                        <li class="menu-item top-menu-item top-menu-item-1">
-                            <a href="javascript:open_login_popup()"><span class="links-text">Login</span></a>
-                        </li>
-
-                        <li class="menu-item top-menu-item top-menu-item-2">
-                            <a href="javascript:open_register_popup()"><span class="links-text">Register</span></a>
-                        </li>
+                        @if(Auth::guard('customer')->check())
+                            <li class="menu-item top-menu-item top-menu-item-1">
+                                <a href="{{ route('customer.dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="menu-item top-menu-item top-menu-item-2">    
+                                <form action="{{ route('customer.logout') }}" method="POST">@csrf<button>Logout</button></form>
+                            </li>    
+                        @else
+                            <li class="menu-item top-menu-item top-menu-item-1">
+                                <a href="{{ route('customer.login') }}"><span class="links-text">Login</span></a>
+                            </li>
+                            <li class="menu-item top-menu-item top-menu-item-2">
+                                <a href="{{ route('customer.register') }}"><span class="links-text">Register</span></a>
+                            </li>    
+                        @endif                
                     </ul>
                 </div>
             </div>
