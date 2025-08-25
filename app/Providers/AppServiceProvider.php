@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\GeneralSetting;
+use App\Models\Category;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,19 @@ class AppServiceProvider extends ServiceProvider
                 return GeneralSetting::first();
             });
             $view->with('generalSettings', $settings);
+        });
+
+        View::composer('*', function ($view) {
+            $categories = Cache::rememberForever('menu_categories', function () {
+                return Category::with(['children' => function ($q) {
+                    $q->where('status', true);
+                }])
+                ->whereNull('parent_id')
+                ->where('status', true)
+                ->get();
+            });
+
+            $view->with('menuCategories', $categories);
         });
     }
 }

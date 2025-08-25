@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
@@ -37,6 +38,7 @@ class CategoryController extends Controller
             'parent_id'  => $request->parent_id,
             'created_by' => Auth::id(),
         ]);
+        Cache::forget('menu_categories');
 
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
@@ -60,6 +62,7 @@ class CategoryController extends Controller
             'status'     => $request->status ?? false,
             'parent_id'  => $request->parent_id,
         ]);
+        Cache::forget('menu_categories');
 
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
@@ -71,6 +74,8 @@ class CategoryController extends Controller
         }
 
         $category->delete();
+        Cache::forget('menu_categories');
+
         return redirect()->back()->with('success', 'Category deleted successfully!');
     }
 

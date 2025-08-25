@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GeneralSetting;
+use Illuminate\Support\Facades\Cache;
 
 class GeneralSettingController extends Controller
 {
@@ -45,6 +46,7 @@ class GeneralSettingController extends Controller
         }
 
         $settings->update($request->except(['logo','_token']));
+        Cache::forget('general_settings');
 
         return redirect()->back()->with('success', 'Settings updated successfully!');
     }
