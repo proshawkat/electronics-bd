@@ -8,7 +8,8 @@ use App\Models\Product;
 class WelcomeController extends Controller
 {
     public function index(){
-        $featuredProducts = Product::where('is_featured', 1)->take(8)->get();
-        return view('welcome', compact('featuredProducts'));
+        $homeProducts = Product::where('status', 1)->take(20)->get(['id', 'name', 'sale_price', 'first_image_url', 'second_image_url']);
+        $featuredProducts = Product::where('is_featured', 1)->where('status', 1)->take(5)->get(['id', 'name', 'sale_price', 'first_image_url', 'second_image_url']);
+        return view('welcome', compact('featuredProducts', 'homeProducts'));
     }
 }
