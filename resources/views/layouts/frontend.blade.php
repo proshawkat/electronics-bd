@@ -1,7 +1,7 @@
 @php
     $routeName = Route::currentRouteName();
     $customerPage = in_array($routeName, ['customer.login', 'customer.register']);
-    $leftMenuRoute = in_array($routeName, ['customer.login', 'customer.register']);
+    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard']);
 @endphp
 <!doctype html>
 @if($customerPage)
@@ -78,13 +78,15 @@
         @endif
     @endif
 
-    @unless($leftMenuRoute)
+    @include('frontend.partials.flash-message')
+
+    @unless($NotLeftMenuRoute)
 		<div id="common-home" class="container">
 			<div class="row">
-              @include('frontend.partials.left-menu')
+              @include('frontend.partials.left-menu', ['featuredProducts' => $featuredProducts])
     @endunless          
           @yield('content')
-    @unless($leftMenuRoute)   
+    @unless($NotLeftMenuRoute)   
       </div>
 		</div>
     @endunless

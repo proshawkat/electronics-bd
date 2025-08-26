@@ -151,41 +151,42 @@
                             <div class="module module-side_products module-side_products-151">
                                 <div class="module-body side-products-blocks">
                                     <div class="module-item module-item-1">
-                                        <h3 class="title module-title">Related Product</h3>
+                                        <h3 class="title module-title">Featured Products</h3>
                                         <div class="side-products">
-                                            <div class="product-layout">
-                                                <div class="side-product">
-                                                    <div class="image">
-                                                        <a href="#" class="product-img">
-                                                            <img
-                                                                src="https://www.citytechbd.com/image/cache/catalog/zfx-p1007-speed-controller-regulator-switch-single-phase-reduction-motor-fan-220v-500w-in-bd-60x60w.png"
-                                                                srcset=" https://www.citytechbd.com/image/cache/catalog/zfx-p1007-speed-controller-regulator-switch-single-phase-reduction-motor-fan-220v-500w-in-bd-60x60w.png   1x, https://www.citytechbd.com/image/cache/catalog/zfx-p1007-speed-controller-regulator-switch-single-phase-reduction-motor-fan-220v-500w-in-bd-120x120w.png 2x" width="60" height="60" alt=""
-                                                                title=""
-                                                                class="img-first"
-                                                            />
-                                                        </a>
-
-                                                        <div class="quickview-button">
-                                                            <a class="btn btn-quickview" title="Quickview" data-original-title="Quickview" data-placement="top" data-toggle="modal"  data-target="#quickViewModal-2200">
-                                                                <span class="btn-text">Quickview</span>
+                                            @foreach($featuredProducts as $product)
+                                                <div class="product-layout">
+                                                    <div class="side-product">
+                                                        <div class="image">
+                                                            <a href="#" class="product-img">
+                                                                <img
+                                                                    src="{{ asset('public/'.$product->first_image_url) }}"
+                                                                    srcset="{{ asset('public/'.$product->first_image_url) }}" width="60" height="60" alt=""
+                                                                    title=""
+                                                                    class="img-first"
+                                                                />
                                                             </a>
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="caption">
-                                                        <div class="name">
-                                                            <a href="#">
-                                                                ZFX-P1007 Speed Controller Regulator Switch single-phase reduction motor fan 220V 500W
-                                                            </a>
+                                                            <div class="quickview-button">
+                                                                <a class="btn btn-quickview" title="Quickview" data-original-title="Quickview" data-placement="top" data-toggle="modal"  data-target="#quickViewModal-2200">
+                                                                    <span class="btn-text">Quickview</span>
+                                                                </a>
+                                                            </div>
                                                         </div>
 
-                                                        <div class="price">
-                                                            <span class="price-normal">1,449৳</span>
+                                                        <div class="caption">
+                                                            <div class="name">
+                                                                <a href="#">
+                                                                    {{ $product->name }}
+                                                                </a>
+                                                            </div>
+
+                                                            <div class="price">
+                                                                <span class="price-normal">{{ $product->sale_price }}৳</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

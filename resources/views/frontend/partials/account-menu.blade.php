@@ -9,7 +9,7 @@
                                 <h3 class="title module-title">Account Menu</h3>
                                 <ul class="j-menu">
                                     <li class="menu-item accordion-menu-item accordion-menu-item-1">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/account">
+                                        <a href="{{ route('customer.dashboard') }}">
                                             <span class="links-text">My Account</span>
                                         </a>
                                     </li>

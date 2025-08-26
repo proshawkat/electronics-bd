@@ -46,8 +46,7 @@
                                                             <div class="product-thumb">
                                                                 <div class="image">
                                                                     <div class="quickview-button">
-                                                                        <a class="btn btn-quickview" data-toggle="tooltip" data-tooltip-class="module-products-302 module-products-grid quickview-tooltip" data-placement="top" title="" onclick="quickview('2053')" data-original-title="Quickview"
-                                                                        >
+                                                                        <a class="btn btn-quickview" data-toggle="tooltip" data-tooltip-class="module-products-302 module-products-grid quickview-tooltip" data-placement="top" title="" onclick="quickview('2053')" data-original-title="Quickview">
                                                                             <span class="btn-text">Quickview</span>
                                                                         </a>
                                                                     </div>

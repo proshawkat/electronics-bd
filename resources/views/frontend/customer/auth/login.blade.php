@@ -21,7 +21,8 @@
                     <div class="well">
                         <h2 class="title">Returning Customer</h2>
                         <p><strong>I am a returning customer</strong></p>
-                        <form action="https://www.citytechbd.com/index.php?route=account/login" method="post" enctype="multipart/form-data" class="form-horizontal login-form">
+                        <form action="{{ route('customer.login') }}" method="post" class="form-horizontal login-form">
+                            @csrf
                             <div class="form-group">
                                 <label class="control-label" for="input-email">E-Mail Address</label>
                                 <input type="text" name="email" value="" placeholder="E-Mail Address" id="input-email" class="form-control" />
@@ -29,14 +30,13 @@
                             <div class="form-group">
                                 <label class="control-label" for="input-password">Password</label>
                                 <input type="password" name="password" value="" placeholder="Password" id="input-password" class="form-control" />
-                                <div><a href="https://www.citytechbd.com/index.php?route=account/forgotten" target="_top">Forgotten Password</a></div>
+                                <div><a href="{{ route('customer.register') }}" target="_top">Forgotten Password</a></div>
                             </div>
                             <div class="buttons">
                                 <div class="pull-right">
                                     <button type="submit" class="btn btn-primary" data-loading-text="&lt;span&gt;Login&lt;/span&gt;"><span>Login</span></button>
                                 </div>
                             </div>
-                            <input type="hidden" name="redirect" value="https://www.citytechbd.com/index.php?route=account/address" />
                         </form>
                     </div>
                 </div>

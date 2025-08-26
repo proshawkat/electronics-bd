@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('sub_category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->foreignId('brand_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('status')->default(1);
+            $table->boolean('is_featured')->default(0);
             $table->timestamps();
         });
     }
