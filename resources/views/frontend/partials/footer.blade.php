@@ -44,25 +44,25 @@
                                 <h3 class="title module-title closed">Custom Links</h3>
                                 <ul class="module-body">
                                     <li class="menu-item links-menu-item links-menu-item-1">
-                                        <a href="https://www.citytechbd.com/about_us">
+                                        <a href="#">
                                             <span class="links-text">About Us</span>
                                         </a>
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-2">
-                                        <a href="https://www.citytechbd.com/delivery">
+                                        <a href="#">
                                             <span class="links-text">Delivery</span>
                                         </a>
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-3">
-                                        <a href="https://www.citytechbd.com/index.php?route=information/contact">
+                                        <a href="#">
                                             <span class="links-text">Contact</span>
                                         </a>
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-4">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/return">
+                                        <a href="#">
                                             <span class="links-text">Returns</span>
                                         </a>
                                     </li>
@@ -74,25 +74,25 @@
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-6">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/account">
+                                        <a href="#">
                                             <span class="links-text">My Accounts</span>
                                         </a>
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-7">
-                                        <a href="https://www.citytechbd.com/privacy">
+                                        <a href="#">
                                             <span class="links-text">Privacy Policy</span>
                                         </a>
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-8">
-                                        <a href="https://www.citytechbd.com/terms">
+                                        <a href="#">
                                             <span class="links-text">Terms and Conditions</span>
                                         </a>
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-9">
-                                        <a href="https://www.citytechbd.com/blog">
+                                        <a href="#">
                                             <span class="links-text">Blog</span>
                                         </a>
                                     </li>
@@ -163,7 +163,7 @@
     </div>
 </footer>
 
-<div class="notification-wrapper notification-wrapper-tr">
+<div class="notification-wrapper notification-wrapper-tr hide">
 	<div class="notification notification-cart">
 		<button class="btn notification-close"></button>
 		<div class="notification-content">
@@ -180,15 +180,15 @@
                 <div class="col-sm-9">
                     <div class="notification-title">Variable Resistor Pot 200K (204)</div>
                     <div class="notification-text">
-                        Success: You have added <a href="https://www.citytechbd.com/Variable_Resistor_Pot_200K_(204)">Variable Resistor Pot 200K (204)</a> to your
-                        <a href="https://www.citytechbd.com/index.php?route=checkout/cart">shopping cart</a>!
+                        Success: You have added <a href="#">Variable Resistor Pot 200K (204)</a> to your
+                        <a href="#">shopping cart</a>!
                     </div>
                 </div>
             </div>
 		</div>
 		<div class="notification-buttons">
-			<a class="btn btn-cart notification-view-cart" href="https://www.citytechbd.com/index.php?route=checkout/cart">View Cart</a>
-			<a class="btn btn-success notification-checkout" href="https://www.citytechbd.com/index.php?route=checkout/checkout">Checkout</a>
+			<a class="btn btn-cart notification-view-cart" href="#">View Cart</a>
+			<a class="btn btn-success notification-checkout" href="#">Checkout</a>
 		</div>
 	</div>
 </div>
