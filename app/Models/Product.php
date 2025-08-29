@@ -28,6 +28,10 @@ class Product extends Model
         'status',
     ];
 
+    protected $casts = [
+        'tag_id' => 'array',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -48,8 +52,8 @@ class Product extends Model
         return $this->hasMany(ProductGallery::class);
     }
 
-    public function tags()
+    public function getTagsAttribute()
     {
-        return $this->belongsTo(Tag::class, 'tag_id');
+        return Tag::whereIn('id', $this->tag_id ?? [])->get();
     }
 }

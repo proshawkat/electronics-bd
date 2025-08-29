@@ -48,32 +48,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
-                                                <div class="module-item module-item-c text-only panel panel-active">
-                                                    <div class="panel-heading">
-                                                        <div class="panel-title">
-                                                            <a href="#filter-68a7fbe21c954-collapse-2" class="accordion-toggle" data-toggle="collapse" aria-expanded="true" data-filter="c">
-                                                                Subcategories
-                                                                <i class="fa fa-caret-down"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="panel-collapse collapse in" id="filter-68a7fbe21c954-collapse-2">
-                                                        <div class="panel-body">
-                                                            <div class="filter-checkbox">
-                                                                @foreach($subcategories as $subc)
-                                                                    @php
-                                                                        $selectedSubcats = explode(',', request('c') ?? '');
-                                                                    @endphp
-                                                                    <label>
-                                                                        <input type="checkbox" data-filter-trigger="" name="c" value="{{ $subc->id }}" {{ in_array($subc->id, $selectedSubcats) ? 'checked' : '' }} />
-                                                                        <span class="links-text">{{ $subc->name }}</span>
-                                                                    </label>
-                                                                @endforeach    
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="module-item module-item-m text-only panel panel-collapsed">
                                                     <div class="panel-heading">
                                                         <div class="panel-title">
