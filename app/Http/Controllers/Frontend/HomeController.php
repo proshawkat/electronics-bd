@@ -67,7 +67,8 @@ class HomeController extends Controller
 
     public function subCategoryWiseProduct(Request $request, $slug, $s_slug){
         $breadcrumbs = [
-            ['title' => ucfirst(str_replace('-', ' ', $slug)), 'url' => '#']
+            ['title' => ucfirst(str_replace('-', ' ', $slug)), 'url' => $slug],
+            ['title' => ucfirst(str_replace('-', ' ', $s_slug)), 'url' => $s_slug]
         ];
         $category = Category::where('slug', $slug)->whereNull('parent_id')->firstOrFail();
         $subcategory = Category::where('slug', $s_slug)->where('status', 1)->firstOrFail();

@@ -409,10 +409,13 @@ a.truncate-text {
         transform: none;
     }
     .product-info{
-        padding-bottom: 10rem;
+        padding-bottom: 4rem;
         min-height: 350px;
     }
     .product-info .product-details .button-group-page .wishlist-compare{
         margin-top: 10px;
+    }
+    .product-price-group{
+        padding-left: 2rem;
     }
 }

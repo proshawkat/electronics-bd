@@ -1,7 +1,7 @@
 @php
     $routeName = Route::currentRouteName();
     $customerPage = in_array($routeName, ['customer.login', 'customer.register']);
-    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show']);
+    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product']);
     $onlyCategory = in_array($routeName, ['category.show']);
 @endphp
 <!doctype html>
@@ -24,6 +24,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/bootstrap.min.css') }}" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/font-awesome.min.css') }}" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/style.minimal.css') }}">
+    @if (Route::currentRouteName() === 'slug-product')
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/imagezoom.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/lightgallery.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/swiper.min.css') }}">
+    @endif
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/main.style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/master.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/mobile-container.css') }}">
@@ -128,6 +133,11 @@
     <script src="{{ asset('public/frontend/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('public/frontend/js/typeahead.jquery.min.js') }}"></script>
     <script src="{{ asset('public/frontend/js/jquery.hoverIntent.min.js') }}"></script>
+    @if (Route::currentRouteName() === 'slug-product')
+    <script src="{{ asset('public/frontend/js/jquery.imagezoom.min.js') }}"></script>
+    <script src="{{ asset('public/frontend/js/lightgallery-all.js') }}"></script>
+    <script src="{{ asset('public/frontend/js/swiper.min.js') }}"></script>
+    @endif
     <script src="{{ asset('public/frontend/js/master.js') }}"></script>
     <script src="{{ asset('public/frontend/js/sa_cart.js') }}"></script>
     @yield('scripts')

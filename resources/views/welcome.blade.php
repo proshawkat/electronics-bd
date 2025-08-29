@@ -51,15 +51,12 @@
                                                                             </a>
                                                                         </div>
 
-                                                                        <a href="#" class="product-img has-second-image">
+                                                                        <a href="{{ url('product/'.$product->slug) }}" class="product-img has-second-image">
                                                                             <div>
-                                                                                <img
-                                                                                    src="{{ asset('public/'.$product->first_image_url) }}"
+                                                                                <img src="{{ asset('public/'.$product->first_image_url) }}"
                                                                                     srcset="{{ asset('public/'.$product->first_image_url) }}" width="250" height="250"
-                                                                                    alt="{{ $product->name }}"
-                                                                                    title="{{ $product->name }}"
-                                                                                    class="img-responsive img-first"
-                                                                                />
+                                                                                    alt="{{ $product->name }}" title="{{ $product->name }}"
+                                                                                    class="img-responsive img-first" />
 
                                                                                 <img src="{{ asset('public/'.$product->second_image_url) }}" srcset="{{ asset('public/'.$product->second_image_url) }}" width="250" height="250" alt="14 key RF+ Knob Monochrome with lid (Button Function)  RF Remote Control PWM Dimmer 5-24V" title="14 key RF+ Knob Monochrome with lid (Button Function)  RF Remote Control PWM Dimmer 5-24V" class="img-responsive img-second" />
                                                                             </div>
