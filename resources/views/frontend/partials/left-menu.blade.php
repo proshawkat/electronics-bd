@@ -154,7 +154,7 @@
                                                             </a>
 
                                                             <div class="quickview-button">
-                                                                <a class="btn btn-quickview" title="Quickview" data-original-title="Quickview" data-placement="top" data-toggle="modal"  data-target="#quickViewModal-2200">
+                                                                <a class="btn btn-quickview" title="Quickview" data-original-title="Quickview" data-placement="top" data-toggle="modal"  data-target="#quickViewModal" data-id="{{ $product->id }}">
                                                                     <span class="btn-text">Quickview</span>
                                                                 </a>
                                                             </div>
@@ -185,3 +185,4 @@
         </div>
     </div>
 </aside>
+

@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductGallery::class);
     }
+
+    public function tags()
+    {
+        return $this->belongsTo(Tag::class, 'tag_id');
+    }
 }

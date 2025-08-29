@@ -15,6 +15,8 @@ use App\Http\Controllers\Frontend\Customer\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Customer\CustomerController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
+Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
+Route::get('/product/{slug}', [WelcomeController::class, 'slugWiseroduct'])->name('slug-product');
 
 Route::prefix('category')->name('category.')->group(function () {
     Route::get('/{slug}', [HomeController::class, 'categoryWiseProduct'])->name('show');
@@ -47,7 +49,7 @@ Route::middleware('auth')->group(function () {
  * Admin only routes
  */
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('general-settings', [GeneralSettingController::class, 'edit'])->name('general-settings.edit');
     Route::post('general-settings', [GeneralSettingController::class, 'update'])->name('general-settings.update');

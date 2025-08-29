@@ -14,8 +14,10 @@ class CustomAuthenticate
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+    
     public function handle(Request $request, Closure $next)
     {
+        
         if (! Auth::guard('customer')->check()) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Unauthenticated.'], 401);

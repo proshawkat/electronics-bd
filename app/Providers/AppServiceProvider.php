@@ -31,14 +31,18 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('*', function ($view) {
-            $categories = Cache::rememberForever('menu_categories', function () {
-                return Category::with(['children' => function ($q) {
-                    $q->where('status', true);
-                }])
-                ->whereNull('parent_id')
-                ->where('status', true)
-                ->get();
-            });
+            try {
+                $categories = Cache::rememberForever('menu_categories', function () {
+                    return Category::with(['children' => function ($q) {
+                        $q->where('status', true);
+                    }])
+                    ->whereNull('parent_id')
+                    ->where('status', true)
+                    ->get();
+                });
+            } catch (\Exception $e) {
+                $categories = collect();
+            }
 
             $view->with('menuCategories', $categories);
         });
