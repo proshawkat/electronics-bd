@@ -12,17 +12,13 @@
                                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner">
-                                            <div class="item active">
-                                                <img src="https://www.citytechbd.com/image/cache/catalog/banner/arduino-mega-2560-r3-960x400.jpeg" alt="First Slide">
-                                            </div>
-
-                                            <div class="item">
-                                                <img src="https://www.citytechbd.com/image/cache/catalog/banner/arduino-mega-2560-r3-960x400.jpeg" alt="Second Slide">
-                                            </div>
-
-                                            <div class="item">
-                                                <img src="https://www.citytechbd.com/image/cache/catalog/banner/arduino-mega-2560-r3-960x400.jpeg" alt="Third Slide">
-                                            </div>
+                                            @foreach($sliders as $key => $slider)
+                                                <div class="item {{ $key == 0 ? 'active' : '' }}">
+                                                    <a href="{{ $slider->link ?? '#' }}">
+                                                        <img src="{{ asset('public/'.$slider->image_url) }}" alt="Slide {{ $key+1 }}">
+                                                    </a>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

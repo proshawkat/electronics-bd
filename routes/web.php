@@ -8,8 +8,10 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\GeneralSettingController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\Customer\Auth\LoginController;
 use App\Http\Controllers\Frontend\Customer\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Customer\CustomerController;
@@ -21,6 +23,11 @@ Route::get('/product/{slug}', [WelcomeController::class, 'slugWiseroduct'])->nam
 Route::prefix('category')->name('category.')->group(function () {
     Route::get('/{slug}', [HomeController::class, 'categoryWiseProduct'])->name('show');
     Route::get('/{slug}/{sub_slug}', [HomeController::class, 'subCategoryWiseProduct'])->name('sub.show');
+});
+
+Route::prefix('contact')->name('contact.')->group(function () {
+    Route::get('/', [ContactController::class, 'index'])->name('index');
+    Route::post('/store', [ContactController::class, 'store'])->name('store');
 });
 
 Route::prefix('customer')->name('customer.')->group(function () {
@@ -57,11 +64,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     // web.php
     Route::get('/get-subcategories/{category_id}', [CategoryController::class, 'getSubcategories']);
+    Route::get('/newsletter', [DashboardController::class, 'getNewsletter'])->name('newsletter');
+    Route::get('/customer', [DashboardController::class, 'getCustomer'])->name('customer');
 
 
     Route::resource('categories', CategoryController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('sliders', SliderController::class);
 });
 
 /**

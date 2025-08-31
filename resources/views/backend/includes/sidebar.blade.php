@@ -97,7 +97,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.customer'); }}" class="nav-link">
                         <i class="nav-icon bi bi-circle-fill"></i>
                         <p>Customers</p>
                     </a>
@@ -108,7 +108,19 @@
                         <p>Contact Message</p>
                     </a>
                 </li> 
+                <li class="nav-item">
+                    <a href="{{ route('admin.newsletter'); }}" class="nav-link">
+                        <i class="nav-icon bi bi-circle-fill"></i>
+                        <p>NewsLetter</p>
+                    </a>
+                </li> 
                 <li class="nav-header">Basic Setup</li> 
+                <li class="nav-item">
+                    <a href="{{ route('admin.sliders.index'); }}" class="nav-link">
+                        <i class="nav-icon bi bi-circle-fill"></i>
+                        <p>Slider</p>
+                    </a>
+                </li> 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                     <i class="nav-icon bi bi-circle-fill"></i>

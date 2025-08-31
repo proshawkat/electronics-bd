@@ -56,7 +56,7 @@
                                     </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-3">
-                                        <a href="#">
+                                        <a href="{{ route('contact.index'); }}">
                                             <span class="links-text">Contact</span>
                                         </a>
                                     </li>

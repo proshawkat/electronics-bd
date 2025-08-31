@@ -1,14 +1,17 @@
 @php
     $routeName = Route::currentRouteName();
     $customerPage = in_array($routeName, ['customer.login', 'customer.register']);
-    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product']);
+    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product', 'contact.index']);
     $onlyCategory = in_array($routeName, ['category.show']);
+    $onlyContact = in_array($routeName, ['contact.index']);
 @endphp
 <!doctype html>
 @if($customerPage)
     <html lang="en" class="desktop win chrome chrome139 webkit oc30 is-guest route-product-product product-1039 store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-2 one-column column-left flexbox no-touchevents flexbox no-touchevents">
 @elseif($onlyCategory)
 <html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents"> 
+@elseif($onlyContact)
+<html class="desktop win chrome chrome139 webkit oc30 is-guest route-information-contact store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-8 flexbox no-touchevents">    
 @else
     <html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents">
 @endif

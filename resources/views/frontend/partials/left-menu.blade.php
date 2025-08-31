@@ -144,7 +144,7 @@
                                                 <div class="product-layout">
                                                     <div class="side-product">
                                                         <div class="image">
-                                                            <a href="#" class="product-img">
+                                                            <a href="{{ url('product/'.$product->slug) }}" class="product-img">
                                                                 <img
                                                                     src="{{ asset('public/'.$product->first_image_url) }}"
                                                                     srcset="{{ asset('public/'.$product->first_image_url) }}" width="60" height="60" alt=""
@@ -162,7 +162,7 @@
 
                                                         <div class="caption">
                                                             <div class="name">
-                                                                <a href="#">
+                                                                <a href="{{ url('product/'.$product->slug) }}">
                                                                     {{ $product->name }}
                                                                 </a>
                                                             </div>
