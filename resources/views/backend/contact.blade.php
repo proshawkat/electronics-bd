@@ -2,7 +2,7 @@
 
 @section('content')   
     
-    @include('backend.includes.page-header', ['title' => 'Customers'])
+    @include('backend.includes.page-header', ['title' => 'Contact Us'])
     
     <!--begin::App Content-->
     <div class="app-content">
@@ -13,7 +13,7 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h3 class="card-title">All Customers</h3>
+                        <h3 class="card-title">Contacts Message</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -24,17 +24,19 @@
                                     <th style="width: 10px">#</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Phone</th>
+                                    <th>Topic</th>
+                                    <th>Message</th>
                                     <th>Created At</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($customers as  $customer)
+                                    @foreach($contacts as  $customer)
                                         <tr class="align-middle">
-                                            <td>{{ ($customers->currentPage() - 1) * $customers->perPage() + $loop->iteration }}</td>
-                                            <td>{{ $customer->first_name }} {{ $customer->last_name }}</td>
+                                            <td>{{ ($contacts->currentPage() - 1) * $contacts->perPage() + $loop->iteration }}</td>
+                                            <td>{{ $customer->name }}</td>
                                             <td>{{ $customer->email }}</td>
-                                            <td>{{ $customer->phone }}</td>
+                                            <td>{{ $customer->topic }}</td>
+                                            <td>{{ $customer->message }}</td>
                                             <td>{{ $customer->created_at }}</td>
                                         </tr> 
                                     @endforeach                               
@@ -44,7 +46,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                        {{ $customers->links('vendor.pagination.bootstrap-5') }}
+                        {{ $contacts->links('vendor.pagination.bootstrap-5') }}
                     </div>
                 </div>
             </div>

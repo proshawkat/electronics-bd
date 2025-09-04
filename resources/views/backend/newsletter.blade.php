@@ -23,13 +23,15 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th>Email</th>
+                                    <th>Created At</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($newsletters as  $slider)
+                                    @foreach($newsletters as  $letter)
                                         <tr class="align-middle">
                                             <td>{{ ($newsletters->currentPage() - 1) * $newsletters->perPage() + $loop->iteration }}</td>
-                                            <td>{{ $slider->email }}</td>
+                                            <td>{{ $letter->email }}</td>
+                                            <td>{{ $letter->created_at }}</td>
                                         </tr> 
                                     @endforeach                               
                                 </tbody>

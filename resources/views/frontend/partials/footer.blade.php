@@ -49,11 +49,6 @@
                                         </a>
                                     </li>
 
-                                    <li class="menu-item links-menu-item links-menu-item-2">
-                                        <a href="#">
-                                            <span class="links-text">Delivery</span>
-                                        </a>
-                                    </li>
 
                                     <li class="menu-item links-menu-item links-menu-item-3">
                                         <a href="{{ route('contact.index'); }}">
@@ -67,14 +62,8 @@
                                         </a>
                                     </li>
 
-                                    <li class="menu-item links-menu-item links-menu-item-5">
-                                        <a href="Brands">
-                                            <span class="links-text">Brands</span>
-                                        </a>
-                                    </li>
-
                                     <li class="menu-item links-menu-item links-menu-item-6">
-                                        <a href="#">
+                                        <a href="{{ route('customer.dashboard') }}">
                                             <span class="links-text">My Accounts</span>
                                         </a>
                                     </li>
@@ -91,11 +80,6 @@
                                         </a>
                                     </li>
 
-                                    <li class="menu-item links-menu-item links-menu-item-9">
-                                        <a href="#">
-                                            <span class="links-text">Blog</span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>

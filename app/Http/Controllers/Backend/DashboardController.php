@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Newsletter;
 use App\Models\Customer;
+use App\Models\ContactUs;
 
 class DashboardController extends Controller
 {
@@ -21,5 +22,10 @@ class DashboardController extends Controller
     public function getCustomer(){
         $customers = Customer::latest()->paginate(15);
         return view('backend.customer', compact('customers'));
+    }
+
+    public function getContactUs(){
+        $contacts = ContactUs::latest()->paginate(15);
+        return view('backend.contact', compact('contacts'));
     }
 }

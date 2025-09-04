@@ -103,7 +103,7 @@
                     </a>
                 </li> 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.contact-us'); }}" class="nav-link">
                         <i class="nav-icon bi bi-circle-fill"></i>
                         <p>Contact Message</p>
                     </a>

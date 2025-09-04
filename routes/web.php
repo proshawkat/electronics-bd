@@ -66,6 +66,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/get-subcategories/{category_id}', [CategoryController::class, 'getSubcategories']);
     Route::get('/newsletter', [DashboardController::class, 'getNewsletter'])->name('newsletter');
     Route::get('/customer', [DashboardController::class, 'getCustomer'])->name('customer');
+    Route::get('/contact-us', [DashboardController::class, 'getContactUs'])->name('contact-us');
 
 
     Route::resource('categories', CategoryController::class);
