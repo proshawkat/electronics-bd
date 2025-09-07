@@ -34,22 +34,21 @@
                     </div>
                   </div>
                 </div>
-                <div class="button-group-page">
+                <div class="button-group-page model-content">
                   <div class="buttons-wrapper">
                     <div class="stepper-group cart-group">
                       <div class="stepper">
                         <label class="control-label" for="product-quantity">Qty</label>
-                        <input id="product-quantity" type="text" name="quantity" value="1" data-minimum="1" class="form-control" />
-                        <input id="product-id" type="hidden" name="product_id" value="" />
+                        <input id="product-quantity" type="number" name="quantity" value="1" data-minimum="1" class="form-control" />
                         <span>
-                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
                           <i class="fa fa-angle-down"></i>
                         </span>
                       </div>
-                      <a id="button-cart" data-loading-text="&lt;span class='btn-text'&gt;Add to Cart&lt;/span&gt;" onclick="addToCart()" class="btn btn-cart"><span class="btn-text">Add to Cart</span></a>
+                      <a id="button-cart" onclick="addToCart()" class="btn btn-cart"><span class="btn-text">Add to Cart</span></a>
 
                       <div class="extra-group">
-                        <a class="btn btn-extra btn-extra-46 btn-1-extra" data-quick-buy="" onclick="addBuyNow()" data-loading-text="&lt;span class='btn-text'&gt;Buy Now&lt;/span&gt;"><span class="btn-text">Buy Now</span></a>
+                        <a class="btn btn-extra btn-extra-46 btn-1-extra" data-quick-buy="" onclick="buyNowClicked()" data-loading-text="&lt;span class='btn-text'&gt;Buy Now&lt;/span&gt;"><span class="btn-text">Buy Now</span></a>
                       </div>
                     </div>
 

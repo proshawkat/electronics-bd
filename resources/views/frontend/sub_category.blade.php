@@ -139,7 +139,7 @@
                     </div>
 
                 </div>
-                <div class="row main-products product-grid">
+                <div class="row main-products product-grid model-content">
                     @forelse($products as $product)
                         <div class="col-xs-12 col-sm-6 col-md-3">
                             <div class="product-layout has-extra-button">
@@ -184,7 +184,7 @@
                                                 <div class="button-group">
                                                     <div class="cart-group">
                                                         <div class="stepper">
-                                                            <input type="text" name="quantity" value="1" data-id="{{ $product->id }}" data-minimum="1" class="form-control" />
+                                                            <input type="text" name="quantity" value="1" id="product-quantity-{{ $product->id }}" data-minimum="1" class="form-control" />
                                                             <input type="hidden" name="product_id" value="{{ $product->id }}" />
                                                             <span>
                                                                 <i class="fa fa-angle-up"></i>
@@ -193,22 +193,22 @@
                                                         </div>
 
                                                         <div>
-                                                            <a class="btn btn-cart" onclick="addToCart()">
+                                                            <a class="btn btn-cart" data-id="{{ $product->id }}" onclick="addToCart({{ $product->id }})">
                                                                 <span class="btn-text">Add to Cart</span>
                                                             </a>
                                                         </div>
                                                     </div>
 
                                                     <div class="wish-group">
-                                                        <a class="btn btn-wishlist" data-toggle="tooltip"
+                                                        <a class="btn btn-wishlist" data-id="{{ $product->id }}" data-toggle="tooltip"
                                                             data-tooltip-class="product-grid wishlist-tooltip"
-                                                            data-placement="top" title="" onclick="addTowishlist()" data-original-title="Add to Wish List">
+                                                            data-placement="top" title="" onclick="addTowishlist({{ $product->id }})" data-original-title="Add to Wish List">
                                                             <span class="btn-text">Add to Wish List</span>
                                                         </a>
 
-                                                        <a class="btn btn-compare" data-toggle="tooltip"
+                                                        <a class="btn btn-compare" data-id="{{ $product->id }}" data-toggle="tooltip"
                                                             data-tooltip-class="product-grid compare-tooltip"
-                                                            data-placement="top" title="" onclick="addCompareList()" data-original-title="Compare this Product" >
+                                                            data-placement="top" title="" onclick="addCompareList({{ $product->id }})" data-original-title="Compare this Product" >
                                                             <span class="btn-text">Compare this Product</span>
                                                         </a>
                                                     </div>

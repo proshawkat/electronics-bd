@@ -1,9 +1,10 @@
 @php
     $routeName = Route::currentRouteName();
     $customerPage = in_array($routeName, ['customer.login', 'customer.register']);
-    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product', 'contact.index']);
+    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product', 'contact.index', 'cart.view-cart', 'cart.cart-checkout', 'compare']);
     $onlyCategory = in_array($routeName, ['category.show']);
     $onlyContact = in_array($routeName, ['contact.index']);
+    $onlyCart = in_array($routeName, ['cart.view-cart', 'cart.cart-checkout']);
 @endphp
 <!doctype html>
 @if($customerPage)
@@ -11,16 +12,18 @@
 @elseif($onlyCategory)
 <html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents"> 
 @elseif($onlyContact)
-<html class="desktop win chrome chrome139 webkit oc30 is-guest route-information-contact store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-8 flexbox no-touchevents">    
+<html class="desktop win chrome chrome139 webkit oc30 is-guest route-information-contact store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-8 flexbox no-touchevents">
+@elseif($onlyCart)
+<html class="desktop win chrome chrome139 webkit oc30 is-guest route-checkout-cart store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-7 flexbox no-touchevents">           
 @else
     <html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents">
 @endif
-
 
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700%7COswald:400&subset=latin-ext">
@@ -145,6 +148,20 @@
     <script src="{{ asset('public/frontend/js/sa_cart.js') }}"></script>
     @yield('scripts')
     <script>
+        window.Laravel = {
+            cartViewUrl: "{{ url('/cart/view') }}",
+            cartCheckoutUrl: "{{ url('/cart/checkout') }}"
+        };
+    </script>
+    <script>
+        $(document).ready(function() {
+            updateCartDropdown();
+        });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         var baseUrl = "{{ rtrim(url('/'), '/') }}";
 
         $('.carousel').carousel({
@@ -177,6 +194,12 @@
                     $("#modalContent .btn-extra-46").attr("data-id", response.id);
                     $("#modalContent .btn-wishlist").attr("data-id", response.id);
                     $("#modalContent .btn-compare").attr("data-id", response.id);
+
+                    $("#modalContent #button-cart").attr("onclick", "addToCart("+response.id+", 'modal')");
+                    $("#modalContent .btn-extra-46").attr("onclick", "buyNowClicked("+response.id+", 'modal')");
+                    $("#modalContent .btn-wishlist").attr("onclick", "addTowishlist("+response.id+", 'modal')");
+                    $("#modalContent .btn-compare").attr("onclick", "addCompareList("+response.id+", 'modal')");
+                    $("#modalContent #product-quantity").attr("id", "product-quantity-" + response.id);
                 },
                 error: function() {
                     $('#modalContent').html('<div class="text-center text-danger">Failed to load data</div>');

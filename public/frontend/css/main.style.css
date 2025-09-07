@@ -4001,7 +4001,12 @@ https://www.journal-theme.com/
 .notification-title {
   font-size: 15px;
   font-weight: 600;
-  margin-bottom: 5px; }
+  margin-bottom: 5px; 
+  padding-left: 10px;
+}
+.notification-text{
+  padding-left: 10px;
+}
   .notification-title:empty {
     margin: 0; }
 

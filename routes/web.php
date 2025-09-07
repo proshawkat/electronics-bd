@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\Customer\Auth\LoginController;
 use App\Http\Controllers\Frontend\Customer\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Customer\CustomerController;
@@ -19,6 +20,18 @@ use App\Http\Controllers\Frontend\Customer\CustomerController;
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
 Route::get('/product/{slug}', [WelcomeController::class, 'slugWiseroduct'])->name('slug-product');
+Route::post('/action', [CartController::class, 'action'])->name('action');
+Route::get('/compare', [CartController::class, 'getCompare'])->name('compare');
+Route::get('/remove-compare/{id}', [CartController::class, 'removeCompare'])->name('remove-compare');
+
+Route::prefix('cart')->name('cart.')->group(function () {
+    Route::get('/items', [CartController::class, 'getCart']);
+    Route::post('/remove', [CartController::class, 'removeFromCart']);
+    Route::get('/view', [CartController::class, 'viewCart'])->name('view-cart');
+    Route::get('/checkout', [CartController::class, 'cartCheckout'])->name('cart-checkout');
+    Route::post('/edit', [CartController::class, 'cartEdit'])->name('edit');
+    Route::get('/remove/{id}', [CartController::class, 'removeFromCartPage'])->name('remove');
+});    
 
 Route::prefix('category')->name('category.')->group(function () {
     Route::get('/{slug}', [HomeController::class, 'categoryWiseProduct'])->name('show');

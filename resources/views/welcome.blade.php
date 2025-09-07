@@ -35,7 +35,7 @@
                                         <div class="module-body">
                                             <div class="module-item module-item-1">
                                                 <h3 class="title module-title">Accessories Deals</h3>
-                                                <div class="row product-grid main-products">
+                                                <div class="row product-grid main-products model-content">
                                                     @foreach($homeProducts as $product)
                                                         <div class="col-xs-12 col-sm-6 col-md-3">
                                                             <div class="product-layout has-extra-button">
@@ -54,7 +54,7 @@
                                                                                     alt="{{ $product->name }}" title="{{ $product->name }}"
                                                                                     class="img-responsive img-first" />
 
-                                                                                <img src="{{ asset('public/'.$product->second_image_url) }}" srcset="{{ asset('public/'.$product->second_image_url) }}" width="250" height="250" alt="14 key RF+ Knob Monochrome with lid (Button Function)  RF Remote Control PWM Dimmer 5-24V" title="14 key RF+ Knob Monochrome with lid (Button Function)  RF Remote Control PWM Dimmer 5-24V" class="img-responsive img-second" />
+                                                                                <img src="{{ asset('public/'.$product->second_image_url) }}" srcset="{{ asset('public/'.$product->second_image_url) }}" width="250" height="250" alt="{{ $product->name }}" title="{{ $product->name }}" class="img-responsive img-second" />
                                                                             </div>
                                                                         </a>
                                                                     </div>
@@ -77,7 +77,7 @@
                                                                                 <div class="button-group">
                                                                                     <div class="cart-group">
                                                                                         <div class="stepper">
-                                                                                            <input type="text" name="quantity" value="1" data-minimum="1" class="form-control" />
+                                                                                            <input type="text" name="quantity" value="1" id="product-quantity-{{ $product->id }}" data-minimum="1" class="form-control" />
                                                                                             <input type="hidden" name="product_id" value="{{ $product->id }}" />
                                                                                             <span>
                                                                                                 <i class="fa fa-angle-up"></i>
@@ -86,18 +86,18 @@
                                                                                         </div>
 
                                                                                         <div>
-                                                                                            <a class="btn btn-cart" onclick="cart.add('1221', $(this).closest('.product-thumb').find('.button-group input[name=\'quantity\']').val());" data-loading-text="&lt;span class='btn-text'&gt;Add to Cart&lt;/span&gt;">
+                                                                                            <a class="btn btn-cart" data-id="{{ $product->id }}" onclick="addToCart({{ $product->id }})">
                                                                                                 <span class="btn-text">Add to Cart</span>
                                                                                             </a>
                                                                                         </div>
                                                                                     </div>
 
                                                                                     <div class="wish-group">
-                                                                                        <a class="btn btn-wishlist" data-toggle="tooltip" data-tooltip-class="product-grid wishlist-tooltip" data-placement="top" title="" onclick="wishlist.add('1221')" data-original-title="Add to Wish List">
+                                                                                        <a class="btn btn-wishlist" data-id="{{ $product->id }}" onclick="addTowishlist({{ $product->id }})" data-original-title="Add to Wish List">
                                                                                             <span class="btn-text">Add to Wish List</span>
                                                                                         </a>
 
-                                                                                        <a class="btn btn-compare" data-toggle="tooltip" data-tooltip-class="product-grid compare-tooltip" data-placement="top" title="" onclick="compare.add('1221')" data-original-title="Compare this Product">
+                                                                                        <a class="btn btn-compare" data-id="{{ $product->id }}" data-toggle="tooltip" data-tooltip-class="product-grid compare-tooltip" data-placement="top" title="" onclick="addCompareList({{ $product->id }})">
                                                                                             <span class="btn-text">Compare this Product</span>
                                                                                         </a>
                                                                                     </div>

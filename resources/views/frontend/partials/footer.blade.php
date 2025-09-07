@@ -146,33 +146,3 @@
         </div>
     </div>
 </footer>
-
-<div class="notification-wrapper notification-wrapper-tr hide">
-	<div class="notification notification-cart">
-		<button class="btn notification-close"></button>
-		<div class="notification-content">
-			<div class="row">
-                <div class="col-sm-3">
-                    <img class="img-responsive"
-                        src="https://www.citytechbd.com/image/cache/catalog/Variable_Resistor_Pot_200K_(204)_citytech_bd_bangladesh-70x70w.jpg"
-                        srcset="
-                            https://www.citytechbd.com/image/cache/catalog/Variable_Resistor_Pot_200K_(204)_citytech_bd_bangladesh-70x70w.jpg   1x,
-                            https://www.citytechbd.com/image/cache/catalog/Variable_Resistor_Pot_200K_(204)_citytech_bd_bangladesh-140x140w.jpg 2x
-                        "
-                    />
-                </div>
-                <div class="col-sm-9">
-                    <div class="notification-title">Variable Resistor Pot 200K (204)</div>
-                    <div class="notification-text">
-                        Success: You have added <a href="#">Variable Resistor Pot 200K (204)</a> to your
-                        <a href="#">shopping cart</a>!
-                    </div>
-                </div>
-            </div>
-		</div>
-		<div class="notification-buttons">
-			<a class="btn btn-cart notification-view-cart" href="#">View Cart</a>
-			<a class="btn btn-success notification-checkout" href="#">Checkout</a>
-		</div>
-	</div>
-</div>

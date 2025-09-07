@@ -110,20 +110,20 @@
 
                 <div class="button-group-page">
                     <div class="buttons-wrapper">
-                        <div class="stepper-group cart-group">
+                        <div class="stepper-group cart-group model-content">
                             <div class="stepper">
                                 <label class="control-label" for="product-quantity">Qty</label>
-                                <input id="product-quantity" type="text" name="quantity" value="1" data-minimum="1" class="form-control" />
-                                <input id="product-id" type="hidden" name="product_id" value="1039" />
+                                <input id="product-quantity-{{ $product->id }}" type="text" name="quantity" value="1" data-minimum="1" class="form-control" />
+                                <input id="product-id" type="hidden" name="product_id" value="{{ $product->id }}" />
                                 <span>
                                     <i class="fa fa-angle-up"></i>
                                     <i class="fa fa-angle-down"></i>
                                 </span>
                             </div>
-                            <a id="button-cart" data-loading-text="&lt;span class='btn-text'&gt;Add to Cart&lt;/span&gt;" class="btn btn-cart"><span class="btn-text">Add to Cart</span></a>
+                            <a id="button-cart" onclick="addToCart({{ $product->id }})" class="btn btn-cart"><span class="btn-text">Add to Cart</span></a>
 
                             <div class="extra-group">
-                                <a class="btn btn-extra btn-extra-46 btn-1-extra" data-quick-buy="" data-loading-text="&lt;span class='btn-text'&gt;Buy Now&lt;/span&gt;"><span class="btn-text">Buy Now</span></a>
+                                <a class="btn btn-extra btn-extra-46 btn-1-extra" data-quick-buy="" onclick="buyNowClicked({{ $product->id }})"><span class="btn-text">Buy Now</span></a>
                                 <a class="btn btn-extra btn-extra-93 btn-2-extra" href="javascript:open_popup(22)" data-product_id="1039" data-loading-text="&lt;span class='btn-text'&gt;Ask Question&lt;/span&gt;">
                                     <span class="btn-text">Ask Question</span>
                                 </a>
@@ -131,11 +131,11 @@
                         </div>
 
                         <div class="wishlist-compare">
-                            <a class="btn btn-wishlist" data-toggle="tooltip" data-tooltip-class="pp-wishlist-tooltip" data-placement="top" title="" onclick="parent.wishlist.add(1039);" data-original-title="Add to Wish List">
+                            <a class="btn btn-wishlist" data-toggle="tooltip" data-tooltip-class="pp-wishlist-tooltip" data-placement="top" title="" onclick="addTowishlist({{ $product->id }})" data-original-title="Add to Wish List">
                                 <span class="btn-text">Add to Wish List</span>
                             </a>
 
-                            <a class="btn btn-compare" data-toggle="tooltip" data-tooltip-class="pp-compare-tooltip" data-placement="top" title="" onclick="parent.compare.add(1039);" data-original-title="Compare this Product">
+                            <a class="btn btn-compare" data-toggle="tooltip" data-tooltip-class="pp-compare-tooltip" data-placement="top" title="" onclick="addCompareList({{ $product->id }})" data-original-title="Compare this Product">
                                 <span class="btn-text">Compare this Product</span>
                             </a>
                         </div>

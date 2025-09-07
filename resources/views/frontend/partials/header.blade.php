@@ -206,27 +206,11 @@
                         <span id="cart-items" class="count-badge count-zero">0</span>
                     </a>
                     <div id="cart-content" class="dropdown-menu cart-content j-dropdown">
-                        <ul>
+                        <ul class="cart-full-ul">
                             <li class="cart-products">
                                 <table class="table">
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center td-image">
-                                                <a href="#">
-                                                    <img
-                                                        src="https://www.citytechbd.com/image/cache/catalog/Autonics-Temperature-Controller-Autonics-TCN4S-24R-price-in-bd-citytech-bd-60x60.JPG"
-                                                        alt="Autonics Temperature Controller Autonics TCN4S-24R"
-                                                        title="Autonics Temperature Controller Autonics TCN4S-24R"
-                                                    />
-                                                </a>
-                                            </td>
-                                            <td class="text-left td-name"><a href="#">Autonics Temperature Controller Autonics TCN4S-24R</a><br /></td>
-                                            <td class="text-right td-qty">x 1</td>
-                                            <td class="text-right td-total">2,745৳</td>
-                                            <td class="text-center td-remove">
-                                                <button type="button" onclick="cart.remove('17020');" title="Remove" class="cart-remove"><i class="fa fa-times-circle"></i></button>
-                                            </td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </li>
@@ -236,27 +220,27 @@
                                         <tbody>
                                             <tr>
                                                 <td class="text-right td-total-title">Sub-Total</td>
-                                                <td class="text-right td-total-text">2,745৳</td>
+                                                <td class="text-right td-total-text">0৳</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-right td-total-title">Total</td>
-                                                <td class="text-right td-total-text">2,745৳</td>
+                                                <td class="text-right td-total-text">0৳</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <div class="cart-buttons">
-                                        <a class="btn-cart btn" href="#"><i class="fa"></i><span>View Cart</span></a>
-                                        <a class="btn-checkout btn" href="#"><i class="fa"></i><span>Checkout</span></a>
+                                        <a class="btn-cart btn" href="{{ route('cart.view-cart') }}"><i class="fa"></i><span>View Cart</span></a>
+                                        <a class="btn-checkout btn" href="{{ route('cart.cart-checkout') }}"><i class="fa"></i><span>Checkout</span></a>
                                     </div>
                                 </div>
                             </li>
                         </ul>
 
-                        <!-- <ul>
+                        <ul class="cart-empty-ul">
                             <li>
                                 <p class="text-center cart-empty">Your shopping cart is empty!</p>
                             </li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </div>
             </div>
