@@ -1,7 +1,7 @@
 @php
     $routeName = Route::currentRouteName();
     $customerPage = in_array($routeName, ['customer.login', 'customer.register']);
-    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product', 'contact.index', 'cart.view-cart', 'cart.cart-checkout', 'compare']);
+    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product', 'contact.index', 'cart.view-cart', 'cart.cart-checkout', 'compare', 'wishlist']);
     $onlyCategory = in_array($routeName, ['category.show']);
     $onlyContact = in_array($routeName, ['contact.index']);
     $onlyCart = in_array($routeName, ['cart.view-cart', 'cart.cart-checkout']);
@@ -45,7 +45,7 @@
     <script src="{{ asset('public/frontend/js/jquery-2.1.1.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('public/frontend/js/bootstrap.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('public/frontend/js/common.js') }}" crossorigin="anonymous"></script>
-
+    @yield('styles')
     <title>Radio Electric BD</title>
   </head>
   <body>

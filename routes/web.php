@@ -23,6 +23,7 @@ Route::get('/product/{slug}', [WelcomeController::class, 'slugWiseroduct'])->nam
 Route::post('/action', [CartController::class, 'action'])->name('action');
 Route::get('/compare', [CartController::class, 'getCompare'])->name('compare');
 Route::get('/remove-compare/{id}', [CartController::class, 'removeCompare'])->name('remove-compare');
+Route::get('/wishlist', [CartController::class, 'getWishlist'])->name('wishlist');
 
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/items', [CartController::class, 'getCart']);

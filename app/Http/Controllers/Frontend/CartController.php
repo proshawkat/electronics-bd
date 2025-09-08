@@ -124,23 +124,6 @@ class CartController extends Controller
         ]);
     }
 
-    public function removeFromCompare(Request $request)
-    {
-        $productId = $request->product_id;
-
-        if (auth()->check()) {
-            Compare::where('customer_id', auth()->id())
-                ->where('product_id', $productId)
-                ->delete();
-            return response()->json(['message' => 'Removed from compare (DB)']);
-        } else {
-            $compare = session()->get('compare', []);
-            $compare = array_diff($compare, [$productId]);
-            session()->put('compare', $compare);
-            return response()->json(['message' => 'Removed from compare (Session)', 'compare' => $compare]);
-        }
-    }
-
     public function getCart(Request $request)
     {
         $cartItems = [];
@@ -393,18 +376,14 @@ class CartController extends Controller
     }
 
     public function removeCompare($id) {
-        // Authenticated user check
         if (auth()->check()) {
             Compare::where('customer_id', auth()->id())
                 ->where('product_id', $id)
                 ->delete();
-
-            // বাকি compare product IDs
             $compareIds = Compare::where('customer_id', auth()->id())
                                 ->pluck('product_id')
                                 ->toArray();
         } else {
-            // Guest user session
             $compare = session()->get('compare', []);
             if(($key = array_search($id, $compare)) !== false) {
                 unset($compare[$key]);
@@ -412,20 +391,61 @@ class CartController extends Controller
             }
             $compareIds = session()->get('compare', []);
         }
-
-        // Unique IDs
         $compareIds = array_unique($compareIds);
-
-        // Fetch Product data
         $compares = Product::whereIn('id', $compareIds)->get();
-
-        // Breadcrumbs
         $breadcrumbs = [
             ['title' => 'Home', 'url' => url('/')],
             ['title' => 'Compare', 'url' => '#']
         ];
 
         return redirect()->back()->with('success', 'Product removed from compare!');
+    }
+
+    public function getWishlist()
+    {
+        $breadcrumbs = [
+            ['title' => 'Home', 'url' => url('/')],
+            ['title' => 'Wishlist', 'url' => "#"]
+        ];
+
+        if (auth()->check()) {
+            $wishlistIds = Wishlist::where('customer_id', auth()->id())
+                ->pluck('product_id')
+                ->toArray();
+        } else {
+            $wishlistIds = session()->get('wishlist', []);
+        }
+        $wishlistIds = array_unique($wishlistIds);
+
+        $wishlists = Product::whereIn('id', $wishlistIds)->get();
+
+        return view('frontend.wishlist', compact('breadcrumbs', 'wishlists'));
+    }
+
+    public function removeWishlist($id) {
+        if (auth()->check()) {
+            Wishlist::where('customer_id', auth()->id())
+                ->where('product_id', $id)
+                ->delete();
+            $wishlistIds = Wishlist::where('customer_id', auth()->id())
+                                ->pluck('product_id')
+                                ->toArray();
+        } else {
+            $compare = session()->get('wishlist', []);
+            if(($key = array_search($id, $compare)) !== false) {
+                unset($compare[$key]);
+                session()->put('wishlist', array_values($compare));
+            }
+            $wishlistIds = session()->get('wishlist', []);
+        }
+        $wishlistIds = array_unique($wishlistIds);
+        $wishlists = Product::whereIn('id', $wishlistIds)->get();
+        $breadcrumbs = [
+            ['title' => 'Home', 'url' => url('/')],
+            ['title' => 'Wishlist', 'url' => '#']
+        ];
+
+        return redirect()->back()->with('success', 'Product removed from wishlist!');
     }
 
 
