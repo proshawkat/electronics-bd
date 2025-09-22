@@ -156,3 +156,23 @@ $(document).delegate('.agree', 'click', function(e) {
 		});
 	}
 })(window.jQuery);
+
+$(document).ready(function () {
+    $('input[name="account"]').on('change', function () {
+        let value = $(this).val();
+
+        $('#if_login_user').removeClass('login-active');
+        $('.account-pass, .account-pass2').addClass('hide');
+
+        if (value === 'register') {
+			$('.login-form').addClass('hide');
+            $('.account-pass, .account-pass2').removeClass('hide');
+        } else if (value === 'guest') {
+			$('.login-form').addClass('hide');
+            $('.account-pass, .account-pass2').addClass('hide');
+        } else if (value === 'login') {
+			$('.login-form').removeClass('hide');
+            $('#if_login_user').addClass('login-active');
+        }
+    });
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
@@ -10,6 +11,9 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Wishlist;
 use App\Models\Compare;
+use App\Models\Address;
+use App\Models\Region;
+use App\Models\City;
 use App\Services\SessionCart;
 
 class CartController extends Controller
@@ -32,19 +36,27 @@ class CartController extends Controller
         $productId = $request->product_id;
         $quantity = $request->quantity ?? 1;
 
-        if (auth()->check()) {
-            $cart = Cart::firstOrCreate(['customer_id' => auth()->id()]);
-            CartItem::updateOrCreate(
-                ['cart_id' => $cart->id, 'product_id' => $productId],
-                ['quantity' => DB::raw("quantity + $quantity")]
-            );
+        if (Auth::guard('customer')->check()) {
+            $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
+            $cartItem = CartItem::where('cart_id', $cart->id)->where('product_id', $productId)->first();
+
+            if ($cartItem) {
+                $cartItem->quantity += $quantity;
+                $cartItem->save();
+            } else {
+                CartItem::create([
+                    'cart_id'    => $cart->id,
+                    'product_id' => $productId,
+                    'quantity'   => $quantity,
+                ]);
+            }
         } else {
             $sessionCart = session()->get('cart', new SessionCart());
             $sessionCart->add($productId, $quantity);
             session()->put('cart', $sessionCart);
         }
 
-        $product = \App\Models\Product::find($productId);
+        $product = Product::find($productId);
 
         return response()->json([
             'status'  => 'success',
@@ -71,9 +83,9 @@ class CartController extends Controller
 
     public function addToWishlist($request)
     {
-        if (auth()->check()) {
+        if (Auth::guard('customer')->check()) {
             Wishlist::firstOrCreate([
-                'customer_id' => auth()->id(),
+                'customer_id' => auth('customer')->id(),
                 'product_id'  => $request->product_id
             ]);
         } else {
@@ -82,7 +94,7 @@ class CartController extends Controller
             session()->put('wishlist', $wishlist);
         }
 
-        $product = \App\Models\Product::find($request->product_id);
+        $product = Product::find($request->product_id);
 
         return response()->json([
             'status'  => 'success',
@@ -99,9 +111,9 @@ class CartController extends Controller
 
     public function addToCompare($request)
     {
-        if (auth()->check()) {
+        if (Auth::guard('customer')->check()) {
             Compare::firstOrCreate([
-                'customer_id' => auth()->id(),
+                'customer_id' => auth('customer')->id(),
                 'product_id'  => $request->product_id
             ]);
         } else {
@@ -110,7 +122,7 @@ class CartController extends Controller
             session()->put('compare', $compare);
         }
 
-        $product = \App\Models\Product::find($request->product_id);
+        $product = Product::find($request->product_id);
 
         return response()->json([
             'status'  => 'success',
@@ -130,8 +142,8 @@ class CartController extends Controller
         $totalPrice = 0;
         $totalQty = 0;
 
-        if (auth()->check()) {
-            $cart = Cart::firstOrCreate(['customer_id' => auth()->id()]);
+        if (Auth::guard('customer')->check()) {
+            $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
             $items = CartItem::where('cart_id', $cart->id)->with('product')->get();
 
             foreach ($items as $item) {
@@ -142,7 +154,7 @@ class CartController extends Controller
                 $cartItems[] = [
                     'id' => $item->product->id,
                     'name' => $item->product->name,
-                    'image' => $item->product->first_image_url,
+                    'image' => asset('public/'.$item->product->first_image_url),
                     'price' => $item->product->sale_price,
                     'qty' => $item->quantity,
                     'subtotal' => $subtotal,
@@ -181,8 +193,8 @@ class CartController extends Controller
         try {
             $productId = $request->product_id;
 
-            if (auth()->check()) {
-                $cart = Cart::firstOrCreate(['customer_id' => auth()->id()]);
+            if (Auth::guard('customer')->check()) {
+                $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
                 CartItem::where('cart_id', $cart->id)
                     ->where('product_id', $productId)
                     ->delete();
@@ -210,8 +222,8 @@ class CartController extends Controller
             ['title' => 'Shopping Cart', 'url' => "#"]
         ];
 
-        if(auth()->check()){
-            $cart = Cart::firstOrCreate(['customer_id'=>auth()->id()]);
+        if(Auth::guard('customer')->check()){
+            $cart = Cart::firstOrCreate(['customer_id'=>auth('customer')->id()]);
             $items = CartItem::where('cart_id',$cart->id)->with('product')->get();
         } else {
             $sessionCart = session()->get('cart', new SessionCart());
@@ -223,15 +235,15 @@ class CartController extends Controller
         $cartItems = [];
 
         foreach($items as $item){
-            if(auth()->check()){
+            if(Auth::guard('customer')->check()){
                 $product = $item->product;
                 $qty = $item->quantity;
-                $subtotal = $qty * $product->price;
+                $subtotal = $qty * $product->sale_price;
                 $cartItems[] = [
                     'id'=>$product->id,
                     'name'=>$product->name,
-                    'image'=>$product->first_image_url,
-                    'price'=>$product->price,
+                    'image'=> asset('public/'.$product->first_image_url),
+                    'price'=>$product->sale_price,
                     'model' => $product->model,
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,
@@ -262,8 +274,8 @@ class CartController extends Controller
 
     public function removeFromCartPage($productId)
     {
-        if(auth()->check()) {
-            $cart = Cart::firstOrCreate(['customer_id' => auth()->id()]);
+        if(Auth::guard('customer')->check()) {
+            $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
             CartItem::where('cart_id', $cart->id)
                 ->where('product_id', $productId)
                 ->delete();
@@ -281,8 +293,8 @@ class CartController extends Controller
         $quantities = $request->input('quantity', []);
 
         foreach ($quantities as $productId => $qty) {
-            if (auth()->check()) {
-                $cart = Cart::firstOrCreate(['customer_id' => auth()->id()]);
+            if (Auth::guard('customer')->check()) {
+                $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
                 $cartItem = CartItem::where('cart_id', $cart->id)
                                     ->where('product_id', $productId)
                                     ->first();
@@ -306,8 +318,8 @@ class CartController extends Controller
             ['title' => 'Checkout', 'url' => "#"]
         ];
 
-        if(auth()->check()){
-            $cart = Cart::firstOrCreate(['customer_id'=>auth()->id()]);
+        if(Auth::guard('customer')->check()){
+            $cart = Cart::firstOrCreate(['customer_id'=>auth('customer')->id()]);
             $items = CartItem::where('cart_id',$cart->id)->with('product')->get();
         } else {
             $sessionCart = session()->get('cart', new SessionCart());
@@ -319,15 +331,15 @@ class CartController extends Controller
         $cartItems = [];
 
         foreach($items as $item){
-            if(auth()->check()){
+            if(Auth::guard('customer')->check()){
                 $product = $item->product;
                 $qty = $item->quantity;
-                $subtotal = $qty * $product->price;
+                $subtotal = $qty * $product->sale_price;
                 $cartItems[] = [
                     'id'=>$product->id,
                     'name'=>$product->name,
-                    'image'=>$product->first_image_url,
-                    'price'=>$product->price,
+                    'image'=> asset('public/'. $product->first_image_url),
+                    'price'=>$product->sale_price,
                     'model' => $product->model,
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,
@@ -351,7 +363,15 @@ class CartController extends Controller
             $totalQty += $qty;
         }
 
-        return view('frontend.checkout', compact('breadcrumbs', 'cartItems','totalPrice','totalQty'));
+        $customerAddresses = [];
+        if (Auth::guard('customer')->check()) {
+            $customerId = auth('customer')->id();
+            $customerAddresses = Address::with('region')->where('customer_id', $customerId)->get();
+        }
+
+        $regions = Region::get(['name', 'id']);
+
+        return view('frontend.checkout', compact('breadcrumbs', 'cartItems','totalPrice','totalQty', 'customerAddresses', 'regions'));
     }
 
     public function getCompare()
@@ -361,8 +381,8 @@ class CartController extends Controller
             ['title' => 'Compare', 'url' => "#"]
         ];
 
-        if (auth()->check()) {
-            $compareIds = Compare::where('customer_id', auth()->id())
+        if (Auth::guard('customer')->check()) {
+            $compareIds = Compare::where('customer_id', auth('customer')->id())
                 ->pluck('product_id')
                 ->toArray();
         } else {
@@ -376,11 +396,11 @@ class CartController extends Controller
     }
 
     public function removeCompare($id) {
-        if (auth()->check()) {
-            Compare::where('customer_id', auth()->id())
+        if (Auth::guard('customer')->check()) {
+            Compare::where('customer_id', auth('customer')->id())
                 ->where('product_id', $id)
                 ->delete();
-            $compareIds = Compare::where('customer_id', auth()->id())
+            $compareIds = Compare::where('customer_id', auth('customer')->id())
                                 ->pluck('product_id')
                                 ->toArray();
         } else {
@@ -408,8 +428,8 @@ class CartController extends Controller
             ['title' => 'Wishlist', 'url' => "#"]
         ];
 
-        if (auth()->check()) {
-            $wishlistIds = Wishlist::where('customer_id', auth()->id())
+        if (Auth::guard('customer')->check()) {
+            $wishlistIds = Wishlist::where('customer_id', auth('customer')->id())
                 ->pluck('product_id')
                 ->toArray();
         } else {
@@ -423,11 +443,11 @@ class CartController extends Controller
     }
 
     public function removeWishlist($id) {
-        if (auth()->check()) {
-            Wishlist::where('customer_id', auth()->id())
+        if (Auth::guard('customer')->check()) {
+            Wishlist::where('customer_id', auth('customer')->id())
                 ->where('product_id', $id)
                 ->delete();
-            $wishlistIds = Wishlist::where('customer_id', auth()->id())
+            $wishlistIds = Wishlist::where('customer_id', auth('customer')->id())
                                 ->pluck('product_id')
                                 ->toArray();
         } else {
@@ -448,5 +468,10 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Product removed from wishlist!');
     }
 
+    public function getCities($region_id)
+    {
+        $cities = City::where('region_id', $region_id)->get();
+        return response()->json($cities);
+    }
 
 }

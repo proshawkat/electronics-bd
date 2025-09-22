@@ -7,6 +7,7 @@ use App\Models\GeneralSetting;
 use App\Models\Category;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Wishlist;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,15 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('menuCategories', $categories);
+
+            $wishlistCount = 0;
+            if (auth()->guard('customer')->check()) {
+                $wishlistCount = Wishlist::where('customer_id', auth()->id())->count();
+            } else {
+                $wishlist = session()->get('wishlist', []);
+                $wishlistCount = count($wishlist);
+            }
+            $view->with('wishlistCount', $wishlistCount);
         });
     }
 }

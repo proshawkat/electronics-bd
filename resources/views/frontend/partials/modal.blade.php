@@ -34,7 +34,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="button-group-page model-content">
+                <div class="button-group-page">
                   <div class="buttons-wrapper">
                     <div class="stepper-group cart-group">
                       <div class="stepper">

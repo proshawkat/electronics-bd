@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="input-password">Password</label>
                                 <input type="password" name="password" value="" placeholder="Password" id="input-password" class="form-control" />
-                                <div><a href="{{ route('customer.register') }}" target="_top">Forgotten Password</a></div>
+                                <div><a href="{{ route('customer.password.request') }}" target="_top">Forgotten Password</a></div>
                             </div>
                             <div class="buttons">
                                 <div class="pull-right">

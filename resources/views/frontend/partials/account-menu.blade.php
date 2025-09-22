@@ -15,56 +15,27 @@
                                     </li>
 
                                     <li class="menu-item accordion-menu-item accordion-menu-item-2">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/address">
+                                        <a href="{{ route('customer.address') }}">
                                             <span class="links-text">Address Book</span>
                                         </a>
                                     </li>
 
                                     <li class="menu-item accordion-menu-item accordion-menu-item-3">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/wishlist"> <span class="links-text">Wishlist</span><span class="count-badge wishlist-badge count-zero">0</span> </a>
+                                        <a href="{{ route('wishlist') }}"> <span class="links-text">Wishlist</span><span class="count-badge wishlist-badge count-zero">{{ $wishlistCount }}</span> </a>
                                     </li>
 
                                     <li class="menu-item accordion-menu-item accordion-menu-item-4">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/order">
+                                        <a href="{{ route('customer.order') }}">
                                             <span class="links-text">Order History</span>
                                         </a>
                                     </li>
 
-                                    <li class="menu-item accordion-menu-item accordion-menu-item-5">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/download">
-                                            <span class="links-text">Downloads</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="menu-item accordion-menu-item accordion-menu-item-6">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/recurring">
-                                            <span class="links-text">Recurring Payments</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="menu-item accordion-menu-item accordion-menu-item-7">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/reward">
-                                            <span class="links-text">Reward Points</span>
-                                        </a>
-                                    </li>
-
                                     <li class="menu-item accordion-menu-item accordion-menu-item-8">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/return/add">
+                                        <a href="{{ route('customer.return') }}">
                                             <span class="links-text">Returns</span>
                                         </a>
                                     </li>
-
-                                    <li class="menu-item accordion-menu-item accordion-menu-item-9">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/transaction">
-                                            <span class="links-text">Transactions</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="menu-item accordion-menu-item accordion-menu-item-10">
-                                        <a href="https://www.citytechbd.com/index.php?route=account/newsletter">
-                                            <span class="links-text">Newsletter</span>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         </div>

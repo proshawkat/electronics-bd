@@ -1,0 +1,62 @@
+
+@extends('layouts.frontend')
+
+@section('content') 
+<div id="account-order" class="container">
+    <div class="row">
+        <div id="content" class="col-sm-9">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td class="text-center">Order ID</td>
+                            <td class="text-center">Product</td>
+                            <td class="text-center">No. of Products</td>
+                            <td class="text-center">Status</td>
+                            <td class="text-center">Total</td>
+                            <td class="text-center">Date Added</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($orders as $order)
+                            <tr>
+                                <td class="text-center">#{{ $order->order_code }}</td>
+                                <td class="text-left">
+                                    @foreach($order->items as $item)
+                                        {{ $item->product->name ?? 'Deleted Product' }}
+                                        <br>
+                                    @endforeach
+                                </td>
+                                <td class="text-center">{{ $order->items->sum('quantity') }}</td>
+                                <td class="text-center">{{ $order->status }}</td>
+                                <td class="text-center">{{ $order->total }}৳</td>
+                                <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('customer.order_details', $order->order_code) }}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="View">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="#ffffff" viewBox="0 0 640 640"><path d="M320 96C239.2 96 174.5 132.8 127.4 176.6C80.6 220.1 49.3 272 34.4 307.7C31.1 315.6 31.1 324.4 34.4 332.3C49.3 368 80.6 420 127.4 463.4C174.5 507.1 239.2 544 320 544C400.8 544 465.5 507.2 512.6 463.4C559.4 419.9 590.7 368 605.6 332.3C608.9 324.4 608.9 315.6 605.6 307.7C590.7 272 559.4 220 512.6 176.6C465.5 132.9 400.8 96 320 96zM176 320C176 240.5 240.5 176 320 176C399.5 176 464 240.5 464 320C464 399.5 399.5 464 320 464C240.5 464 176 399.5 176 320zM320 256C320 291.3 291.3 320 256 320C244.5 320 233.7 317 224.3 311.6C223.3 322.5 224.2 333.7 227.2 344.8C240.9 396 293.6 426.4 344.8 412.7C396 399 426.4 346.3 412.7 295.1C400.5 249.4 357.2 220.3 311.6 224.3C316.9 233.6 320 244.4 320 256z"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach    
+                    </tbody>
+                </table>
+            </div>
+            <div class="row pagination-results">
+                <div class="col-sm-6 text-left">
+                    {{ $orders->links() }}
+                </div>
+                <div class="col-sm-6 text-right">
+                    Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of {{ $orders->total() }} ({{ $orders->lastPage() }} Pages)
+                </div>
+            </div>
+            <div class="buttons clearfix">
+                <div class="pull-right"><a href="{{ route('customer.dashboard') }}" class="btn btn-primary">Continue</a></div>
+            </div>
+        </div>
+
+        @include('frontend.partials.account-menu')
+        
+    </div>
+</div>
+@endsection

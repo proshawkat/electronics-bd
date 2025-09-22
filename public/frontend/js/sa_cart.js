@@ -164,5 +164,5 @@ function showNotification(product, type) {
 
     setTimeout(function() {
         $(".notification-wrapper").fadeOut(300, function() { $(this).remove(); });
-    }, 300000);
+    }, 3000);
 }

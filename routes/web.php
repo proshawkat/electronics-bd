@@ -13,9 +13,15 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\Customer\Auth\LoginController;
 use App\Http\Controllers\Frontend\Customer\Auth\RegisterController;
+use App\Http\Controllers\Frontend\Customer\Auth\ForgotPasswordController;
 use App\Http\Controllers\Frontend\Customer\CustomerController;
+use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
+use App\Http\Controllers\Frontend\Customer\CustomerOrderController;
+use App\Http\Controllers\Frontend\Customer\ReturnController;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
@@ -24,6 +30,15 @@ Route::post('/action', [CartController::class, 'action'])->name('action');
 Route::get('/compare', [CartController::class, 'getCompare'])->name('compare');
 Route::get('/remove-compare/{id}', [CartController::class, 'removeCompare'])->name('remove-compare');
 Route::get('/wishlist', [CartController::class, 'getWishlist'])->name('wishlist');
+Route::post('/placeorder', [OrderController::class, 'placeOrder'])->name('placeorder');
+Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
+Route::get('/cities/{region_id}', [CartController::class, 'getCities']);
+
+Route::get('customer/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('customer.password.request');
+Route::post('customer/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('customer.password.email');
+Route::get('customer/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('customer.password.reset');
+Route::post('customer/reset-password', [ForgotPasswordController::class, 'resetPass'])->name('customer.password.resetupdate');
+
 
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/items', [CartController::class, 'getCart']);
@@ -56,6 +71,26 @@ Route::prefix('customer')->name('customer.')->group(function () {
     Route::middleware('auth.customer')->group(function () {
         Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('dashboard');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+        
+        Route::get('address', [CustomerController::class, 'getAddress'])->name('address');    
+        Route::get('new-address', [CustomerController::class, 'newAddress'])->name('new_address');    
+        Route::post('add-address', [CustomerController::class, 'storeAddress'])->name('add_address');  
+        Route::put('update-address/{address_id}', [CustomerController::class, 'updateAddress'])->name('update_address'); 
+        Route::get('edit-address/{address_id}', [CustomerController::class, 'editAddress'])->name('edit_address');     
+        Route::get('delete-address/{address_id}', [CustomerController::class, 'deleteAddress'])->name('delete_address');  
+        Route::get('order', [CustomerOrderController::class, 'orderHistory'])->name('order'); 
+        Route::get('order-details/{order_id}', [CustomerOrderController::class, 'orderDetails'])->name('order_details');
+        Route::get('return', [ReturnController::class, 'return'])->name('return'); 
+        Route::get('order-return/{order_id}', [ReturnController::class, 'create'])->name('order_return'); 
+        Route::post('/order/{order}/return', [ReturnController::class, 'store'])->name('return.store');
+
+        
+        Route::get('edit-info', [CustomerController::class, 'editInfo'])->name('edit_info'); 
+        Route::put('/store-edit-info', [CustomerController::class, 'updateInfo'])->name('store_edit_info');
+
+        Route::get('customer/change-password', [CustomerProfileController::class, 'showChangePasswordForm'])->name('password.change');
+        Route::post('customer/change-password', [CustomerProfileController::class, 'updatePassword'])->name('password.update');
+
     });
 });
 

@@ -1,8 +1,11 @@
 @extends('layouts.frontend')
-@section('scripts')
+@section('styles')
 <style>
     .page-title{
         display: block !important;
+    }
+    .product-grid:not(.swiper-wrapper){
+        display: initial;
     }
 </style>
 @endsection
@@ -10,9 +13,10 @@
 <h1 class="title page-title"><span>Product Wishlist</span></h1>
 
 <div id="product-compare" class="container">
-	<div class="row main-products product-grid model-content">
+	<div class="main-products product-grid model-content">
 		<div id="content-1">
             <div class="main-products-wrapper">
+                <div class="row">
                     @forelse($wishlists as $product)
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <div class="product-layout has-extra-button">
@@ -87,11 +91,12 @@
                             </div>
                         </div>
                     </div>
-                @empty
+                    @empty
                     <div class="col-md-12 text-center">
                         <p class="text-danger text-center">No products found in this category.</p>
                     </div>
-                @endforelse  
+                    @endforelse  
+                </div>
             </div>    
         </div>
 	</div>
