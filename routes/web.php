@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\GeneralSettingController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\AdminOrderController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ContactController;
@@ -21,7 +22,6 @@ use App\Http\Controllers\Frontend\Customer\CustomerController;
 use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
 use App\Http\Controllers\Frontend\Customer\CustomerOrderController;
 use App\Http\Controllers\Frontend\Customer\ReturnController;
-use Illuminate\Support\Facades\Mail;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
@@ -110,8 +110,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('general-settings', [GeneralSettingController::class, 'edit'])->name('general-settings.edit');
     Route::post('general-settings', [GeneralSettingController::class, 'update'])->name('general-settings.update');
 
-
-    // web.php
     Route::get('/get-subcategories/{category_id}', [CategoryController::class, 'getSubcategories']);
     Route::get('/newsletter', [DashboardController::class, 'getNewsletter'])->name('newsletter');
     Route::get('/customer', [DashboardController::class, 'getCustomer'])->name('customer');
@@ -122,6 +120,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('brands', BrandController::class);
     Route::resource('products', ProductController::class);
     Route::resource('sliders', SliderController::class);
+
+    Route::get('all-order', [AdminOrderController::class, 'all'])->name('all_order');
+    Route::get('order-pending', [AdminOrderController::class, 'allPending'])->name('order_pending');
+    Route::get('order-delivered', [AdminOrderController::class, 'allDelivered'])->name('order_delivered');
+    Route::get('order-details/{code}', [AdminOrderController::class, 'orderDetails'])->name('order_details');
+    Route::post('order-update/{code}', [AdminOrderController::class, 'updateStatus'])->name('order_update');
+
 });
 
 /**

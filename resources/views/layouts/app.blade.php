@@ -15,6 +15,7 @@
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ asset('public/backend/css/adminlte.css') }}" />
+        @yield('styles')
     </head>
     <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
         <div class="app-wrapper">

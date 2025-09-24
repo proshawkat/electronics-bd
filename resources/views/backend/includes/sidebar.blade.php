@@ -77,19 +77,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./widgets/small-box.html" class="nav-link">
+                            <a href="{{ route('admin.all_order') }}" class="nav-link">
                             <i class="nav-icon bi bi-circle"></i>
                             <p>All orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./generate/theme.html" class="nav-link">
+                            <a href="{{ route('admin.order_pending') }}" class="nav-link">
                             <i class="nav-icon bi bi-palette"></i>
                             <p>Pending</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./generate/theme.html" class="nav-link">
+                            <a href="{{ route('admin.order_delivered') }}" class="nav-link">
                             <i class="nav-icon bi bi-palette"></i>
                             <p>Delivered</p>
                             </a>
