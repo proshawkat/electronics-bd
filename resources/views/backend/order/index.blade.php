@@ -28,7 +28,7 @@
                                     <th>Quantity</th>
                                     <th>Total</th>
                                     <th>Status</th>
-                                    <th style="max-width:100px;">Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -66,7 +66,7 @@
                                                     <span class="badge text-bg-secondary">{{ ucfirst($order->status) }}</span>
                                                 @endif
                                             </td>
-                                            <td style="max-width:100px;" class="text-center">
+                                            <td style="max-width:50px;" class="text-center">
                                                 <a href="{{ route('admin.order_details', $order->order_code) }}" class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></a>
                                                 @if(strtolower($order->status) == 'pending')
                                                     <form action="{{ route('admin.order_update', $order->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to mark this order as Processing?');">

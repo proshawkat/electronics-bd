@@ -35,6 +35,7 @@ class AdminOrderController extends Controller
         } elseif ($action === 'delivered') {
             $order->status = 'delivered';
             $order->shipping_status = 'delivered';
+            $order->payment_status = 'paid';
         } elseif ($action === 'reject') {
             $order->status = 'rejected';
             $order->shipping_status = 'canceled';
