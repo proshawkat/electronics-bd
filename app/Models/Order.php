@@ -36,4 +36,17 @@ class Order extends Model
             $order->order_code = now()->format('YmdH') . rand(100, 999);
         });
     }
+
+    public function getCustomerEmailAttribute()
+    {
+        if ($this->customer_id && $this->customer) {
+            return $this->customer->email;
+        }
+
+        if ($this->billingAddress) {
+            return $this->billingAddress->email;
+        }
+
+        return null;
+    }
 }

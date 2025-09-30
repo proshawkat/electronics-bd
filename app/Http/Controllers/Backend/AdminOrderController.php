@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Mail\OrderProcessingMail;
+use App\Mail\OrderShippedMail;
+use Illuminate\Support\Facades\Mail;
 
 class AdminOrderController extends Controller
 {
@@ -29,9 +32,15 @@ class AdminOrderController extends Controller
         if ($action === 'processing') {
             $order->status = 'processing';
             $order->shipping_status = 'pending';
+            if ($order->customer_email) {
+                Mail::to($order->customer_email)->send(new OrderProcessingMail($order, 'processing'));
+            }
         } elseif ($action === 'shipped') {
             $order->status = 'shipped';
             $order->shipping_status = 'shipped';
+            if ($order->customer_email) {
+                Mail::to($order->customer_email)->send(new OrderShippedMail($order, 'shipped'));
+            }
         } elseif ($action === 'delivered') {
             $order->status = 'delivered';
             $order->shipping_status = 'delivered';
