@@ -148,10 +148,7 @@
 
 <div id="product-product" class="container">
     <div class="row">
-        
-        @include('frontend.partials.single-pro-menu')
-
-        <div id="content" class="">
+        <div id="content" style="max-width:100%;">
             <div class="product-blocks blocks-default">
                 <div class="product-blocks-default product-blocks-306 grid-rows">
                     <div class="row">
@@ -166,55 +163,6 @@
                                                     <div class="block-wrapper">
                                                         <div class="block-content block-description">
                                                             {!! $product->description !!}    
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="module-item module-item-3">
-                                                <div class="block-body expand-block">
-                                                    <h3 class="title module-title block-title">Review</h3>
-                                                    <div class="block-wrapper">
-                                                        <div class="block-content block-reviews">
-                                                            <form class="form-horizontal" id="form-review">
-                                                                <div id="review"><p>There are no reviews for this product.</p></div>
-                                                                <h4>Write a review</h4>
-                                                                <div class="form-group required">
-                                                                    <label class="col-sm-2 control-label" for="input-name">Your Name</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="text" name="name" value="" id="input-name" class="form-control" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group required">
-                                                                    <label class="col-sm-2 control-label" for="input-review">Your Review</label>
-                                                                    <div class="col-sm-10">
-                                                                        <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
-                                                                        <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group required">
-                                                                    <label class="col-sm-2 control-label">Rating</label>
-
-                                                                    <div class="col-sm-10 rate">
-                                                                        <span>Bad</span>
-                                                                        <input type="radio" name="rating" value="1" />
-
-                                                                        <input type="radio" name="rating" value="2" />
-
-                                                                        <input type="radio" name="rating" value="3" />
-
-                                                                        <input type="radio" name="rating" value="4" />
-
-                                                                        <input type="radio" name="rating" value="5" />
-                                                                        <span>Good</span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="buttons clearfix">
-                                                                    <div class="pull-right">
-                                                                        <button type="button" id="button-review" data-loading-text="Loading..." class="btn btn-primary">Continue</button>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -301,35 +249,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="tags">
-                <span class="tags-title">Tags:</span>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=AMG8833 IR Infrared 8*8 Thermal Imager Array Temperature Sensor Price in BD">
-                    AMG8833 IR Infrared 8*8 Thermal Imager Array Temperature Sensor Price in BD
-                </a>
-                <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=AMG8833 IR Infrared 8*8 Thermal Imager Array Temperature Sensor Price in Bangladesh">
-                    AMG8833 IR Infrared 8*8 Thermal Imager Array Temperature Sensor Price in Bangladesh
-                </a>
-                <b>,</b> <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 ir infrared thermal imager array temperature sensor">amg8833 ir infrared thermal imager array temperature sensor</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=infrared amg8833 thermal imager camera digital high precision temperature sensor">
-                    infrared amg8833 thermal imager camera digital high precision temperature sensor
-                </a>
-                <b>,</b> <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 ir thermal camera">amg8833 ir thermal camera</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 ir thermal camera arduino">amg8833 ir thermal camera arduino</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 ir infrared thermal imager sensor">amg8833 ir infrared thermal imager sensor</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=infrared thermal imager sensor amg8833 ir thermometer thermal imaging camera">
-                    infrared thermal imager sensor amg8833 ir thermometer thermal imaging camera
-                </a>
-                <b>,</b> <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=infrared thermal imager sensor amg8833 ir thermometer">infrared thermal imager sensor amg8833 ir thermometer</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 ir thermal camera">amg8833 ir thermal camera</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 ir thermal camera arduino">amg8833 ir thermal camera arduino</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 ir thermal camera raspberry pi">amg8833 ir thermal camera raspberry pi</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=amg8833 thermal imaging camera">amg8833 thermal imaging camera</a> <b>,</b>
-                <a href="https://www.citytechbd.com/index.php?route=product/search&amp;tag=infrared amg8833 thermal imager camera digital high precision temperature sensor">
-                    infrared amg8833 thermal imager camera digital high precision temperature sensor
-                </a>
             </div>
         </div>
     </div>

@@ -3,21 +3,9 @@
 @section('content')   
 <div id="account-login" class="container">
     <div class="row">
-        <div id="content" class="col-sm-9">
+        <div id="content" class="col-sm-12" style="max-width: 100%;">
             <div class="row login-box">
-                <div class="col-sm-6">
-                    <div class="well">
-                        <h2 class="title">New Customer</h2>
-                        <p><strong>Register Account</strong></p>
-                        <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-                        <div class="buttons">
-                            <div class="pull-right">
-                                <a href="{{ route('customer.register') }}" class="btn btn-primary">Continue</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="well">
                         <h2 class="title">Returning Customer</h2>
                         <p><strong>I am a returning customer</strong></p>
@@ -39,10 +27,19 @@
                             </div>
                         </form>
                     </div>
+                    <div class="well">
+                        <h2 class="title">Create Your Account</h2>
+                        <p><strong>Sign Up</strong></p>
+                        <p>Opening an account allows you to shop more easily, track your order status in real time, and view your previous purchases anytime.</p>
+                        <div class="buttons">
+                            <div class="pull-right">
+                                <a href="{{ route('customer.register') }}" class="btn btn-primary">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        @include('frontend.partials.account-menu')
     </div>
 </div>
 @endsection

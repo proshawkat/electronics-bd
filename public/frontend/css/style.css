@@ -499,3 +499,13 @@ a.truncate-text {
         padding-left: 2rem;
     }
 }
+.grid-row-1-top{
+    background-color: #f85606;
+}
+.grid-row-1-top .subtitle a{
+    color: #000;
+}
+.module-info_blocks-305 .info-block{
+    border: 0;
+    padding: 0;
+}

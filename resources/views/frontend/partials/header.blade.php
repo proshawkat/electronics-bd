@@ -32,8 +32,8 @@
                             srcset="{{ asset('public/'.$generalSettings->logo) }} 1x, {{ asset('public/'.$generalSettings->logo) }} 2x"
                             width="1737"
                             height="261"
-                            alt="CityTech BD"
-                            title="CityTech BD"
+                            alt="RadioElectric BD"
+                            title="RadioElectric BD"
                         />
                     </a>
                 </div>

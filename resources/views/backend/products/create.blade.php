@@ -36,6 +36,12 @@
                                         <label class="form-check-label" for="stock_status">Stock status</label>
                                     </div>
                                 </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" checked />
+                                        <label class="form-check-label" for="is_featured">Is Featured</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4 mb-3">

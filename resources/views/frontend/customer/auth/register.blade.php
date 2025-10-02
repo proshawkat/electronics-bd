@@ -5,7 +5,7 @@
 <div id="account-register" class="container">
     <div class="row">
         <div id="content" class="col-sm-9 register-page">
-            <p>If you already have an account with us, please login at the <a href="{{ route('customer.login') }}">login page</a>.</p>
+            <p>Have an account with us? <a href="{{ route('customer.login') }}">Sign in now</a>.</p>
             <form action="{{ route('customer.register') }}" method="post" class="register-form form-horizontal" id="myRegistraionForm">
                 @csrf
                 <div id="account">
@@ -81,7 +81,6 @@
                 </div>
             </form>
         </div>
-        @include('frontend.partials.account-menu')
     </div>
 </div>
 @endsection

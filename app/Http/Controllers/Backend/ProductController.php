@@ -58,6 +58,7 @@ class ProductController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'brand_id' => $request->brand_id,
             'status' => $request->status ?? 1,
+            'is_featured' => $request->is_featured ?? 1,
         ]);
 
         // Gallery Images
@@ -130,6 +131,7 @@ class ProductController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'brand_id' => $request->brand_id,
             'status' => $request->status ?? 1,
+            'is_featured' => $request->is_featured ?? 1,
         ]);
 
         // Gallery Images Add
