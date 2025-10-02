@@ -15,6 +15,18 @@
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ asset('public/backend/css/adminlte.css') }}" />
+        <style>
+            .bg-body-secondary{
+                background-color: #f85606 !important;
+            }
+            .sidebar-wrapper a, .sidebar-wrapper .nav-header{
+                color: #fff !important;
+            }
+            .sidebar-brand{
+                border-bottom: 1px solid #fff !important;
+            }
+            
+        </style>
         @yield('styles')
     </head>
     <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">

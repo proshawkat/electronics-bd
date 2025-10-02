@@ -8,7 +8,7 @@
             <i class="bi bi-list"></i>
             </a>
         </li>
-        <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
+        <li class="nav-item d-none d-md-block"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
         </ul>
         <!--end::Start Navbar Links-->
         <!--begin::End Navbar Links-->
@@ -22,7 +22,7 @@
                 class="user-image rounded-circle shadow"
                 alt="User Image"
             />
-            <span class="d-none d-md-inline">Alexander Pierce</span>
+            <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
             <!--begin::User Image-->
@@ -33,16 +33,14 @@
                 alt="User Image"
                 />
                 <p>
-                {{ Auth::user()->name }} - Web Developer
-                <small>Member since Nov. 2023</small>
+                {{ Auth::user()->name }} - {{ Auth::user()->getRoleNames()->first() ?? 'User' }}
+                <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
                 </p>
             </li>
             <!--end::User Image-->
             <!--end::Menu Body-->
             <!--begin::Menu Footer-->
             <li class="user-footer">
-                <a href="{{ route('profile.edit') }}" class="btn btn-default btn-flat">Profile</a>
-
                 <form method="POST" action="{{ route('logout') }}" class="d-inline">
                     @csrf
                     <button type="submit" class="btn btn-default btn-flat float-end">

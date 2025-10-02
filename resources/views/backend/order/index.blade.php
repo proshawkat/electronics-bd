@@ -52,7 +52,7 @@
                                                 {{ $address?->address_1 }}
                                             </td>
                                             <td>{{ $order->items->sum('quantity') }}</td>
-                                            <td>{{ $order->total }}</td>
+                                            <td>{{ $order->total }} ৳</td>
                                             <td>
                                                 @if(strtolower($order->status) === 'pending')
                                                     <span class="badge text-bg-primary">{{ ucfirst($order->status) }}</span>

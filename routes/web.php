@@ -22,6 +22,8 @@ use App\Http\Controllers\Frontend\Customer\CustomerController;
 use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
 use App\Http\Controllers\Frontend\Customer\CustomerOrderController;
 use App\Http\Controllers\Frontend\Customer\ReturnController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Backend\AdminUserController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
@@ -104,7 +106,7 @@ Route::middleware('auth')->group(function () {
 /**
  * Admin only routes
  */
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin|manager'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('general-settings', [GeneralSettingController::class, 'edit'])->name('general-settings.edit');
@@ -125,26 +127,25 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('order-pending', [AdminOrderController::class, 'allPending'])->name('order_pending');
     Route::get('order-delivered', [AdminOrderController::class, 'allDelivered'])->name('order_delivered');
     Route::get('order-details/{code}', [AdminOrderController::class, 'orderDetails'])->name('order_details');
-    Route::post('order-update/{code}', [AdminOrderController::class, 'updateStatus'])->name('order_update');
+    Route::post('order-update/{code}', [AdminOrderController::class, 'updateStatus'])->name('order_update'); 
+
+    Route::get('users', [DashboardController::class, 'getUsers'])->name('users');   
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store']);
+
+    Route::get('users/edit/{id}', [AdminUserController::class, 'edit'])->name('users.edit');
+    Route::put('users/update/{id}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::delete('users/delete/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
 
 });
 
 /**
  * Manager only routes
  */
-Route::middleware(['auth', 'role:manager'])->group(function () {
-    Route::get('/manager/dashboard', function () {
-        return "Welcome Manager!";
-    });
-});
-
-/**
- * Salesman only routes
- */
-Route::middleware(['auth', 'role:salesman'])->group(function () {
-    Route::get('/salesman/dashboard', function () {
-        return "Welcome Salesman!";
-    });
-});
+// Route::middleware(['auth', 'role:manager'])->group(function () {
+//     Route::get('/manager/dashboard', function () {
+//         return "Welcome Manager!";
+//     });
+// });
 
 require __DIR__.'/auth.php';
