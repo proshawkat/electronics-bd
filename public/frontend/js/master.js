@@ -1064,11 +1064,6 @@ jQuery(function ($) {
 		}
 	});
 
-	// Mobile Cart Wrapper
-	if ($html.hasClass('mobile-header-active')) {
-		$('.cart-content > ul').appendTo('.mobile-cart-content-wrapper');
-	}
-
 	$(document).delegate('.mobile-header-active .cart-heading', 'click', function (e) {
 		e.stopPropagation();
 
@@ -1116,21 +1111,6 @@ jQuery(function ($) {
 		}
 
 		return false;
-	});
-
-	// Close Mobile Wrapper
-	$(document).delegate('.x, .site-wrapper, .close-filter', 'click', function () {
-		$('.mobile-container.animating').removeClass('animating');
-
-		$html.removeClass('mobile-overlay');
-
-		setTimeout(function () {
-			$html.removeClass('mobile-main-menu-container-open mobile-cart-content-container-open mobile-filter-container-open');
-		}, 300);
-
-		if ($html.hasClass('iphone') || $html.hasClass('ipad')) {
-			iNoBounce.disable();
-		}
 	});
 
 	// Product Page
@@ -1190,138 +1170,6 @@ jQuery(function ($) {
 				$(this).find('option').eq(1).prop('selected', true);
 			});
 		}
-
-		// Auto Update Price
-		if (Journal['isPopup'] ? Journal['quickviewPageStylePriceUpdate'] : Journal['productPageStylePriceUpdate']) {
-			function autoUpdatePrice() {
-				$.ajax({
-					url: 'index.php?route=journal3/price&popup=' + (Journal['isPopup'] ? 1 : 0),
-					type: 'post',
-					data: $('#product-id, #product-quantity, #product input[type="radio"]:checked, #product input[type="checkbox"]:checked, #product select'),
-					dataType: 'json',
-					beforeSend: function () {
-						// $('#button-cart').button('loading');
-					},
-					complete: function () {
-						// $('#button-cart').button('reset');
-					},
-					success: function (json) {
-						if (json['response']['status'] === 'error') {
-							alert(json['response']['message']);
-						} else {
-							if (Journal['isPopup'] ? Journal['quickviewPageStyleProductStockUpdate'] : Journal['productPageStyleProductStockUpdate']) {
-								if (json['response']['stock']) {
-									$('.product-stock span').html(json['response']['stock']);
-								}
-
-								if (json['response']['in_stock']) {
-									$('.product-stock').removeClass('out-of-stock').addClass('in-stock');
-								} else {
-									$('.product-stock').removeClass('in-stock').addClass('out-of-stock');
-								}
-							}
-
-							if (json['response']['tax']) {
-								$('.product-tax').html(json['response']['tax']);
-							}
-
-							if (json['response']['price']) {
-								if (json['response']['special']) {
-									$('.product-price-group .product-price-old').html(json['response']['price']);
-									$('.product-price-group .product-price-new').html(json['response']['special']);
-								} else {
-									$('.product-price-group .product-price').html(json['response']['price']);
-								}
-							}
-
-							if (json['response']['discounts']) {
-								$('.product-discount').each(function (index) {
-									$(this).html(json['response']['discounts'][index]);
-								});
-							}
-
-							if (json['response']['weight']) {
-								$('.product-stats .product-weight span').html(json['response']['weight']);
-							}
-						}
-					}
-				});
-			}
-
-			$('.product-options input[type="radio"], .product-options input[type="checkbox"], .product-options select, #product-quantity').on('change', autoUpdatePrice);
-
-			autoUpdatePrice();
-		}
-
-		// Push Option Radio
-		// $('.push-option.product-option-radio').each(function () {
-		// 	var $this = $(this);
-		// 	var hasImages = $this.find('img').length > 0;
-		// 	var options = $this.find('.radio').map(function (index) {
-		// 		var text = $(this).text().trim();
-		//
-		// 		if (hasImages) {
-		// 			$this.addClass('push-image');
-		// 			var src = $(this).find('img').attr('src') || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-		// 			return '<li class="' + ($(this).find('input').is(':checked') ? 'checked' : '') + '" data-index="' + index + '"><img src="' + src + '" alt="' + text + '" title="' + text + '" data-tooltip-class="push-image-tooltip" /></li>';
-		// 		}
-		//
-		// 		return '<li class="' + ($(this).find('input').is(':checked') ? 'checked' : '') + '" data-index="' + index + '">' + text + '</li>';
-		// 	});
-		//
-		// 	$this.append('<ul>' + options.toArray().join('') + '</ul>');
-		//
-		// 	$this.find('li').on('click', function () {
-		// 		$this.find('.radio').eq($(this).data('index')).find('input').trigger('click');
-		// 		$this.find('li').not($(this)).removeClass('checked');
-		// 		$(this).addClass('checked');
-		// 	});
-		//
-		// 	$this.find('li img').tooltip({ container: 'body' });
-		// });
-
-		// Push Option Checkbox
-		// $('.push-option.product-option-checkbox').each(function () {
-		// 	var $this = $(this);
-		// 	var hasImages = $this.find('img').length;
-		// 	var options = $this.find('.checkbox').map(function (index) {
-		// 		var text = $(this).text().trim();
-		//
-		// 		if (hasImages) {
-		// 			$this.addClass('push-image');
-		// 			var src = $(this).find('img').attr('src') || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-		// 			return '<li class="' + ($(this).find('input').is(':checked') ? 'checked' : '') + '" data-index="' + index + '"><img src="' + src + '" alt="' + text + '" title="' + text + '" data-tooltip-class="push-image-tooltip" /></li>';
-		// 		}
-		//
-		// 		return '<li class="' + ($(this).find('input').is(':checked') ? 'checked' : '') + '" data-index="' + index + '">' + text + '</li>';
-		// 	});
-		//
-		// 	$this.append('<ul>' + options.toArray().join('') + '</ul>');
-		//
-		// 	$this.find('li').on('click', function () {
-		// 		$this.find('.checkbox').eq($(this).data('index')).find('input').trigger('click');
-		// 		$(this).toggleClass('checked');
-		// 	});
-		//
-		// 	$this.find('li img').tooltip({ container: 'body' });
-		// });
-
-		// Push Option Select
-		// $('.push-option.product-option-select').each(function () {
-		// 	var $this = $(this);
-		// 	var options = $this.find('option').slice(1).map(function (index) {
-		// 		return '<li class="' + ($(this).is(':checked') ? 'checked' : '') + '" data-index="' + index + '">' + $(this).text() + '</li>';
-		// 	});
-		//
-		// 	$this.append('<ul>' + options.toArray().join('') + '</ul>');
-		//
-		// 	$this.find('li').on('click', function () {
-		// 		$this.find('option').eq($(this).data('index') + 1).prop('selected', true);
-		// 		$this.find('select').trigger('change');
-		// 		$this.find('li').not($(this)).removeClass('checked');
-		// 		$(this).addClass('checked');
-		// 	});
-		// });
 	}
 
 	// Iframe height
@@ -1396,92 +1244,7 @@ $(window).on('load', function () {
 	});
 
 	// Autosuggest
-	if (Journal['searchStyleSearchAutoSuggestStatus']) {
-		$search.typeahead({
-			hint: true,
-			minLength: 1,
-			autoSelect: true
-		}, {
-			async: true,
-			display: 'name',
-			limit: Infinity,
-			source: function (query, processSync, processAsync) {
-				var data = {
-					search: query
-				};
-
-				var category_id = parseInt($search.attr('data-category_id'));
-
-				if (category_id) {
-					data.category_id = category_id;
-				}
-
-				return $.ajax({
-					url: 'index.php?route=journal3/search',
-					data: data,
-					dataType: 'json',
-					success: function (json) {
-						return processAsync(json['response']);
-					}
-				});
-			},
-			templates: {
-				suggestion: function (data) {
-					if (data['view_more']) {
-						return '<div class="search-result view-more"><a href="' + data['href'] + '">' + data['name'] + '</a></div>';
-					}
-
-					if (data['no_results']) {
-						return '<div class="search-result no-results"><a>' + data['name'] + '</a></div>';
-					}
-
-					var html = '';
-
-					html += '<div class="search-result"><a href="' + data['href'] + '">';
-
-					if (data['thumb']) {
-						html += '<img src="' + data['thumb'] + '" srcset="' + data['thumb'] + ' 1x, ' + data['thumb2'] + ' 2x" />';
-					}
-
-					var classes = [];
-
-					if (data['quantity'] <= 0) {
-						classes.push('out-of-stock');
-					}
-
-					if (!data['price_value']) {
-						classes.push('has-zero-price');
-					}
-
-					html += '<span class="' + classes.join(' ') + '">';
-
-					html += '<span class="product-name">' + data['name'] + '</span>';
-
-					if (data['price']) {
-						if (data['special']) {
-							html += '<span><span class="price-old">' + data['price'] + '</span><span class="price-new">' + data['special'] + '</span></span>';
-						} else {
-							html += '<span class="price">' + data['price'] + '</span>';
-						}
-					}
-
-					html += '</span>';
-
-					html += '</a></div>';
-
-					return html;
-				}
-			}
-
-		});
-
-		$('.header-search > span > div').addClass('.tt-empty');
-
-		// mobile page zoom fix
-		$('.mobile .tt-menu').on('click', function (e) {
-			e.stopPropagation();
-		});
-	}
+	
 
 	// Sticky Desktop
 	if (!Journal.isPopup && Journal['isDesktop'] && Journal['stickyStatus'] && (['classic', 'mega', 'default'].includes(Journal['headerType']))) {

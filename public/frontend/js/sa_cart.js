@@ -1,5 +1,9 @@
 var baseUrl = "{{ rtrim(url('/'), '/') }}";
 
+$(document).ready(function() {
+    updateCartDropdown();
+});
+
 function addToCart(productId, source = null) {
     handleAction("cart", productId, source);
 }
@@ -61,6 +65,8 @@ function handleAction(click_type, productId, source_type=null) {
 }
 
 function updateCartDropdown() {
+    console.log('cart dowon');
+
     $.get(baseUrl+'/cart/items', function(res){
         $('#cart-total').text(res.totalQty + ' item(s) - ' + res.totalPrice + '৳');
         $('#cart-items').text(res.totalQty);
@@ -89,9 +95,13 @@ function updateCartDropdown() {
             $(".cart-full-ul").hide();
         }
 
-        $('.cart-products tbody').html(html);
+        $('.cart-products .table tbody').html(html);
         $('.cart-totals .td-total-text').eq(0).text(res.totalPrice+'৳');
         $('.cart-totals .td-total-text').eq(1).text(res.totalPrice+'৳');
+        setTimeout(()=>{
+            console.log("tbody html after update:", $('.cart-products tbody').html());
+            console.log("is cart-full-ul visible?", $(".cart-full-ul").is(":visible"));
+        }, 1000);
     });
 }
 
@@ -166,3 +176,7 @@ function showNotification(product, type) {
         $(".notification-wrapper").fadeOut(300, function() { $(this).remove(); });
     }, 3000);
 }
+
+$(document).on("click", ".mobile-wrapper-header .x", function() {
+    $("html").removeClass("mobile-cart-content-container-open mobile-overlay");
+});

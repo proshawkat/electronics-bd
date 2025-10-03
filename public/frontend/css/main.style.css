@@ -5890,7 +5890,7 @@ https://www.journal-theme.com/
   .popup-close:hover {
     background: #238CD2; }
   .popup-close::before {
-    content: "\e5cd";
+    content: "X";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8739,8 +8739,8 @@ https://www.journal-theme.com/
     font-size: 25px;
     cursor: pointer; }
     .mobile-wrapper-header > a::before {
-      content: "\e5cd";
-      font-family: icomoon; }
+      content: "X";
+      font-family: icomoon;font-size: 13px; }
 
 /******************************
  Mobile Cart
