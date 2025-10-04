@@ -174,5 +174,5 @@ function showNotification(product, type) {
 }
 
 $(document).on("click", ".mobile-wrapper-header .x", function() {
-    $("html").removeClass("mobile-cart-content-container-open mobile-overlay");
+    $("html").removeClass("mobile-cart-content-container-open mobile-overlay mobile-main-menu-container-open");
 });

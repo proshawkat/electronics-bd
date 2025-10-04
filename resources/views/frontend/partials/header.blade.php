@@ -229,7 +229,7 @@
 
                         <ul class="cart-empty-ul">
                             <li>
-                                <p class="text-center cart-empty">Your shopping cart is empty!</p>
+                                <p class="cart-empty">Your shopping cart is empty!</p>
                             </li>
                         </ul>
                     </div>
