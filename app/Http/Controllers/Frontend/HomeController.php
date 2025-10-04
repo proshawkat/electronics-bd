@@ -15,8 +15,6 @@ class HomeController extends Controller
         $breadcrumbs = [
             ['title' => ucfirst(str_replace('-', ' ', $slug)), 'url' => '#']
         ];
-        $category = Category::where('slug', $slug)->whereNull('parent_id')->firstOrFail();
-        $subcategories = Category::where('parent_id', $category->id)->where('status', 1)->get();
         $brands = Brand::where('status', 1)->get(['id', 'name', 'slug']);
         $tags = Tag::get(['id', 'name']);
 
@@ -24,7 +22,15 @@ class HomeController extends Controller
         $order = $request->get('order', 'ASC');
         $limit = $request->get('limit', 20);
 
-        $products = Product::where('category_id', $category->id)->where('status', 1)->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
+        if ($slug === 'all-products') {
+            $subcategories = collect();
+            $products = Product::where('status', 1)
+                ->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
+        } else {
+            $category = Category::where('slug', $slug)->whereNull('parent_id')->firstOrFail();
+            $subcategories = Category::where('parent_id', $category->id)->where('status', 1)->get();
+            $products = Product::where('category_id', $category->id)->where('status', 1)->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
+        }
 
         if ($sort == 'pd.name') {
             $products = $products->orderBy('name', $order);
@@ -53,6 +59,15 @@ class HomeController extends Controller
                 foreach ($tagIds as $tagId) {
                     $q->orWhereJsonContains('tag_id', (int) $tagId);
                 }
+            });
+        }
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $products->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                ->orWhere('product_code', 'like', "%{$search}%")
+                ->orWhere('model', 'like', "%{$search}%");
             });
         }
 

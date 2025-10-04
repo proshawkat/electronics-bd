@@ -98,10 +98,6 @@ function updateCartDropdown() {
         $('.cart-products .table tbody').html(html);
         $('.cart-totals .td-total-text').eq(0).text(res.totalPrice+'৳');
         $('.cart-totals .td-total-text').eq(1).text(res.totalPrice+'৳');
-        setTimeout(()=>{
-            console.log("tbody html after update:", $('.cart-products tbody').html());
-            console.log("is cart-full-ul visible?", $(".cart-full-ul").is(":visible"));
-        }, 1000);
     });
 }
 

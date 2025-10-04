@@ -509,12 +509,3 @@ a.truncate-text {
     border: 0;
     padding: 0;
 }
-
-.cart-products .td-qty,
-.cart-products .td-total {
-    padding: 6px 10px !important;
-    text-align: right !important;
-    color: #333;  /* text visible হবে */
-    font-size: 13px;
-    white-space: nowrap; /* ভেঙে না গিয়ে এক লাইনে থাকবে */
-}

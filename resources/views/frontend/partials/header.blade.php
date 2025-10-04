@@ -123,31 +123,22 @@
                 <div id="search" class="dropdown">
                     <button class="dropdown-toggle search-trigger" data-toggle="" aria-expanded="false"></button>
                     <div class="dropdown-menu j-dropdown">
-                        <div class="header-search">
-                            <span class="twitter-typeahead">
-                                <input type="text" value="" class="search-input tt-hint"
-                                    data-category_id=""
-                                    readonly=""
-                                    autocomplete="off"
-                                    spellcheck="false"
-                                    tabindex="-1"
-                                    dir="ltr"
-                                />
-                                <input  type="text" name="search" value=""
-                                    placeholder="Search..."
-                                    class="search-input tt-input"
-                                    data-category_id=""
-                                    autocomplete="off"
-                                    spellcheck="false"
-                                    dir="auto"
-                                />
-                                <pre aria-hidden="true"
-                                    style='position: absolute; visibility: hidden; white-space: pre; font-family: "IBM Plex Sans"; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;'
-                                ></pre>
-                                <div class="tt-menu tt-empty"><div class="tt-dataset tt-dataset-0"></div></div>
-                            </span>
-                            <button type="button" class="search-button" data-search-url=""></button>
-                        </div>
+                        <form action="{{ route('category.show', ['slug' => 'all-products']) }}" method="GET" class="header-search-form">
+                            <div class="header-search">
+                                <span class="twitter-typeahead">
+                                    <input  type="text" name="search" value="{{ request('search') }}"
+                                        placeholder="Search..."
+                                        class="search-input tt-input"
+                                        data-category_id=""
+                                        autocomplete="off"
+                                        spellcheck="false"
+                                        dir="auto"
+                                    />
+                                    <div class="tt-menu tt-empty"><div class="tt-dataset tt-dataset-0"></div></div>
+                                </span>
+                                <button type="submit" class="search-button"></button>
+                            </div>
+                        </form>    
                     </div>
                 </div>
             </div>
