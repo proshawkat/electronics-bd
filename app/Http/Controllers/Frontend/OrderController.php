@@ -59,6 +59,27 @@ class OrderController extends Controller
                 ]);
                 auth('customer')->login($user);
                 $customerId = $user->id;
+
+                if ($guestCart = session()->get('cart')) {
+                    $cart = Cart::firstOrCreate(['customer_id' => $customerId]);
+                    foreach ($guestCart->getItems() as $item) {
+                        $cartItem = CartItem::firstOrNew([
+                            'cart_id'    => $cart->id,
+                            'product_id' => $item['id'],
+                        ]);
+                        $cartItem->quantity = ($cartItem->exists ? $cartItem->quantity : 0) + $item['qty'];
+                        $cartItem->save();
+                    }
+                }
+
+                if ($guestWishlist = session()->get('wishlist')) {
+                    foreach ($guestWishlist as $productId) {
+                        Wishlist::firstOrCreate([
+                            'customer_id' => $customerId,
+                            'product_id' => $productId
+                        ]);
+                    }
+                }
             } elseif ($accountType === 'login') {
                 $request->validate([
                     'login_email'    => 'required|email',
@@ -183,7 +204,7 @@ class OrderController extends Controller
             }
 
             DB::beginTransaction();
-            dd($cartItems);
+            
             // === Create Order ===
             $order = Order::create([
                 'customer_id'        => $customerId,
