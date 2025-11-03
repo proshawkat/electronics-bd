@@ -84,17 +84,21 @@
                                 <textarea class="form-control" id="product-description" name="description" required>{{ $product->description }}</textarea>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-3 mb-3">
                                     <label for="quantity" class="form-label">Quantity<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="quantity" name="quantity" value="{{ $product->quantity }}" required/>
                                 </div>                            
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-3 mb-3">
                                     <label for="sale_price" class="form-label">Sale price<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="sale_price" name="sale_price" value="{{ $product->sale_price }}" required/>
                                 </div>                     
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-3 mb-3">
                                     <label for="original_price" class="form-label">Original price</label>
                                     <input type="text" class="form-control" id="original_price" name="original_price" value="{{ $product->original_price }}" />
+                                </div>       
+                                <div class="col-sm-3 mb-3">
+                                    <label for="discount_percent" class="form-label">Discount(Percentege)</label>
+                                    <input type="text" class="form-control" id="discount_percent" name="discount_percent" value="{{ $product->original_price }}" />
                                 </div>
                             </div>
                             <div class="mb-3">

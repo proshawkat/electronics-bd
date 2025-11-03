@@ -238,12 +238,22 @@ class CartController extends Controller
             if(Auth::guard('customer')->check()){
                 $product = $item->product;
                 $qty = $item->quantity;
-                $subtotal = $qty * $product->sale_price;
+
+                $discountPercent = $product->discount_percent ?? 0;
+                $discountedPrice = $product->sale_price;
+                if ($discountPercent > 0) {
+                    $discountedPrice = $product->sale_price - ($product->sale_price * $discountPercent / 100);
+                }
+
+                $subtotal = $qty * $discountedPrice;
+
                 $cartItems[] = [
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'image'=> asset('public/'.$product->first_image_url),
-                    'price'=>$product->sale_price,
+                    'price' => $product->sale_price,
+                    'discount_price' => $discountedPrice,
+                    'discount_percent' => intval($discountPercent),
                     'model' => $product->model,
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,
@@ -251,12 +261,22 @@ class CartController extends Controller
                 ];
             } else {
                 $qty = $item['qty'];
-                $subtotal = $qty * $item['price'];
+                
+                $discountPercent = $item['discount_percent'] ?? 0;
+                $discountedPrice = $item['price'];
+                if ($discountPercent > 0) {
+                    $discountedPrice = $item['price'] - ($item['price'] * $discountPercent / 100);
+                }
+
+                $subtotal = $qty * $discountedPrice;
+
                 $cartItems[] = [
                     'id'=>$item['id'],
                     'name'=>$item['name'],
                     'image'=>$item['image'],
                     'price'=>$item['price'],
+                    'discount_price' => $discountedPrice,
+                    'discount_percent' => intval($discountPercent),
                     'model' =>$item['model'],
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,
@@ -334,12 +354,22 @@ class CartController extends Controller
             if(Auth::guard('customer')->check()){
                 $product = $item->product;
                 $qty = $item->quantity;
-                $subtotal = $qty * $product->sale_price;
+
+                $discountPercent = $product->discount_percent ?? 0;
+                $discountedPrice = $product->sale_price;
+                if ($discountPercent > 0) {
+                    $discountedPrice = $product->sale_price - ($product->sale_price * $discountPercent / 100);
+                }
+
+                $subtotal = $qty * $discountedPrice;
+
                 $cartItems[] = [
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'image'=> asset('public/'. $product->first_image_url),
-                    'price'=>$product->sale_price,
+                    'price' => $product->sale_price,
+                    'discount_price' => $discountedPrice,
+                    'discount_percent' => intval($discountPercent),
                     'model' => $product->model,
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,
@@ -347,12 +377,22 @@ class CartController extends Controller
                 ];
             } else {
                 $qty = $item['qty'];
-                $subtotal = $qty * $item['price'];
+
+                $discountPercent = $item['discount_percent'] ?? 0;
+                $discountedPrice = $item['price'];
+                if ($discountPercent > 0) {
+                    $discountedPrice = $item['price'] - ($item['price'] * $discountPercent / 100);
+                }
+
+                $subtotal = $qty * $discountedPrice;
+                
                 $cartItems[] = [
                     'id'=>$item['id'],
                     'name'=>$item['name'],
                     'image'=>$item['image'],
                     'price'=>$item['price'],
+                    'discount_price' => $discountedPrice,
+                    'discount_percent' => intval($discountPercent),
                     'model' =>$item['model'],
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,

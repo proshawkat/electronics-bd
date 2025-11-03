@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\Brand;
+use App\Models\Tag;
 
 class WelcomeController extends Controller
 {
@@ -45,5 +47,35 @@ class WelcomeController extends Controller
         $galleryJsonString = $galleryJson->toJson();
 
         return view('frontend.single_product', compact('breadcrumbs', 'product', 'relatedProducts', 'galleryJsonString'));
+    }
+
+    public function clearanceOutlet(Request $request)
+    {
+        $sort = $request->get('sort', 'p.sort_order');
+        $order = $request->get('order', 'ASC');
+        $limit = $request->get('limit', 20);
+
+        $breadcrumbs = [
+            ['title' => 'Clearence', 'url' => '#']
+        ];
+        $brands = Brand::where('status', 1)->get(['id', 'name', 'slug']);
+        $tags = Tag::get(['id', 'name']);
+
+
+        $products = Product::where('discount_percent', '>', 0)->where('status', 1);
+
+        if ($sort == 'pd.name') {
+            $products = $products->orderBy('name', $order);
+        } elseif ($sort == 'p.price') {
+            $products = $products->orderBy('sale_price', $order);
+        }
+
+        if ($request->has('m')) {
+            $products->whereIn('brand_id', explode(',', $request->m));
+        }
+
+        $products = $products->paginate($limit);
+
+        return view('frontend.clearance', compact('products', 'brands', 'tags', 'breadcrumbs'));
     }
 }

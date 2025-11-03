@@ -9398,3 +9398,6 @@ html[dir='rtl'] .popup-close {
   font-family: icomoon !important;
   padding-right: 7px;
 }
+.text-decoration-line-through{
+  text-decoration-line: line-through;
+}

@@ -28,6 +28,7 @@ use App\Http\Controllers\Backend\AdminUserController;
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
 Route::get('/product/{slug}', [WelcomeController::class, 'slugWiseroduct'])->name('slug-product');
+Route::get('/clearance-outlet', [WelcomeController::class, 'clearanceOutlet'])->name('clearance.outlet');
 Route::post('/action', [CartController::class, 'action'])->name('action');
 Route::get('/compare', [CartController::class, 'getCompare'])->name('compare');
 Route::get('/remove-compare/{id}', [CartController::class, 'removeCompare'])->name('remove-compare');

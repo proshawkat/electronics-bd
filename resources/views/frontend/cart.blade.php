@@ -47,7 +47,18 @@
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td class="text-center td-price">{{ $item['price'] }}৳</td>
+                                            <td class="text-center td-price">
+                                                @if($item['discount_percent'] > 0)
+                                                    <span class="text-decoration-line-through">
+                                                        {{ number_format($item['price'], 2) }}৳
+                                                    </span>
+                                                    <br>
+                                                    <span class="price-normal">
+                                                        {{ number_format($item['discount_price'], 2) }}৳
+                                                @else
+                                                    {{ $item['price'] }}৳
+                                                @endif
+                                            </td>
                                             <td class="text-center td-total">{{ $item['subtotal'] }}৳</td>
                                         </tr>
                                     @endforeach       

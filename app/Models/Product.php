@@ -26,6 +26,7 @@ class Product extends Model
         'sub_category_id',
         'brand_id',
         'status',
+        'discount_percent',
     ];
 
     protected $casts = [
@@ -55,5 +56,14 @@ class Product extends Model
     public function getTagsAttribute()
     {
         return Tag::whereIn('id', $this->tag_id ?? [])->get();
+    }
+
+    public function getDiscountedPriceAttribute()
+    {
+        if ($this->discount_percent > 0) {
+            $discount = ($this->sale_price * $this->discount_percent) / 100;
+            return round($this->sale_price - $discount, 2);
+        }
+        return $this->sale_price;
     }
 }

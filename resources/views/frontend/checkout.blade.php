@@ -139,7 +139,7 @@
                                         </div>
                                         <div class="form-group required account-pass2 hide">
                                             <label for="input-confirm" class="control-label">Password Confirm</label> 
-                                            <input type="password" name="confirm" value="" placeholder="Password Confirm" id="input-confirm" class="form-control"> <!---->
+                                            <input type="password" name="password_confirmation" value="" placeholder="Password Confirm" id="input-confirm" class="form-control"> <!---->
                                         </div>
                                         <!---->
                                     </div>
@@ -287,7 +287,18 @@
                                                                     </span>
                                                                 </div>
                                                             </td>
-                                                            <td class="text-right td-price">{{ $item['price'] }}৳</td>
+                                                            <td>
+                                                                @if($item['discount_percent'] > 0)
+                                                                    <span class="text-decoration-line-through">
+                                                                        {{ number_format($item['price'], 2) }}৳
+                                                                    </span>
+                                                                    <br>
+                                                                    <span class="price-normal">
+                                                                        {{ number_format($item['discount_price'], 2) }}৳
+                                                                @else
+                                                                    {{ $item['price'] }}৳
+                                                                @endif
+                                                            </td>
                                                             <td class="text-right td-total">{{ $item['subtotal'] }}৳</td>
                                                         </tr>
                                                     @endforeach    

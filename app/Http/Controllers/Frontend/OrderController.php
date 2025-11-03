@@ -22,27 +22,26 @@ class OrderController extends Controller
     public function placeOrder(Request $request)
     {
         try {
-            DB::beginTransaction();
             if ($request->action === 'update') {
                 foreach ($request->quantity as $itemId => $qty) {
                     if (Auth::guard('customer')->check()) {
                         CartItem::where('product_id', $itemId)->update(['quantity' => $qty]);
                     }else{
                         $sessionCart = session()->get('cart', new SessionCart());
-                        $sessionCart->update($itemId, max(1, (int) $qty));
+                        $sessionCart->update($itemId, $qty);
                         session()->put('cart', $sessionCart);
                     }    
                 }
-                return back()->with('success', 'Cart updated successfully.');
+                return redirect()->back()->with('success', 'Cart updated successfully.');
             }
-
+            
             $accountType = $request->account;
+            
             if ($accountType === 'register') {
-
-                $request->validate([
+                $validate = $request->validate([
                     'firstname' => 'required|string|max:50',
                     'lastname'  => 'required|string|max:50',
-                    'email'     => 'required|email|unique:customers,email',
+                    'email'     => 'required|email',
                     'password'  => 'required|min:6|confirmed',
                     'telephone' => 'required|string|max:20',
                 ]);
@@ -107,7 +106,6 @@ class OrderController extends Controller
             } else {
                 $customerId = null;
             }
-
             $request->validate([
                 'newsletter'        => 'nullable|boolean',
                 'privacy_policy'    => 'accepted',
@@ -167,8 +165,6 @@ class OrderController extends Controller
                     'zone_id'     => $request->zone_id,
                 ]);
             }    
-
-            // die();
             $shipping_address = null;
             if(!$request->same_billing_address){
                 $request->validate([
@@ -186,6 +182,8 @@ class OrderController extends Controller
                 ]);
             }
 
+            DB::beginTransaction();
+            dd($cartItems);
             // === Create Order ===
             $order = Order::create([
                 'customer_id'        => $customerId,
@@ -199,36 +197,39 @@ class OrderController extends Controller
 
             ]);
 
-
             foreach ($cartItems as $item) {
                 if ($customerId) {
-                    $price = $item->product->sale_price ?? 0;
+                    $product = Product::find($item->product_id);
+                    $price = $product->discounted_price;
                     OrderItem::create([
                         'order_id'   => $order->id,
                         'product_id' => $item->product_id,
                         'quantity'   => $item->quantity,
                         'price'      => $price,
+                        'discount_percent' => $product->discount_percent,
                         'total'      => $price * $item->quantity,
                     ]);
                 } else {
+                    $price = $item['discount_price'];
                     // Guest cart (array)
                     OrderItem::create([
                         'order_id'   => $order->id,
                         'product_id' => $item['id'],
                         'quantity'   => $item['qty'],
-                        'price'      => $item['price'],
-                        'total'      => $item['price'] * $item['qty'],
+                        'price'      => $price,
+                        'discount_percent' => $item['discount_percent'],
+                        'total'      => $price * $item['qty'],
                     ]);
                 }
             }
-
+            DB::commit();
             // === Clear Cart ===
             if ($customerId) {
                 Cart::where('customer_id', $customerId)->delete();
+                session()->forget('cart');
             } else {
                 session()->forget('cart');
             }
-            DB::commit();
 
             $email = auth('customer')->check() ? auth('customer')->user()->email : $request->email;
             Mail::to($email)->send(new OrderPlacedMail($order));
@@ -264,12 +265,25 @@ class OrderController extends Controller
 
         foreach ($items as $item) {
             if ($customerId) {
-                $qty   = $item->quantity ?? 1;
-                $price = $item->product->sale_price;
+                $qty = $item->quantity ?? 1;
+                $product = $item->product;
+
+                if ($product) {
+                    $discount = ($product->discount_percent > 0) ? ($product->sale_price * $product->discount_percent) / 100 : 0;
+                    $price = $product->sale_price - $discount;
+                } else {
+                    $price = 0;
+                }
             } else {
-                // Guest user (SessionCart associative array)
-                $qty   = $item['qty'] ?? 1;
-                $price = $item['price'] ?? (Product::find($item['id'])?->price ?? 0);
+                $qty = $item['qty'] ?? 1;
+
+                $product = Product::find($item['id']);
+                if ($product) {
+                    $discount = ($product->discount_percent > 0) ? ($product->sale_price * $product->discount_percent) / 100 : 0;
+                    $price = $product->sale_price - $discount;
+                } else {
+                    $price = 0;
+                }
             }
 
             $total += $price * $qty;
