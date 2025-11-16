@@ -4,6 +4,32 @@
     
     @include('backend.includes.page-header', ['title' => 'Products'])
     
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <form action="{{ route('admin.products.index') }}" method="GET" class="d-flex gap-2">
+                        <input type="text" 
+                            name="search" 
+                            value="{{ request('search') }}"
+                            class="form-control"
+                            placeholder="Search product...">
+
+                        <select name="filter" class="form-control" onchange="this.form.submit()">
+                            <option value="">-- Filter --</option>
+                            <option value="no_sale_price" {{ request('filter')=='no_sale_price' ? 'selected':'' }}>No Sale Price</option>
+                            <option value="out_of_stock" {{ request('filter')=='out_of_stock' ? 'selected':'' }}>Out Of Stock</option>
+                            <option value="in_stock" {{ request('filter')=='in_stock' ? 'selected':'' }}>In Stock</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>
+
     <!--begin::App Content-->
     <div class="app-content">
         <!--begin::Container-->
@@ -14,7 +40,8 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <h3 class="card-title">All Products</h3>
-                        <div class="card-tools">
+                
+                        <div class="card-tools">   
                             <a href="{{ route('admin.products.create') }}" class="btn btn-success">Add Product</a>
                         </div>
                     </div>
@@ -28,6 +55,7 @@
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Quantity</th>
+                                        <th>Price</th>
                                         <th>Stock Status</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -41,6 +69,7 @@
                                             <td><img src="{{ asset('public/'.$product->first_image_url) }}" width="60"></td>
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->quantity }}</td>
+                                            <td>{{ $product->no_sale_price ? "No Sale Price" : $product->sale_price }}</td>
                                             <td>
                                                 {!! $product->stock_status ? '<span class="badge bg-success">in_stock</span>' : '<span class="badge bg-danger">out_stock</span>' !!}
                                             </td>

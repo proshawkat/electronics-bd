@@ -27,6 +27,8 @@ class Product extends Model
         'brand_id',
         'status',
         'discount_percent',
+        'is_clearance_outlet',
+        'no_sale_price', 
     ];
 
     protected $casts = [

@@ -35,6 +35,14 @@ class CartController extends Controller
     {
         $productId = $request->product_id;
         $quantity = $request->quantity ?? 1;
+        $product = Product::find($productId);
+
+        if (!$product || $product->quantity <= 0 || !$product->stock_status) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'This product is out of stock.',
+            ]);
+        }
 
         if (Auth::guard('customer')->check()) {
             $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
@@ -56,7 +64,6 @@ class CartController extends Controller
             session()->put('cart', $sessionCart);
         }
 
-        $product = Product::find($productId);
 
         return response()->json([
             'status'  => 'success',
@@ -73,6 +80,37 @@ class CartController extends Controller
 
     public function buyNow($request)
     {
+        $productId = $request->product_id;
+        $quantity = $request->quantity ?? 1;
+        $product = Product::find($productId);
+
+        if (!$product || $product->quantity <= 0 || !$product->stock_status) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'This product is out of stock.',
+            ]);
+        }
+
+        if (Auth::guard('customer')->check()) {
+            $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
+            $cartItem = CartItem::where('cart_id', $cart->id)->where('product_id', $productId)->first();
+
+            if ($cartItem) {
+                $cartItem->quantity += $quantity;
+                $cartItem->save();
+            } else {
+                CartItem::create([
+                    'cart_id'    => $cart->id,
+                    'product_id' => $productId,
+                    'quantity'   => $quantity,
+                ]);
+            }
+        } else {
+            $sessionCart = session()->get('cart', new SessionCart());
+            $sessionCart->add($productId, $quantity);
+            session()->put('cart', $sessionCart);
+        }
+
         return response()->json([
             'status' => 'success',
             'message' => 'Proceed to checkout',

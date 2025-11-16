@@ -21,6 +21,9 @@ class GeneralSetting extends Model
         'twitter',
         'instagram',
         'whatsapp',
-        'google_map'
+        'google_map',
+        'admin_whatsapp_number',
+        'admin_whatsapp_group_link',
+        'whatsapp_qr_code',
     ];
 }

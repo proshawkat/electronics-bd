@@ -11,14 +11,14 @@ use App\Models\Tag;
 class WelcomeController extends Controller
 {
     public function index(){
-        $homeProducts = Product::where('status', 1)->take(20)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url']);
-        $featuredProducts = Product::where('is_featured', 1)->where('status', 1)->take(5)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url']);
+        $homeProducts = Product::where('status', 1)->where('is_clearance_outlet', '!=', 1)->take(20)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url', 'no_sale_price']);
+        $featuredProducts = Product::where('is_featured', 1)->where('status', 1)->where('is_clearance_outlet', '!=', 1)->take(5)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url', 'no_sale_price']);
         $sliders = Slider::where('status', 1)->get(['link', 'image_url']);
         return view('welcome', compact('featuredProducts', 'homeProducts', 'sliders'));
     }
 
     public function singleProduct($id){
-        $product = Product::select('id', 'name', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url', 'second_image_url')
+        $product = Product::select('id', 'name', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url', 'second_image_url', 'no_sale_price')
                     ->where('id', $id)
                     ->where('status', 1)
                     ->first();
@@ -35,7 +35,7 @@ class WelcomeController extends Controller
             ['title' => ucfirst(str_replace('-', ' ', $slug)), 'url' => $slug]
         ];
         $product = Product::with('galleries')->where('slug', $slug)->firstOrFail();
-        $relatedProducts = Product::where('category_id', $product->category_id)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url']);
+        $relatedProducts = Product::where('category_id', $product->category_id)->where('status', 1)->where('is_clearance_outlet', '!=', 1)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url', 'no_sale_price']);
 
         $galleryJson = $product->galleries->map(function($gallery) use ($product) {
             return [
@@ -62,7 +62,7 @@ class WelcomeController extends Controller
         $tags = Tag::get(['id', 'name']);
 
 
-        $products = Product::where('discount_percent', '>', 0)->where('status', 1);
+        $products = Product::where('discount_percent', '>', 0)->where('is_clearance_outlet', 1)->where('status', 1);
 
         if ($sort == 'pd.name') {
             $products = $products->orderBy('name', $order);

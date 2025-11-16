@@ -27,22 +27,34 @@
                         <input type="hidden" id="selected_sub_category" value="{{ $product->sub_category_id }}">
                         <div class="card-body">                            
                             <div class="row">
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-2 mb-3">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="status" name="status" value="1" {{ $product->status ? 'checked' : '' }} />
                                         <label class="form-check-label" for="status">Active</label>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-2 mb-3">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="stock_status" name="stock_status" value="1" {{ $product->stock_status ? 'checked' : '' }} />
                                         <label class="form-check-label" for="stock_status">Stock status</label>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-2 mb-3">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" {{ $product->is_featured ? 'checked' : '' }}  />
                                         <label class="form-check-label" for="is_featured">Is Featured</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="is_clearance_outlet" name="is_clearance_outlet" value="1" {{ $product->is_clearance_outlet ? 'checked' : '' }}/>
+                                        <label class="form-check-label" for="is_clearance_outlet">Clearance Outlet</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="no_sale_price" name="no_sale_price" value="1" {{ $product->no_sale_price ? 'checked' : '' }}/>
+                                        <label class="form-check-label" for="no_sale_price">No Sale Price</label>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +110,7 @@
                                 </div>       
                                 <div class="col-sm-3 mb-3">
                                     <label for="discount_percent" class="form-label">Discount(Percentege)</label>
-                                    <input type="text" class="form-control" id="discount_percent" name="discount_percent" value="{{ $product->original_price }}" />
+                                    <input type="text" class="form-control" id="discount_percent" name="discount_percent" value="{{ $product->discount_percent }}" />
                                 </div>
                             </div>
                             <div class="mb-3">

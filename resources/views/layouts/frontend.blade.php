@@ -8,15 +8,15 @@
 @endphp
 <!doctype html>
 @if($customerPage)
-    <html lang="en" class="desktop win chrome chrome139 webkit oc30 is-guest route-product-product product-1039 store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-2 one-column column-left flexbox no-touchevents flexbox no-touchevents">
+    <html lang="en" class="desktop route-product-product boxed-layout desktop-header-active mobile-sticky layout-2 one-column column-left  no-touchevents no-touchevents">
 @elseif($onlyCategory)
-<html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents"> 
+<html lang="en" class="route-common-home route-product-product boxed-layout mobile-sticky layout-1 one-column column-left no-touchevents"> 
 @elseif($onlyContact)
-<html class="desktop win chrome chrome139 webkit oc30 is-guest route-information-contact store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-8 flexbox no-touchevents">
+<html class="desktop route-information-contact boxed-layout desktop-header-active mobile-sticky layout-8 no-touchevents">
 @elseif($onlyCart)
-<html class="desktop win chrome chrome139 webkit oc30 is-guest route-checkout-cart store-0 skin-1 boxed-layout desktop-header-active mobile-sticky layout-7 flexbox no-touchevents">           
+<html class="desktop route-checkout-cart boxed-layout desktop-header-active mobile-sticky layout-7 no-touchevents">           
 @else
-    <html lang="en" class="win chrome chrome139 webkit oc30 is-guest route-common-home store-0 skin-1 route-product-product boxed-layout mobile-sticky layout-1 one-column column-left flexbox no-touchevents">
+    <html lang="en" class="route-common-home route-product-product boxed-layout mobile-sticky layout-1 one-column column-left no-touchevents">
 @endif
 
   <head>
@@ -132,6 +132,7 @@
 		
 	</div> 
     
+    @include('frontend.partials.price_request_modal')
     @include('frontend.partials.modal')
 
     <script src="{{ asset('public/frontend/js/anime.min.js') }}"></script>
@@ -170,8 +171,10 @@
 
         $(document).on('click', '.btn-quickview', function() {
             var productId = $(this).data('id');
+            
             console.log('productId ', productId);
             console.log(baseUrl + '/single-product/' + productId);
+
             $('#quickViewModal').modal('show');
             $("#modalContent .modal-img-wrap").html('<div class="text-center">Loading...</div>');
 
@@ -179,13 +182,19 @@
                 url: baseUrl+'/single-product/'+ productId,
                 type: 'GET',
                 success: function(response) {
-                    console.log(response, baseUrl+'/public/'+response.first_image_url);
+                    if(response.no_sale_price){
+                        $('#modal-button-group-page, #modal-product-price-group, #modal-price-span-li').hide();
+                        $('#modal-contact-whatsapp-box').show();
+                    }else{
+                        $('#modal-button-group-page, #modal-product-price-group, #modal-price-span-li').show();
+                        $('#modal-contact-whatsapp-box').hide();
+                    }
                     var img_append = `<img src="${baseUrl+'/public/'+response.first_image_url}" class="img-responsive" alt="">`;
                     var product_name = `<h3>${response.name}</h3>`;
                     $("#modalContent .modal-img-wrap").empty().append(img_append);
                     $("#modalContent #product .page-title").empty().append(product_name);
                     $("#modalContent #product #mp_price, #modalContent #product .product-price").empty().text(response.sale_price+'৳');
-                    $("#modalContent #product #mp_stock_status").empty().text(response.stock_status);
+                    $("#modalContent #product #mp_stock_status").empty().text(response.stock_status? 'In stock': 'Out Of Stock');
                     $("#modalContent #product #mp_product_code").empty().text(response.product_code);
                     $("#modalContent #product #mp_product_mode").empty().text(response.model);
                     $("#modalContent #product #product_id").val(response.id);
@@ -200,6 +209,8 @@
                     $("#modalContent .btn-wishlist").attr("onclick", "addTowishlist("+response.id+", 'modal')");
                     $("#modalContent .btn-compare").attr("onclick", "addCompareList("+response.id+", 'modal')");
                     $("#modalContent #product-quantity").attr("id", "product-quantity-" + response.id);
+
+                    
                 },
                 error: function() {
                     $('#modalContent').html('<div class="text-center text-danger">Failed to load data</div>');

@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Google Map URL</label>
-                                    <input type="url" class="form-control" name="google_map" value="{{ old('google_map', $settings->google_map) }}">
+                                    <input type="text" class="form-control" name="google_map" value="{{ old('google_map', $settings->google_map) }}">
                                 </div>
                             </div>
 
@@ -73,14 +73,25 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">WhatsApp URL</label>
+                                    <label class="form-label">WhatsApp Group URL</label>
                                     <input type="text" class="form-control" name="whatsapp" value="{{ old('whatsapp', $settings->whatsapp) }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">WhatsApp Number</label>
+                                    <input type="text" class="form-control" name="admin_whatsapp_number" value="{{ old('whatsapp', $settings->admin_whatsapp_number) }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Logo</label>
                                     <input type="file" class="form-control" name="logo">
                                     @if($settings->logo)
                                         <img src="{{ asset('public/'.$settings->logo) }}" width="100" class="mt-2">
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="whatsapp_qr_code" class="form-label">WhatsApp QR Code</label>
+                                    <input type="file" name="whatsapp_qr_code" class="form-control">
+                                    @if($settings->whatsapp_qr_code)
+                                        <img src="{{ asset('public/'.$settings->whatsapp_qr_code) }}" width="100" class="mt-2">
                                     @endif
                                 </div>
                             </div>

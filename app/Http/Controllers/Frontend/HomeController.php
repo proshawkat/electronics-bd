@@ -24,12 +24,12 @@ class HomeController extends Controller
 
         if ($slug === 'all-products') {
             $subcategories = collect();
-            $products = Product::where('status', 1)
+            $products = Product::where('status', 1)->where('is_clearance_outlet', '!=', 1)
                 ->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
         } else {
             $category = Category::where('slug', $slug)->whereNull('parent_id')->firstOrFail();
             $subcategories = Category::where('parent_id', $category->id)->where('status', 1)->get();
-            $products = Product::where('category_id', $category->id)->where('status', 1)->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
+            $products = Product::where('category_id', $category->id)->where('status', 1)->where('is_clearance_outlet', '!=', 1)->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
         }
 
         if ($sort == 'pd.name') {
@@ -94,7 +94,7 @@ class HomeController extends Controller
         $order = $request->get('order', 'ASC');
         $limit = $request->get('limit', 20);
 
-        $products = Product::where('category_id', $category->id)->where('sub_category_id', $subcategory->id)->where('status', 1)->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
+        $products = Product::where('category_id', $category->id)->where('sub_category_id', $subcategory->id)->where('status', 1)->where('is_clearance_outlet', '!=', 1)->select('id', 'name', 'slug', 'sale_price', 'stock_status', 'product_code', 'model', 'first_image_url');
 
         if ($sort == 'pd.name') {
             $products = $products->orderBy('name', $order);

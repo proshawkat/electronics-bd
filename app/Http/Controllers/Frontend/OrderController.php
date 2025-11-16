@@ -222,6 +222,7 @@ class OrderController extends Controller
                 if ($customerId) {
                     $product = Product::find($item->product_id);
                     $price = $product->discounted_price;
+
                     OrderItem::create([
                         'order_id'   => $order->id,
                         'product_id' => $item->product_id,
@@ -230,8 +231,18 @@ class OrderController extends Controller
                         'discount_percent' => $product->discount_percent,
                         'total'      => $price * $item->quantity,
                     ]);
+                    $product->quantity -= $item->quantity;
+
+                    if ($product->quantity <= 0) {
+                        $product->quantity = 0;
+                        $product->stock_status = false;
+                    }
+
+                    $product->save();
                 } else {
                     $price = $item['discount_price'];
+                    $product = Product::find($item['id']);
+
                     // Guest cart (array)
                     OrderItem::create([
                         'order_id'   => $order->id,
@@ -241,6 +252,14 @@ class OrderController extends Controller
                         'discount_percent' => $item['discount_percent'],
                         'total'      => $price * $item['qty'],
                     ]);
+
+                    $product->quantity -= $item['qty'];
+
+                    if ($product->quantity <= 0) {
+                        $product->quantity = 0;
+                        $product->stock_status = false;
+                    }
+                    $product->save();
                 }
             }
             DB::commit();

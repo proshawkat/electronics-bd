@@ -56,6 +56,8 @@ function handleAction(click_type, productId, source_type=null) {
                     window.location.href = baseUrl + '/cart/view';
                 }
                 
+            }else{
+                alert(response.message);
             }
         },
         error: function() {

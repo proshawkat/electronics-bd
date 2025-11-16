@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['frontend.partials.header', 'frontend.partials.footer', 'frontend.contact'], function ($view) {
+        View::composer(['frontend.partials.header', 'frontend.partials.footer', 'frontend.partials.price_request_modal', 'frontend.partials.modal', 'frontend.contact', 'frontend.single_product'], function ($view) {
             $settings = cache()->remember('general_settings', 3600, function () {
                 return GeneralSetting::first();
             });

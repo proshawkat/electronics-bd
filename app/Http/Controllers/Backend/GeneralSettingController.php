@@ -24,6 +24,7 @@ class GeneralSettingController extends Controller
         $request->validate([
             'name' => 'nullable|string|max:255',
             'logo' => 'nullable|image|max:2048',
+            'whatsapp_qr_code' => 'nullable|image|max:2048',
             'email' => 'nullable|email',
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:11',
@@ -33,6 +34,7 @@ class GeneralSettingController extends Controller
             'twitter' => 'nullable|url',
             'instagram' => 'nullable|url',
             'whatsapp' => 'nullable|string',
+            'admin_whatsapp_number' => 'nullable|string',
             'google_map' => 'nullable|string',
         ]);
 
@@ -45,7 +47,14 @@ class GeneralSettingController extends Controller
             $settings->logo = 'uploads/settings/'.$filename;
         }
 
-        $settings->update($request->except(['logo','_token']));
+        if ($request->hasFile('whatsapp_qr_code')) {
+            $file = $request->file('whatsapp_qr_code');
+            $filename = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('uploads/settings'), $filename);
+            $settings->whatsapp_qr_code = 'uploads/settings/'.$filename;
+        }
+
+        $settings->update($request->except(['logo', 'whatsapp_qr_code', '_token']));
         Cache::forget('general_settings');
 
         return redirect()->back()->with('success', 'Settings updated successfully!');

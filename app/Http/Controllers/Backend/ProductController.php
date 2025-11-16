@@ -12,9 +12,28 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->latest()->paginate(10);
+        $query = Product::query();
+
+        if ($request->search) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
+        }
+
+        if ($request->filter == 'no_sale_price') {
+            $query->where('no_sale_price', 1);
+        }
+
+        if ($request->filter == 'out_of_stock') {
+            $query->where('stock_status', 0);
+        }
+
+        if ($request->filter == 'in_stock') {
+            $query->where('stock_status', 1);
+        }
+
+        $products = $query->latest()->paginate(10);
+
         return view('backend.products.index', compact('products'));
     }
 
@@ -48,7 +67,7 @@ class ProductController extends Controller
             'product_code' => $request->product_code,
             'model' => $request->model,
             'description' => $request->description,
-            'stock_status' => $request->stock_status ?? 1,
+            'stock_status' => $request->has('stock_status') ? 1 : 0,
             'quantity' => $request->quantity,
             'discount_percent' => $request->discount_percent,
             'sale_price' => $request->sale_price,
@@ -58,8 +77,10 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'sub_category_id' => $request->sub_category_id,
             'brand_id' => $request->brand_id,
-            'status' => $request->status ?? 1,
-            'is_featured' => $request->is_featured ?? 1,
+            'status' => $request->has('status') ? 1 : 0,
+            'is_featured' => $request->has('is_featured') ? 1 : 0,
+            'is_clearance_outlet' => $request->has('is_clearance_outlet') ? 1 : 0,
+            'no_sale_price' => $request->has('no_sale_price') ? 1 : 0,
         ]);
 
         // Gallery Images
@@ -122,7 +143,7 @@ class ProductController extends Controller
             'product_code' => $request->product_code,
             'model' => $request->model,
             'description' => $request->description,
-            'stock_status' => $request->stock_status ?? 1,
+            'stock_status' => $request->has('stock_status') ? 1 : 0,
             'quantity' => $request->quantity,
             'sale_price' => $request->sale_price,
             'discount_percent' => $request->discount_percent,
@@ -132,8 +153,10 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'sub_category_id' => $request->sub_category_id,
             'brand_id' => $request->brand_id,
-            'status' => $request->status ?? 1,
-            'is_featured' => $request->is_featured ?? 1,
+            'status' => $request->has('status') ? 1 : 0,
+            'is_featured' => $request->has('is_featured') ? 1 : 0,
+            'is_clearance_outlet' => $request->has('is_clearance_outlet') ? 1 : 0,
+            'no_sale_price' => $request->has('no_sale_price') ? 1 : 0,
         ]);
 
         // Gallery Images Add
