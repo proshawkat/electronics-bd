@@ -53,6 +53,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('admin.offers.index'); }}" class="nav-link">
+                                <i class="nav-icon bi bi-card-list"></i>
+                                <p>Offer Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.categories.index'); }}" class="nav-link">
                                 <i class="nav-icon bi bi-tags"></i>
                                 <p>Category</p>

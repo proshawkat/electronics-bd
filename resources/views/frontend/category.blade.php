@@ -167,7 +167,7 @@
                 </div>
                 <div class="row main-products product-grid model-content">
                     @forelse($products as $product)
-                        <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="col-xs-6 col-sm-6 col-md-3">
                             <div class="product-layout has-extra-button">
                                 <div class="product-thumb">
                                     <div class="image">

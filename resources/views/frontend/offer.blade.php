@@ -1,5 +1,32 @@
 @extends('layouts.frontend')
+@section('styles')
+    <style>
+        .discount_badge{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .discount_badge svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
+        .discount_badge .discount_text {
+            position: relative;
+            color: #fff;
+            font-size: 13px;
+        }
+    </style>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
@@ -48,6 +75,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                                 <div class="module-item module-item-m text-only panel panel-collapsed">
                                                     <div class="panel-heading">
                                                         <div class="panel-title">
@@ -146,7 +174,7 @@
                                 <div class="product-thumb">
                                     <div class="image">
                                         <div class="quickview-button">
-                                            <a class="btn btn-quickview" data-toggle="tooltip" data-tooltip-class="product-grid quickview-tooltip" data-placement="top" title="" onclick="quickview('2099')" data-original-title="Quickview">
+                                            <a class="btn btn-quickview" data-toggle="tooltip" data-tooltip-class="product-grid quickview-tooltip" data-placement="top" title="" data-original-title="Quickview">
                                                 <span class="btn-text">Quickview</span>
                                             </a>
                                         </div>
@@ -163,6 +191,32 @@
                                                 />
                                             </div>
                                         </a>
+                                        @if($product->offer && $product->offer->status == 1)
+                                            @php
+                                                $offer = $product->offer;
+                                                $offerPrice = $product->getPriceForQuantity($offer->min_qty);
+
+                                                $badgeText = $offer->discount_type == 'percent' ? intval($offer->discount_value) . '%' : intval($offer->discount_value) . '৳';
+                                            @endphp
+
+                                            <div class="discount_badge offer-badge">
+                                                <svg width="40px" height="40px" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M16 8C16 6.8804 15.4743 5.88358 14.6563 5.24291C14.7817 4.21146 14.4486 3.13488 13.6569 2.3432C12.8652 1.55152 11.7886 1.21838 10.7572 1.3438C10.1165 0.525732 9.11964 0 8 0C6.8804 0 5.88358 0.525698 5.24291 1.34372C4.21145 1.2183 3.13485 1.55143 2.34316 2.34312C1.55147 3.13481 1.21834 4.21141 1.34376 5.24288C0.525715 5.88354 0 6.88038 0 8C0 9.1196 0.525698 10.1164 1.34372 10.7571C1.2183 11.7886 1.55143 12.8652 2.34312 13.6568C3.13481 14.4485 4.21141 14.7817 5.24288 14.6562C5.88354 15.4743 6.88038 16 8 16C9.1196 16 10.1164 15.4743 10.7571 14.6563C11.7886 14.7817 12.8652 14.4486 13.6568 13.6569C14.4485 12.8652 14.7817 11.7886 14.6562 10.7572C15.4743 10.1165 16 9.11964 16 8Z" 
+                                                    fill="#D9534F"></path>
+                                                </svg>
+                                                <span style="
+                                                    position:absolute;
+                                                    top:50%;
+                                                    left:50%;
+                                                    transform:translate(-50%, -50%);
+                                                    color:#fff;
+                                                    font-size:12px;
+                                                    font-weight:bold;
+                                                ">
+                                                    {{ $badgeText }}
+                                                </span>
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <div class="caption">
@@ -174,11 +228,27 @@
                                         <div class="name"><a href="{{ url('product/'.$product->slug) }}">{{ $product->name }}</a></div>
 
                                         <div>
-                                            <div class="price">
-                                                <div>
-                                                    <span class="price-normal">{{ $product->sale_price }}৳</span>
-                                                </div>
-                                            </div>
+                                            @if($product->offer && $product->offer->status == 1)
+                                                @php
+                                                    $offer = $product->offer;
+                                                    $offerPrice = $product->getPriceForQuantity($offer->min_qty);
+                                                @endphp
+
+                                                <p class="price">
+                                                    <span class="price-new">{{ number_format($offerPrice, 2) }} ৳</span>
+                                                    <span class="price-old">{{ number_format($product->sale_price, 2) }} ৳</span>
+                                                </p>
+
+                                                <p class="text-center">
+                                                    <small class="text-info">
+                                                        * Minimum Quantity: {{ $offer->min_qty }}
+                                                    </small>
+                                                </p>
+                                            @else
+                                                <p class="price">
+                                                    <span class="price-normal">{{ number_format($product->sale_price, 2) }} ৳</span>
+                                                </p>
+                                            @endif
 
                                             <div class="buttons-wrapper">
                                                 <div class="button-group">

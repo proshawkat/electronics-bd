@@ -509,3 +509,106 @@ a.truncate-text {
     border: 0;
     padding: 0;
 }
+.mb-2{
+    margin-bottom: 2rem;
+}
+.only-mobile-view .j-menu{
+    justify-content: center;
+}
+.mobile-header-active .only-mobile-view .top-menu .j-menu .links-text{
+    color: #000;
+}
+.only-mobile-view{
+    display: none;
+}
+.brand-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: transparent;
+    border-radius: 6px;
+    flex-wrap: wrap;
+}
+
+.brand-item img {
+    width: 35px;      
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(0);
+    transition: 0.3s ease;
+}
+
+.brand-item img:hover {
+    transform: scale(1.05);
+}
+.notification-cart .notification-checkout.btn, 
+.notification-cart .notification-view-cart.btn, 
+.route-checkout-cart .buttons .pull-right .btn,
+div.cart-content .cart-buttons .btn{
+    min-height: 35px;
+}
+.pt-2{
+    padding-top: 16px;
+}
+.pb2{
+    padding-bottom: 16px;
+}
+.pr-color{
+    color: rgba(235, 102, 38, 1);
+}
+@media (max-width: 767px){
+    .only-mobile-view{
+        display: block;
+    }
+    .main-products.product-grid .product-thumb .name a {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .btn{
+        padding: 0 5px;
+        font-size: 11px;
+    }
+    .main-products.product-grid .product-thumb{
+        padding: 3px;
+        padding-bottom: 10px;
+    }
+
+    .mobile-view-cart-product.table-responsive{
+        border: 0 !important;
+    }
+
+    .mobile-view-cart-product table.table thead {
+        display: none;
+    }
+
+    .mobile-view-cart-product table.table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .mobile-view-cart-product table.table td {
+        display: flex;
+        justify-content: space-between;
+        border: none !important;
+        padding: 8px 5px;
+        font-size: 14px;
+        text-align: left !important;
+    }
+
+    .mobile-view-cart-product table.table td:before {
+        content: attr(data-title);
+        font-weight: 600;
+        color: #333;
+    }
+
+    .mobile-view-cart-product .td-image {
+        justify-content: flex-start !important;
+    }
+}

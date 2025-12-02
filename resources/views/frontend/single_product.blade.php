@@ -98,31 +98,6 @@
                     </ul>
                 </div>
 
-                <div class="rating rating-page">
-                    <div class="rating-stars">
-                        <span class="fa fa-stack">
-                            <i class="fa fa-star-o fa-stack-1x"></i>
-                        </span>
-                        <span class="fa fa-stack">
-                            <i class="fa fa-star-o fa-stack-1x"></i>
-                        </span>
-                        <span class="fa fa-stack">
-                            <i class="fa fa-star-o fa-stack-1x"></i>
-                        </span>
-                        <span class="fa fa-stack">
-                            <i class="fa fa-star-o fa-stack-1x"></i>
-                        </span>
-                        <span class="fa fa-stack">
-                            <i class="fa fa-star-o fa-stack-1x"></i>
-                        </span>
-                    </div>
-                    <div class="review-links">
-                        <a>Based on 0 reviews.</a>
-                        <b>-</b>
-                        <a>Write a review</a>
-                    </div>
-                </div>
-
                 @if(!$product->no_sale_price)
                     <div class="product-price-group">
                         <div class="price-wrapper">
@@ -161,6 +136,11 @@
                                 </a>
                             </div>
                         </div>
+                        @if($product->offer)
+                            <div class="pt-2 pb-2 text-center pr-color">
+                                <p>* Minimum Quantity: {{ $product->offer->min_qty }}. Enjoy the offer.</p>
+                            </div>
+                        @endif    
                     </div>
                 @else
                     <div>

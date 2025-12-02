@@ -7,14 +7,13 @@
             <div class="cart-page">
                 <form action="{{ route('cart.edit') }}" method="post" class="cart-table">
                     @csrf
-                    <div class="table-responsive">
+                    <div class="table-responsive mobile-view-cart-product">
                         @if(count($cartItems) > 0)
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <td class="text-center td-image">Image</td>
                                         <td class="text-left td-name">Product Name</td>
-                                        <td class="text-center td-model">Model</td>
                                         <td class="text-center td-qty">Quantity</td>
                                         <td class="text-center td-price">Unit Price</td>
                                         <td class="text-center td-total">Total</td>
@@ -31,7 +30,6 @@
                                             <td class="text-left td-name">
                                                 <a href="{ $item['url'] }}">{{ $item['name'] }}</a>
                                             </td>
-                                            <td class="text-center td-model">{{ $item['model'] }}</td>
                                             <td class="text-center td-qty">
                                                 <div class="input-group btn-block">
                                                     <div class="stepper">
@@ -47,7 +45,7 @@
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td class="text-center td-price">
+                                            <td class="text-center td-price" data-title="Unit Price">
                                                 @if($item['discount_percent'] > 0)
                                                     <span class="text-decoration-line-through">
                                                         {{ number_format($item['price'], 2) }}৳
@@ -59,7 +57,7 @@
                                                     {{ $item['price'] }}৳
                                                 @endif
                                             </td>
-                                            <td class="text-center td-total">{{ $item['subtotal'] }}৳</td>
+                                            <td class="text-center td-total" data-title="Subtotal">{{ $item['subtotal'] }}৳</td>
                                         </tr>
                                     @endforeach       
                                 </tbody>
@@ -71,49 +69,6 @@
                 </form>
                 <div class="cart-bottom">
                     <div class="panels-total">
-                        <div class="cart-panels">
-                            <h2 class="title">What would you like to do next?</h2>
-                            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-                            <div class="panel-group" id="accordion">
-                                <div class="panel panel-default panel-coupon">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a href="#collapse-coupon" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">Use Coupon Code <i class="fa fa-caret-down"></i></a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse-coupon" class="panel-collapse collapse">
-                                        <div class="panel-body form-group">
-                                            <label class="control-label" for="input-coupon">Enter your coupon here</label>
-                                            <div class="input-group">
-                                                <input type="text" name="coupon" value="" placeholder="Enter your coupon here" id="input-coupon" class="form-control" />
-                                                <span class="input-group-btn">
-                                                    <input type="button" value="Apply Coupon" id="button-coupon" data-loading-text="Loading..." class="btn btn-primary" />
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel panel-default panel-voucher">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a href="#collapse-voucher" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">Use Gift Certificate <i class="fa fa-caret-down"></i></a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse-voucher" class="panel-collapse collapse">
-                                        <div class="panel-body form-group">
-                                            <label class="control-label" for="input-voucher">Enter your gift certificate code here</label>
-                                            <div class="input-group">
-                                                <input type="text" name="voucher" value="" placeholder="Enter your gift certificate code here" id="input-voucher" class="form-control" />
-                                                <span class="input-group-btn">
-                                                    <input type="submit" value="Apply Gift Certificate" id="button-voucher" data-loading-text="Loading..." class="btn btn-primary" />
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="cart-total">
                             <table class="table table-bordered">
                                 <tbody>

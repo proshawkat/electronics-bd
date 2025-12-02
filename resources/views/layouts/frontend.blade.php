@@ -1,7 +1,7 @@
 @php
     $routeName = Route::currentRouteName();
     $customerPage = in_array($routeName, ['customer.login', 'customer.register']);
-    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product', 'contact.index', 'cart.view-cart', 'cart.cart-checkout', 'compare', 'wishlist', 'customer.address', 'customer.new_address', 'customer.edit_address', 'customer.order', 'order.success', 'customer.order_details', 'customer.order_return', 'customer.return', 'customer.edit_info', 'customer.password.request', 'customer.password.change', 'customer.password.reset', 'clearance.outlet']);
+    $NotLeftMenuRoute = in_array($routeName, ['customer.login', 'customer.register', 'customer.dashboard', 'category.show', 'category.sub.show', 'slug-product', 'contact.index', 'cart.view-cart', 'cart.cart-checkout', 'compare', 'wishlist', 'customer.address', 'customer.new_address', 'customer.edit_address', 'customer.order', 'order.success', 'customer.order_details', 'customer.order_return', 'customer.return', 'customer.edit_info', 'customer.password.request', 'customer.password.change', 'customer.password.reset', 'clearance.outlet', 'offer.zone']);
     $onlyCategory = in_array($routeName, ['category.show']);
     $onlyContact = in_array($routeName, ['contact.index']);
     $onlyCart = in_array($routeName, ['cart.view-cart', 'cart.cart-checkout']);

@@ -26,6 +26,31 @@
                         </div>
                     </div>
                 </div>
+                <div class="only-mobile-view mb-2">
+                    <div class="grid-row grid-row-content-top-2 secondary-menu">
+                        <div class="top-menu top-menu-14">
+                            <ul class="j-menu">
+                                <li class="menu-item top-menu-item top-menu-item-1">
+                                    <a href="{{ $generalSettings->facebook }}">
+                                        <span class="links-text">Facebook <s>follow us </s></span>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item top-menu-item top-menu-item-3">
+                                    <a href="{{ route('clearance.outlet') }}">
+                                        <span class="links-text">CLEARENCE <s>OUTLET</s></span>
+                                    </a>
+                                </li>
+                                
+                                <li class="menu-item top-menu-item top-menu-item-4">
+                                    <a href="{{ route('offer.zone') }}">
+                                        <span class="links-text">OFFER <s>ZONE</s></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
+                </div>   
                 <div class="grid-row grid-row-content-top-2">
                     <div class="grid-cols">
                         <div class="grid-col grid-col-content-top-2-1">
@@ -37,7 +62,7 @@
                                                 <h3 class="title module-title">Top Accessories Picks</h3>
                                                 <div class="row product-grid main-products model-content">
                                                     @foreach($homeProducts as $product)
-                                                        <div class="col-xs-12 col-sm-6 col-md-3">
+                                                        <div class="col-xs-6 col-sm-6 col-md-3">
                                                             <div class="product-layout has-extra-button">
                                                                 <div class="product-thumb">
                                                                     <div class="image">

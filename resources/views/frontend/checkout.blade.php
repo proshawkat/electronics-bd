@@ -246,13 +246,12 @@
                                     <div class="title section-title">Shopping Cart</div>
                                     <div class="section-body">
                                         <!---->
-                                        <div class="table-responsive">
+                                        <div class="table-responsive mobile-view-cart-product">
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <td class="text-center td-image">Image</td>
                                                         <td class="text-left td-product">Product Name</td>
-                                                        <td class="text-center td-model">Model</td>
                                                         <td class="text-center td-qty">Quantity</td>
                                                         <td class="text-right td-price">Unit Price</td>
                                                         <td class="text-right td-total">Total</td>
@@ -272,7 +271,6 @@
                                                                     {{ $item['name'] }}
                                                                 </a>
                                                             </td>
-                                                            <td class="text-left td-model">{{ $item['model'] }}</td>
                                                             <td class="text-left td-qty">
                                                                 <div class="input-group btn-block" style="max-width: 200px;">
                                                                     <div class="stepper">
@@ -287,7 +285,7 @@
                                                                     </span>
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td data-title="Unit Price">
                                                                 @if($item['discount_percent'] > 0)
                                                                     <span class="text-decoration-line-through">
                                                                         {{ number_format($item['price'], 2) }}৳
@@ -299,7 +297,7 @@
                                                                     {{ $item['price'] }}৳
                                                                 @endif
                                                             </td>
-                                                            <td class="text-right td-total">{{ $item['subtotal'] }}৳</td>
+                                                            <td class="text-right td-total" data-title="Subtotal">{{ $item['subtotal'] }}৳</td>
                                                         </tr>
                                                     @endforeach    
                                                 </tbody>

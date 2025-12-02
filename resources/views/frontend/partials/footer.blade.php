@@ -2,6 +2,38 @@
     <div class="grid-rows">
         <div class="grid-row grid-row-1 grid-row-1-top">
             <div class="row">
+                <div class="col-sm-12">
+                    <div class="brand-strip">
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="GE">
+                        </div>
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="Soundboat">
+                        </div>
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="Auto">
+                        </div>
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="STAC">
+                        </div>
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="Sammi">
+                        </div>
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="Carol">
+                        </div>
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="UNISOUND">
+                        </div>
+                        <div class="brand-item">
+                            <img src="{{ asset('public/frontend/image/ge.svg')}}" alt="TOA">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>            
+        <div class="grid-row grid-row-1">
+            <div class="row">
                 <div class="col-sm-6">
                     <div class="grid-items">
                         <div class="grid-item grid-item-1">
@@ -43,15 +75,13 @@
                     </div>
                 </div>
             </div>
-        </div>            
-        <div class="grid-row grid-row-1">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="grid-items">
                         <div class="grid-item grid-item-1">
                             <div class="module title-module module-title-311">
                                 <div class="title-wrapper">
-                                    <h3>Service</h3>
+                                    <h3>Get in Touch</h3>
                                     <div class="title-divider"></div>
                                     <div class="subtitle"></div>
                                 </div>
@@ -85,7 +115,7 @@
                     <div class="grid-items">
                         <div class="grid-item grid-item-1">
                             <div class="links-menu links-menu-72">
-                                <h3 class="title module-title closed">Custom Links</h3>
+                                <h3 class="title module-title closed">Quick Links</h3>
                                 <ul class="module-body">
                                     <li class="menu-item links-menu-item links-menu-item-1">
                                         <a href="#">

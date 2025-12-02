@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\GeneralSettingController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\AdminOrderController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\CartController;
@@ -29,6 +30,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
 Route::get('/product/{slug}', [WelcomeController::class, 'slugWiseroduct'])->name('slug-product');
 Route::get('/clearance-outlet', [WelcomeController::class, 'clearanceOutlet'])->name('clearance.outlet');
+Route::get('/offer-zone', [WelcomeController::class, 'OfferZone'])->name('offer.zone');
 Route::post('/action', [CartController::class, 'action'])->name('action');
 Route::get('/compare', [CartController::class, 'getCompare'])->name('compare');
 Route::get('/remove-compare/{id}', [CartController::class, 'removeCompare'])->name('remove-compare');
@@ -123,6 +125,7 @@ Route::middleware(['auth', 'role:admin|manager'])->prefix('admin')->name('admin.
     Route::resource('brands', BrandController::class);
     Route::resource('products', ProductController::class);
     Route::resource('sliders', SliderController::class);
+    Route::resource('offers', OfferController::class);
 
     Route::get('all-order', [AdminOrderController::class, 'all'])->name('all_order');
     Route::get('order-pending', [AdminOrderController::class, 'allPending'])->name('order_pending');

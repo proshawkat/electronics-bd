@@ -172,7 +172,7 @@ function showNotification(product, type) {
 
     setTimeout(function() {
         $(".notification-wrapper").fadeOut(300, function() { $(this).remove(); });
-    }, 3000);
+    }, 30000000);
 }
 
 $(document).on("click", ".mobile-wrapper-header .x", function() {

@@ -34,9 +34,9 @@ class WelcomeController extends Controller
         $breadcrumbs = [
             ['title' => ucfirst(str_replace('-', ' ', $slug)), 'url' => $slug]
         ];
-        $product = Product::with('galleries')->where('slug', $slug)->firstOrFail();
+        $product = Product::with('galleries', 'offer')->where('slug', $slug)->firstOrFail();
         $relatedProducts = Product::where('category_id', $product->category_id)->where('status', 1)->where('is_clearance_outlet', '!=', 1)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url', 'no_sale_price']);
-
+        // dd($product->offer);
         $galleryJson = $product->galleries->map(function($gallery) use ($product) {
             return [
                 'src' => asset('public/'.$gallery->original_url), 
@@ -77,5 +77,39 @@ class WelcomeController extends Controller
         $products = $products->paginate($limit);
 
         return view('frontend.clearance', compact('products', 'brands', 'tags', 'breadcrumbs'));
+    }
+
+    public function OfferZone(Request $request){
+        $sort  = $request->get('sort', 'p.sort_order');
+        $order = $request->get('order', 'ASC');
+        $limit = $request->get('limit', 20);
+
+        $breadcrumbs = [
+            ['title' => 'Offers', 'url' => '#']
+        ];
+
+        $brands = Brand::where('status', 1)->get(['id', 'name', 'slug']);
+        $tags   = Tag::get(['id', 'name']);
+
+        // Base query: only products that have an active offer
+        $products = Product::whereHas('offer', function ($q) {
+            $q->where('status', 1);
+        })->where('status', 1);
+
+        // Sorting
+        if ($sort == 'pd.name') {
+            $products = $products->orderBy('name', $order);
+        } elseif ($sort == 'p.price') {
+            $products = $products->orderBy('sale_price', $order);
+        }
+
+        // Brand Filter
+        if ($request->has('m')) {
+            $products->whereIn('brand_id', explode(',', $request->m));
+        }
+
+        $products = $products->paginate($limit);
+
+        return view('frontend.offer', compact('products', 'brands', 'tags', 'breadcrumbs'));
     }
 }

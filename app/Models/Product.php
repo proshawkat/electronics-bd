@@ -40,6 +40,11 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function offer()
+    {
+        return $this->hasOne(Offer::class);
+    }
+
     public function subCategory()
     {
         return $this->belongsTo(Category::class, 'sub_category_id');
@@ -68,4 +73,31 @@ class Product extends Model
         }
         return $this->sale_price;
     }
+
+    public function getPriceForQuantity($qty)
+    {
+        // No offer OR offer inactive
+        if (!$this->offer || $this->offer->status == 0) {
+            return $this->sale_price;
+        }
+
+        $offer = $this->offer;
+
+        // Offer applicable only if qty >= min_qty
+        if ($qty < $offer->min_qty) {
+            return $this->sale_price;
+        }
+
+        // Apply discount
+        if ($offer->discount_type === 'percent') {
+            return round($this->sale_price - ($this->sale_price * ($offer->discount_value / 100)), 2);
+        }
+
+        if ($offer->discount_type === 'fixed') {
+            return max(0, $this->sale_price - $offer->discount_value);
+        }
+
+        return $this->sale_price;
+    }
+
 }

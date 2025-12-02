@@ -32,6 +32,10 @@ class ProductController extends Controller
             $query->where('stock_status', 1);
         }
 
+        if ($request->filter == 'is_clearance_outlet') {
+            $query->where('is_clearance_outlet', 1);
+        }
+
         $products = $query->latest()->paginate(10);
 
         return view('backend.products.index', compact('products'));
