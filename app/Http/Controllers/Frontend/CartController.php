@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use App\Models\Offer;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Wishlist;
@@ -185,17 +186,45 @@ class CartController extends Controller
             $items = CartItem::where('cart_id', $cart->id)->with('product')->get();
 
             foreach ($items as $item) {
-                $subtotal = $item->quantity * $item->product->sale_price;
+                $product = $item->product;
+                $qty = $item->quantity;
+
+                $discountPercent = $product->discount_percent ?? 0;
+                $basePrice = $product->sale_price;
+                $discountedPrice = $basePrice;
+                $isOfferApplicable = false;
+
+                if ($discountPercent > 0) {
+                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
+                } else {
+                    $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
+
+                    if ($offer && $qty >= $offer->min_qty) {
+                        $isOfferApplicable = true;
+
+                        if ($offer->discount_type == 'percent') {
+                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
+                        } else {
+                            $discountedPrice = $basePrice - $offer->discount_value;
+                        }
+                    }
+                }
+
+                $discountedPrice = max(0, $discountedPrice);                
+                $subtotal = $qty * $discountedPrice;
+
                 $totalPrice += $subtotal;
                 $totalQty += $item->quantity;
 
                 $cartItems[] = [
-                    'id' => $item->product->id,
-                    'name' => $item->product->name,
-                    'image' => asset('public/'.$item->product->first_image_url),
-                    'price' => $item->product->sale_price,
-                    'qty' => $item->quantity,
-                    'subtotal' => $subtotal,
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'image'=> asset('public/'.$product->first_image_url),
+                    'price' => $basePrice,
+                    'discount_price' => $discountedPrice,
+                    'discount_percent' => intval($discountPercent),
+                    'qty'=>$qty,
+                    'subtotal'=>$subtotal,
                     'url' => url('/product/'.$item->product->id),
                 ];
             }
@@ -203,9 +232,34 @@ class CartController extends Controller
             $sessionCart = session()->get('cart', new SessionCart());
             $items = $sessionCart->getItems();
             foreach ($items as $item) {
-                $subtotal = $item['qty'] * $item['price'];
+                $qty = $item['qty'];
+                $productId       = $item['id'];
+                $basePrice       = $item['price'];
+                $discountPercent = $item['discount_percent'] ?? 0;
+                $discountedPrice = $basePrice;
+                $isOfferApplicable = false;
+
+                if ($discountPercent > 0) {
+                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
+                }else {
+                    $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
+
+                    if ($offer && $qty >= $offer->min_qty) {
+                        $isOfferApplicable = true;
+
+                        if ($offer->discount_type == 'percent') {
+                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
+                        } else {
+                            $discountedPrice = $basePrice - $offer->discount_value;
+                        }
+                    }
+                }
+
+                $discountedPrice = max(0, $discountedPrice);
+                $subtotal = $qty * $discountedPrice;
+
                 $totalPrice += $subtotal;
-                $totalQty += $item['qty'];
+                $totalQty += $qty;
 
                 $cartItems[] = [
                     'id' => $item['id'],
@@ -270,6 +324,7 @@ class CartController extends Controller
 
         $totalPrice = 0;
         $totalQty = 0;
+        $totalDiscount = 0;
         $cartItems = [];
 
         foreach($items as $item){
@@ -278,20 +333,38 @@ class CartController extends Controller
                 $qty = $item->quantity;
 
                 $discountPercent = $product->discount_percent ?? 0;
-                $discountedPrice = $product->sale_price;
+                $basePrice = $product->sale_price;
+                $discountedPrice = $basePrice;
+                $isOfferApplicable = false;
+
                 if ($discountPercent > 0) {
-                    $discountedPrice = $product->sale_price - ($product->sale_price * $discountPercent / 100);
+                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
+                } else {
+                    $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
+
+                    if ($offer && $qty >= $offer->min_qty) {
+                        $isOfferApplicable = true;
+
+                        if ($offer->discount_type == 'percent') {
+                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
+                        } else {
+                            $discountedPrice = $basePrice - $offer->discount_value;
+                        }
+                    }
                 }
 
+                $discountedPrice = max(0, $discountedPrice);                
+                $totalDiscount += ($basePrice - $discountedPrice) * $qty;
                 $subtotal = $qty * $discountedPrice;
-
+                
                 $cartItems[] = [
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'image'=> asset('public/'.$product->first_image_url),
-                    'price' => $product->sale_price,
+                    'price' => $basePrice,
                     'discount_price' => $discountedPrice,
                     'discount_percent' => intval($discountPercent),
+                    'offer_applied' => $isOfferApplicable,
                     'model' => $product->model,
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,
@@ -299,33 +372,53 @@ class CartController extends Controller
                 ];
             } else {
                 $qty = $item['qty'];
-                
+
+                $productId       = $item['id'];
+                $basePrice       = $item['price'];
                 $discountPercent = $item['discount_percent'] ?? 0;
-                $discountedPrice = $item['price'];
+                $discountedPrice = $basePrice;
+                $isOfferApplicable = false;
+
+                
                 if ($discountPercent > 0) {
-                    $discountedPrice = $item['price'] - ($item['price'] * $discountPercent / 100);
+                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
+                }else {
+                    $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
+
+                    if ($offer && $qty >= $offer->min_qty) {
+                        $isOfferApplicable = true;
+
+                        if ($offer->discount_type == 'percent') {
+                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
+                        } else {
+                            $discountedPrice = $basePrice - $offer->discount_value;
+                        }
+                    }
                 }
 
+                $discountedPrice = max(0, $discountedPrice);
+                $totalDiscount += ($basePrice - $discountedPrice) * $qty;
                 $subtotal = $qty * $discountedPrice;
 
                 $cartItems[] = [
-                    'id'=>$item['id'],
-                    'name'=>$item['name'],
-                    'image'=>$item['image'],
-                    'price'=>$item['price'],
-                    'discount_price' => $discountedPrice,
-                    'discount_percent' => intval($discountPercent),
-                    'model' =>$item['model'],
-                    'qty'=>$qty,
-                    'subtotal'=>$subtotal,
-                    'url'=>url('/product/'.$item['slug'])
+                    'id'                => $item['id'],
+                    'name'              => $item['name'],
+                    'image'             => $item['image'],
+                    'price'             => $basePrice,
+                    'discount_price'    => $discountedPrice,
+                    'discount_percent'  => intval($discountPercent),
+                    'offer_applied'     => $isOfferApplicable,
+                    'model'             => $item['model'],
+                    'qty'               => $qty,
+                    'subtotal'          => $subtotal,
+                    'url'               => url('/product/'.$item['slug'])
                 ];
             }
             $totalPrice += $subtotal;
             $totalQty += $qty;
         }
 
-        $relatedProducts = Product::inRandomOrder()->take(12)->get();
+        $relatedProducts = Product::inRandomOrder()->where('is_clearance_outlet', '!=', 1)->take(12)->get();
 
         return view('frontend.cart', compact('breadcrumbs','cartItems','totalPrice','totalQty', 'relatedProducts'));
     }
@@ -394,20 +487,37 @@ class CartController extends Controller
                 $qty = $item->quantity;
 
                 $discountPercent = $product->discount_percent ?? 0;
-                $discountedPrice = $product->sale_price;
+                $basePrice = $product->sale_price;
+                $discountedPrice = $basePrice;
+                $isOfferApplicable = false;
+
                 if ($discountPercent > 0) {
-                    $discountedPrice = $product->sale_price - ($product->sale_price * $discountPercent / 100);
+                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
+                } else {
+                    $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
+
+                    if ($offer && $qty >= $offer->min_qty) {
+                        $isOfferApplicable = true;
+
+                        if ($offer->discount_type == 'percent') {
+                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
+                        } else {
+                            $discountedPrice = $basePrice - $offer->discount_value;
+                        }
+                    }
                 }
 
+                $discountedPrice = max(0, $discountedPrice);
                 $subtotal = $qty * $discountedPrice;
 
                 $cartItems[] = [
                     'id'=>$product->id,
                     'name'=>$product->name,
-                    'image'=> asset('public/'. $product->first_image_url),
-                    'price' => $product->sale_price,
+                    'image'=> asset('public/'.$product->first_image_url),
+                    'price' => $basePrice,
                     'discount_price' => $discountedPrice,
                     'discount_percent' => intval($discountPercent),
+                    'offer_applied' => $isOfferApplicable,
                     'model' => $product->model,
                     'qty'=>$qty,
                     'subtotal'=>$subtotal,
@@ -416,25 +526,44 @@ class CartController extends Controller
             } else {
                 $qty = $item['qty'];
 
+                $productId       = $item['id'];
+                $basePrice       = $item['price'];
+                $discountPercent = $item['discount_percent'] ?? 0;
+                $discountedPrice = $basePrice;
+                $isOfferApplicable = false;
+
                 $discountPercent = $item['discount_percent'] ?? 0;
                 $discountedPrice = $item['price'];
                 if ($discountPercent > 0) {
-                    $discountedPrice = $item['price'] - ($item['price'] * $discountPercent / 100);
+                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
+                } else {
+                    $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
+
+                    if ($offer && $qty >= $offer->min_qty) {
+                        $isOfferApplicable = true;
+                        if ($offer->discount_type == 'percent') {
+                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
+                        } else {
+                            $discountedPrice = $basePrice - $offer->discount_value;
+                        }
+                    }
                 }
 
+                $discountedPrice = max(0, $discountedPrice);
                 $subtotal = $qty * $discountedPrice;
                 
                 $cartItems[] = [
-                    'id'=>$item['id'],
-                    'name'=>$item['name'],
-                    'image'=>$item['image'],
-                    'price'=>$item['price'],
-                    'discount_price' => $discountedPrice,
-                    'discount_percent' => intval($discountPercent),
-                    'model' =>$item['model'],
-                    'qty'=>$qty,
-                    'subtotal'=>$subtotal,
-                    'url'=>url('/product/'.$item['slug'])
+                    'id'                => $item['id'],
+                    'name'              => $item['name'],
+                    'image'             => $item['image'],
+                    'price'             => $basePrice,
+                    'discount_price'    => $discountedPrice,
+                    'discount_percent'  => intval($discountPercent),
+                    'offer_applied'     => $isOfferApplicable,
+                    'model'             => $item['model'],
+                    'qty'               => $qty,
+                    'subtotal'          => $subtotal,
+                    'url'               => url('/product/'.$item['slug'])
                 ];
             }
             $totalPrice += $subtotal;

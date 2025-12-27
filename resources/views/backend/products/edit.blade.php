@@ -64,8 +64,17 @@
                                     <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required />
                                 </div>
                                 <div class="col-sm-4 mb-3">
+                                    <label for="brand_id" class="form-label">Brand<span class="text-danger">*</span></label>
+                                    <select class="form-select" id="brand_id" name="brand_id" required>
+                                        <option value="">Choose...</option>
+                                        @foreach($brands as $brand)
+                                            <option value="{{ $brand->id }}" {{ $product->brand_id == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
+                                        @endforeach    
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 mb-3">
                                     <label for="product_code" class="form-label">Product code<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="product_code" name="product_code" value="{{ $product->product_code }}" required />
+                                    <input type="text" class="form-control" id="product_code" name="product_code" value="{{ $product->product_code }}" />
                                 </div>
                                 <div class="col-sm-4 mb-3">
                                     <label for="model" class="form-label">Model<span class="text-danger">*</span></label>
@@ -112,15 +121,6 @@
                                     <label for="discount_percent" class="form-label">Discount(Percentege)</label>
                                     <input type="text" class="form-control" id="discount_percent" name="discount_percent" value="{{ $product->discount_percent }}" />
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="brand_id" class="form-label">Brand</label>
-                                <select class="form-select" id="brand_id" name="brand_id">
-                                    <option value="">Choose...</option>
-                                    @foreach($brands as $brand)
-                                        <option value="{{ $brand->id }}" {{ $product->brand_id == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
-                                    @endforeach    
-                                </select>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 mb-3">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\OrderItem;
 use App\Models\ProductGallery;
 use Illuminate\Support\Str;
 
@@ -53,14 +54,21 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|unique:products,slug',
-            'product_code' => 'required|unique:products,product_code',
+            'model' => 'required|unique:products,model',
             'description' => 'required',
             'first_image_url' => 'required|image|max:2048',
             'second_image_url' => 'nullable|image|max:2048',
-            'gallery_images.*' => 'nullable|image|max:2048',
+            'gallery_images.*' => 'nullable|image|max:4096',
         ]);
 
-        $slug = $request->slug ?? Str::slug($request->name);
+        $slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
 
         $firstImageUrl = $this->uploadImage($request->file('first_image_url'));
         $secondImageUrl = $request->hasFile('second_image_url') ? $this->uploadImage($request->file('second_image_url')) : null;
@@ -68,12 +76,12 @@ class ProductController extends Controller
         $product = Product::create([
             'name' => $request->name,
             'slug' => $slug,
-            'product_code' => $request->product_code,
+            'product_code' => $request->product_code ?? null,
             'model' => $request->model,
             'description' => $request->description,
             'stock_status' => $request->has('stock_status') ? 1 : 0,
             'quantity' => $request->quantity,
-            'discount_percent' => $request->discount_percent,
+            'discount_percent' => $request->discount_percent ?? 0,
             'sale_price' => $request->sale_price,
             'original_price' => $request->original_price,
             'first_image_url' => $firstImageUrl,
@@ -123,7 +131,13 @@ class ProductController extends Controller
             'gallery_images.*' => 'nullable|image|max:2048',
         ]);
 
-        $slug = $request->slug ?? Str::slug($request->name);
+        $slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
+        $originalSlug = $slug;
+        $count = 1;
+        while (Product::where('slug', $slug)->where('id', '!=', $product->id)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
 
         $firstImageUrl = $product->first_image_url;
         if ($request->hasFile('first_image_url')) {
@@ -190,6 +204,33 @@ class ProductController extends Controller
         $file->move(public_path('uploads/' . $folder), $filename);
 
         return 'uploads/' . $folder . '/' . $filename;
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $existsInOrders = OrderItem::where('product_id', $id)->exists();
+
+        if ($existsInOrders) {
+            return redirect()->back()->with('error', 'This product cannot be deleted because it has already been ordered!');
+        }
+        if ($product->first_image_url && file_exists(public_path($product->first_image_url))) {
+            unlink(public_path($product->first_image_url));
+        }
+        if ($product->second_image_url && file_exists(public_path($product->second_image_url))) {
+            unlink(public_path($product->second_image_url));
+        }
+        $galleryImages = ProductGallery::where('product_id', $product->id)->get();
+        foreach ($galleryImages as $image) {
+            if ($image->original_url && file_exists(public_path($image->original_url))) {
+                unlink(public_path($image->original_url));
+            }
+            $image->delete();
+        }
+
+        $product->delete();
+
+        return redirect()->back()->with('success', 'Product and its images deleted successfully!');
     }
 
 

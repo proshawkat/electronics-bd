@@ -286,15 +286,28 @@
                                                                 </div>
                                                             </td>
                                                             <td data-title="Unit Price">
-                                                                @if($item['discount_percent'] > 0)
-                                                                    <span class="text-decoration-line-through">
+                                                                @php
+                                                                    $discountAmount = $item['price'] - $item['discount_price'];
+                                                                @endphp
+
+                                                                @if($item['discount_percent'] > 0 || !empty($item['offer_applied']))
+                                                                    <span class="text-decoration-line-through text-danger">
                                                                         {{ number_format($item['price'], 2) }}৳
                                                                     </span>
                                                                     <br>
-                                                                    <span class="price-normal">
+
+                                                                    @if($discountAmount > 0)
+                                                                        <span class="text-success small">
+                                                                            Saved {{ number_format($discountAmount, 2) }}৳
+                                                                        </span>
+                                                                        <br>
+                                                                    @endif
+
+                                                                    <span class="price-normal fw-bold">
                                                                         {{ number_format($item['discount_price'], 2) }}৳
+                                                                    </span>
                                                                 @else
-                                                                    {{ $item['price'] }}৳
+                                                                    {{ number_format($item['price'], 2) }}৳
                                                                 @endif
                                                             </td>
                                                             <td class="text-right td-total" data-title="Subtotal">{{ $item['subtotal'] }}৳</td>

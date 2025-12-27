@@ -33,14 +33,14 @@
 </style>
 @endsection
 @section('content')    
-    <h1 class="title page-title"><span>Your order has been placed!</span></h1>
+    <h1 class="title page-title"><span>Thank you for your order!</span></h1>
     <div id="common-success" class="container">
         <div class="row">
             <div class="col-sm-12">
                 <div class="container-wrapper">
-                    <p>Your order has been successfully processed!</p>
-                    <p>Please direct any questions you have to the <a href="{{ route('contact.index') }}">store owner</a>.</p>
-                    <p>Thanks for shopping with us online!</p>
+                    <p>We’ve successfully received and processed your order.</p>
+                    <p>If you have any questions or concerns, please feel free to contact the <a href="{{ route('contact.index') }}">store owner</a>.</p>
+                    <p>We appreciate your business and hope you enjoy your purchase!</p>
                     <div class="buttons">
                         <div class="pull-right"><a href="{{ route('home') }}" class="btn btn-primary">Continue</a></div>
                     </div>

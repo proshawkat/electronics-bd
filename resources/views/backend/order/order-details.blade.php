@@ -107,7 +107,9 @@
                                 </div>
                             @endif    
                         </div>
-
+                        @php
+                            $totalDiscount = $order->items->sum(fn($i) => $i->discount_amount * $i->quantity);
+                        @endphp
                         <!-- Order Summary Card -->
                         <div class="custom-card p-4">
                             <div class="d-flex align-items-center justify-content-between mb-3">
@@ -123,7 +125,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <span class="text-sm text-gray-700">Discount</span>
-                                    <span class="text-sm text-red-500">- ৳0.00</span>
+                                    <span class="text-sm text-red-500">- ৳{{ number_format($totalDiscount, 2) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <span class="text-sm text-gray-700">Shipping</span>

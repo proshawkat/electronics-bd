@@ -55,7 +55,6 @@
                     <thead>
                         <tr>
                             <td class="text-left">Product Name</td>
-                            <td class="text-left">Model</td>
                             <td class="text-right">Quantity</td>
                             <td class="text-right">Price</td>
                             <td class="text-right">Total</td>
@@ -68,37 +67,33 @@
                     <tbody>
                         @foreach($order->items as $item)
                             @php
-                                $lineTotal = $item->quantity * ($item->product->sale_price ?? 0);
+                                $lineTotal = $item->quantity * ($item->price ?? 0);
                                 $subTotal += $lineTotal;
                             @endphp
                             <tr class="">
                                 <td class="text-left">{{ $item->product->name ?? 'Deleted Product' }}</td>
-                                <td class="text-left">{{ $item->product->model ?? 'Deleted Product' }}</td>
                                 <td class="text-right">{{ $item->quantity }}</td>
-                                <td class="text-right">{{ $item->product->sale_price }}৳</td>
-                                <td class="text-right">{{ $lineTotal }}৳</td>
+                                <td class="text-right">{{ $item->price }}৳</td>
+                                <td class="text-right">{{ $item->total }}৳</td>
                             </tr>
                         @endforeach    
                     </tbody>
 
                     <tfoot>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td class="text-right"><b>Sub-Total</b></td>
                             <td class="text-right">{{ $subTotal }}৳</td>
-                            <td></td>
                         </tr>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td class="text-right"><b>Pickup From Store</b></td>
                             <td class="text-right">0৳</td>
-                            <td></td>
                         </tr>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td class="text-right"><b>Total</b></td>
                             <td class="text-right">{{ $subTotal }}৳</td>
-                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -135,7 +130,6 @@
                 </table>
             </div>
             <div class="buttons clearfix">
-                <div class="pull-right"><a href="{{ route('customer.order_return', $order->order_code) }}" class="btn btn-primary">Return</a></div>
                 <div class="pull-right"><a href="{{ route('customer.order') }}" class="btn btn-primary">Continue</a></div>
             </div>
         </div>

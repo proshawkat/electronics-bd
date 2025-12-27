@@ -7,7 +7,7 @@
             <div class="row login-box">
                 <div class="col-sm-12">
                     <div class="well">
-                        <h2 class="title">Returning Customer</h2>
+                        <h2 class="title">Back to Login</h2>
                         <p><strong>I am a returning customer</strong></p>
                         <form action="{{ route('customer.login') }}" method="post" class="form-horizontal login-form">
                             @csrf
@@ -28,12 +28,12 @@
                         </form>
                     </div>
                     <div class="well">
-                        <h2 class="title">Create Your Account</h2>
+                        <h2 class="title">Open Your Account</h2>
                         <p><strong>Sign Up</strong></p>
-                        <p>Opening an account allows you to shop more easily, track your order status in real time, and view your previous purchases anytime.</p>
+                        <p>Join us for a smoother shopping experience — follow your orders live and revisit all your previous purchases anytime.</p>
                         <div class="buttons">
                             <div class="pull-right">
-                                <a href="{{ route('customer.register') }}" class="btn btn-primary">Get Started</a>
+                                <a href="{{ route('customer.register') }}" class="btn btn-primary">Start Now</a>
                             </div>
                         </div>
                     </div>

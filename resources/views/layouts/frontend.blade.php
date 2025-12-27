@@ -8,15 +8,15 @@
 @endphp
 <!doctype html>
 @if($customerPage)
-    <html lang="en" class="desktop route-product-product boxed-layout desktop-header-active mobile-sticky layout-2 one-column column-left  no-touchevents no-touchevents">
+    <html lang="en" class="desktop product-view-page boxed-layout desktop-header-active mobile-sticky layout-2 one-column column-left  no-touchevents no-touchevents">
 @elseif($onlyCategory)
-<html lang="en" class="route-common-home route-product-product boxed-layout mobile-sticky layout-1 one-column column-left no-touchevents"> 
+<html lang="en" class="route-common-home product-view-page boxed-layout mobile-sticky layout-1 one-column column-left no-touchevents"> 
 @elseif($onlyContact)
 <html class="desktop route-information-contact boxed-layout desktop-header-active mobile-sticky layout-8 no-touchevents">
 @elseif($onlyCart)
 <html class="desktop route-checkout-cart boxed-layout desktop-header-active mobile-sticky layout-7 no-touchevents">           
 @else
-    <html lang="en" class="route-common-home route-product-product boxed-layout mobile-sticky layout-1 one-column column-left no-touchevents">
+    <html lang="en" class="route-common-home product-view-page boxed-layout mobile-sticky layout-1 one-column column-left no-touchevents">
 @endif
 
   <head>
@@ -76,7 +76,11 @@
 
     @if(!request()->is(''))
         @php $items = $breadcrumbs ?? []; @endphp
-
+        @if (Route::currentRouteName() !== 'home')
+            <div class="only-mobile-view mt-2">
+                @include('frontend.partials.top_social')
+            </div>
+        @endif    
         @if(count($items))
             <ul class="breadcrumb">
                 <li>
@@ -101,11 +105,19 @@
                     </a>
                 </li>
                 @foreach($items as $bc)
+                    @php
+                        $text = $bc['title'];
+                        if(strlen($text) > 15){
+                            $text = substr($text, 0, 20) . '...';
+                        } else {
+                            $text = $text;
+                        }
+                    @endphp
                     <li>
                         @if(!empty($bc['url']))
-                            <a href="{{ $bc['url'] }}">{{ $bc['title'] }}</a>
+                            <a href="{{ $bc['url'] }}">{{ $text  }}</a>
                         @else
-                            {{ $bc['title'] }}
+                            {{ $text }}
                         @endif
                     </li>
                 @endforeach
@@ -195,7 +207,7 @@
                     $("#modalContent #product .page-title").empty().append(product_name);
                     $("#modalContent #product #mp_price, #modalContent #product .product-price").empty().text(response.sale_price+'৳');
                     $("#modalContent #product #mp_stock_status").empty().text(response.stock_status? 'In stock': 'Out Of Stock');
-                    $("#modalContent #product #mp_product_code").empty().text(response.product_code);
+                    // $("#modalContent #product #mp_product_code").empty().text(response.product_code);
                     $("#modalContent #product #mp_product_mode").empty().text(response.model);
                     $("#modalContent #product #product_id").val(response.id);
 

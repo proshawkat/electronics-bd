@@ -38,7 +38,7 @@
                                 <input type="text" class="form-control" id="link" name="link" value="{{ old('link') }}" />
                             </div>
                             <div class="mb-3">
-                                <label for="image_url" class="form-label">Image<span class="text-danger">*</span></label>
+                                <label for="image_url" class="form-label">Image<span class="text-danger">*</span>(Dimensions 960x400)</label>
                                 <input type="file" class="form-control" id="image_url" name="image_url" value="{{ old('image_url') }}" />
                             </div>
                         </div>

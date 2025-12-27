@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-6">
-                <div class="small-box text-bg-warning">
+                <div class="small-box text-bg-danger">
                     <div class="inner">
                     <h3>{{ $totalProducts }}</h3>
                     <p>Total Products</p>
@@ -84,6 +84,16 @@
                 </div>
             </div>
         </div>
+        
+        <div class="row">
+          <div class="col-lg-12 connectedSortable">
+            <div class="card mb-4">
+              <div class="card-header"><h3 class="card-title">Order statistic</h3></div>
+              <div class="card-body"><div id="revenue-chart"></div></div>
+            </div>
+          </div>
+        </div>      
+          
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
@@ -157,3 +167,44 @@
     </div>
 </div>            
 @endsection    
+@section('scripts')   
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js" integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
+<script>
+  const months = {!! json_encode($orderStats->pluck('month')) !!};
+  const deliveredData = {!! json_encode($orderStats->pluck('delivered')) !!};
+  const pendingData = {!! json_encode($orderStats->pluck('pending')) !!};
+
+  const sales_chart_options = {
+    series: [
+      {
+        name: 'Delivered',
+        data: deliveredData,
+      },
+      {
+        name: 'Pending',
+        data: pendingData,
+      },
+    ],
+    chart: {
+      height: 300,
+      type: 'area',
+      toolbar: { show: false },
+    },
+    colors: ['#198754', '#ffc107'],
+    dataLabels: { enabled: false },
+    stroke: { curve: 'smooth' },
+    xaxis: {
+      type: 'datetime',
+      categories: months,
+    },
+    tooltip: {
+      x: { format: 'MMMM yyyy' },
+    },
+  };
+
+  new ApexCharts(
+    document.querySelector('#revenue-chart'),
+    sales_chart_options
+  ).render();
+</script>
+@endsection   

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Models\Product;
+use App\Models\Offer;
 
 class SessionCart
 {
@@ -13,9 +14,25 @@ class SessionCart
 
         $discountPercent = $product->discount_percent ?? 0;
         $discountedPrice = $product->sale_price;
+        $isOfferApplied   = false;
         if ($discountPercent > 0) {
             $discountedPrice = $product->sale_price - ($product->sale_price * $discountPercent / 100);
+        }else {
+            $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
+
+            if ($offer && $quantity >= $offer->min_qty) {
+                $isOfferApplied = true;
+                if ($offer->discount_type === 'percent') {
+                    $discountedPrice = 
+                        $product->sale_price - ($product->sale_price * $offer->discount_value / 100);
+                } else {
+                    $discountedPrice = 
+                        $product->sale_price - $offer->discount_value;
+                }
+            }
         }
+
+        $discountedPrice = max(0, $discountedPrice);
 
         if(isset($this->items[$productId])) {
             $this->items[$productId]['qty'] += $quantity;
@@ -27,6 +44,7 @@ class SessionCart
                 'price' => $product->sale_price,
                 'discount_price' => $discountedPrice,
                 'discount_percent' => intval($discountPercent),
+                'offer_applied'     => $isOfferApplied,
                 'model' => $product->model,
                 'slug'  => $product->slug,
                 'qty'   => $quantity

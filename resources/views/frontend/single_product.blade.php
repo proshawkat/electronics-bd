@@ -92,8 +92,6 @@
                         @endif
                         <li class="product-stock stats-itams in-stock"><b>Stock:</b> <span>{{ $product->stock_status == 1 ? 'In Stock' : 'Out of Stock' }}</span></li>
 
-                        <li class="product-code stats-itams"><b>Product Code:</b> <span> {{ $product->product_code }}</span></li>
-
                         <li class="product-model stats-itams"><b>Model:</b> <span>{{ $product->model }}</span></li>
                     </ul>
                 </div>

@@ -6051,7 +6051,7 @@ https://www.journal-theme.com/
 .popup-inner-body:empty + .popup-close {
   display: none !important; }
 
-.route-product-product.popup-quickview .direction-horizontal .additional-images .swiper-container {
+.product-view-page.popup-quickview .direction-horizontal .additional-images .swiper-container {
   overflow: hidden; }
 
 /******************************

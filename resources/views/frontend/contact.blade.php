@@ -67,7 +67,7 @@
 						<div class="pd-2">
 							<div class="grid-item grid-item-content-top-1-2-1">
 								<div class="module module-form-20">
-									<h3 class="title module-title">Looking forward to hearing from you</h3>
+									<h3 class="title module-title">We’re here to help — get in touch</h3>
 									<div class="module-body">
 										<form action="{{ route('contact.store') }}" method="post" class="form-horizontal">
 											@csrf
@@ -90,11 +90,12 @@
 													<label class="col-sm-2 control-label" for="topic">Topic</label>
 													<div class="col-sm-10">
 														<select name="topic" id="topic" class="form-control">
-															<option value=""> --- Please Select --- </option>
-															<option value="Capture the information you need">Capture the information you need</option>
-															<option value="Add or remove any fields">Add or remove any fields</option>
-															<option value="Your own custom criteria">Your own custom criteria</option>
-															<option value="Make any field required or not">Make any field required or not</option>
+															<option value=""> Choose a Topic </option>
+															<option value="Order Inquiry">Order Inquiry</option>
+															<option value="Product Information">Product Information</option>
+															<option value="Shipping & Delivery">Shipping & Delivery</option>
+															<option value="Report a Problem">Report a Problem</option>
+															<option value="Wholesale Inquiry">Wholesale Inquiry</option>
 														</select>
 													</div>
 												</div>

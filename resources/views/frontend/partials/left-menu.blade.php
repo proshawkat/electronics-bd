@@ -88,10 +88,17 @@
                                                                     {{ $product->name }}
                                                                 </a>
                                                             </div>
-
-                                                            <div class="price">
-                                                                <span class="price-normal">{{ $product->sale_price }}৳</span>
-                                                            </div>
+                                                            @if(!$product->no_sale_price)
+                                                                <div class="price">
+                                                                    <span class="price-normal">{{ $product->sale_price }}৳</span>
+                                                                </div>
+                                                            @else
+                                                                <div class="price">
+                                                                    <div>
+                                                                        <span class="price-normal">Price on Request</span>
+                                                                    </div>
+                                                                </div>
+                                                            @endif        
                                                         </div>
                                                     </div>
                                                 </div>

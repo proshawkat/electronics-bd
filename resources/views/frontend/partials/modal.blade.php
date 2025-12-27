@@ -23,7 +23,7 @@
                   <ul class="list-unstyled">
                     <li class="stats-itams" id="modal-price-span-li"><b>Price:</b> <span id="mp_price"></span></li>
                     <li class="product-stock stats-itams in-stock"><b>Stock:</b> <span id="mp_stock_status">In Stock</span></li>
-                    <li class="product-code stats-itams"><b>Product Code:</b> <span id="mp_product_code"> </span></li>
+                    <!-- <li class="product-code stats-itams"><b>Product Code:</b> <span id="mp_product_code"> </span></li> -->
                     <li class="product-model stats-itams"><b>Model:</b> <span id="mp_product_mode"></span></li>
                   </ul> 
                 </div>

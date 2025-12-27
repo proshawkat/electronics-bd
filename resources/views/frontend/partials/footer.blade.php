@@ -130,12 +130,6 @@
                                         </a>
                                     </li>
 
-                                    <li class="menu-item links-menu-item links-menu-item-4">
-                                        <a href="#">
-                                            <span class="links-text">Returns</span>
-                                        </a>
-                                    </li>
-
                                     <li class="menu-item links-menu-item links-menu-item-6">
                                         <a href="{{ route('customer.dashboard') }}">
                                             <span class="links-text">My Accounts</span>

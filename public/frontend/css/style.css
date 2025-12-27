@@ -551,6 +551,9 @@ div.cart-content .cart-buttons .btn{
 .pt-2{
     padding-top: 16px;
 }
+.mt-2{
+    margin-top: 1.5rem;
+}
 .pb2{
     padding-bottom: 16px;
 }
@@ -602,13 +605,13 @@ div.cart-content .cart-buttons .btn{
         text-align: left !important;
     }
 
+    .mobile-view-cart-product table.table td.td_center{
+        justify-content: center;
+    }
+
     .mobile-view-cart-product table.table td:before {
         content: attr(data-title);
         font-weight: 600;
         color: #333;
-    }
-
-    .mobile-view-cart-product .td-image {
-        justify-content: flex-start !important;
     }
 }

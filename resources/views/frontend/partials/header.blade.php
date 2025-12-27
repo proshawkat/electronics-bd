@@ -3,23 +3,6 @@
         <div class="top-bar navbar-nav">
             <div class="language-currency top-menu">
                 <div class="desktop-language-wrapper"></div>
-                <div class="desktop-currency-wrapper">
-                    <div id="currency" class="currency">
-                        <form method="post" enctype="multipart/form-data" id="form-currency">
-                            <div class="dropdown drop-menu">
-                                <button type="button" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="currency-symbol-title">
-                                        <span class="symbol">৳</span>
-                                        <span class="currency-title">Taka</span>
-                                        <span class="currency-code">BDT</span>
-                                    </span>
-                                </button>
-                            </div>
-                            <input type="hidden" name="code" value="" />
-                            <input type="hidden" name="redirect" value="#" />
-                        </form>
-                    </div>
-                </div>
             </div>
             <div class="third-menu"></div>
         </div>

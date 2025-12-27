@@ -32,7 +32,6 @@
                             View your order history
                         </a>
                     </li>
-                    <li class="edit-returns"><a href="{{ route('customer.return') }}">View your return requests</a></li>
                 </ul>
             </div>
         </div>

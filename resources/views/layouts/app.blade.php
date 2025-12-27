@@ -72,6 +72,7 @@
         ></script>
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
         <script src="{{ asset('public/backend/js/adminlte.js') }}"></script>
+        @yield('scripts')
         <script>
             $(document).ready(function() {
                 $('#product-description').summernote({

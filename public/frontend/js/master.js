@@ -1114,7 +1114,7 @@ jQuery(function ($) {
 	});
 
 	// Product Page
-	if ($html.hasClass('route-product-product')) {
+	if ($html.hasClass('product-view-page')) {
 		// sync image carousels
 		$(document).delegate('.additional-image', 'click', function () {
 			$('.additional-image').removeClass('swiper-slide-active');

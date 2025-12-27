@@ -28,14 +28,7 @@
                                         <a href="{{ route('customer.order') }}">
                                             <span class="links-text">Order History</span>
                                         </a>
-                                    </li>
-
-                                    <li class="menu-item accordion-menu-item accordion-menu-item-8">
-                                        <a href="{{ route('customer.return') }}">
-                                            <span class="links-text">Returns</span>
-                                        </a>
-                                    </li>
-                                    
+                                    </li>                                    
                                 </ul>
                             </div>
                         </div>

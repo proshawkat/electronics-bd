@@ -13,6 +13,7 @@ use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\Offer;
 use App\Services\SessionCart;
 use App\Mail\OrderPlacedMail;
 use Illuminate\Support\Facades\Mail;
@@ -221,7 +222,8 @@ class OrderController extends Controller
             foreach ($cartItems as $item) {
                 if ($customerId) {
                     $product = Product::find($item->product_id);
-                    $price = $product->discounted_price;
+                    $price = $this->calculateFinalPrice($item->product_id, $item->quantity);
+                    $discountAmount = $this->calculateDiscountAmount($item->product_id, $item->quantity);
 
                     OrderItem::create([
                         'order_id'   => $order->id,
@@ -229,6 +231,7 @@ class OrderController extends Controller
                         'quantity'   => $item->quantity,
                         'price'      => $price,
                         'discount_percent' => $product->discount_percent,
+                        'discount_amount' => $discountAmount,
                         'total'      => $price * $item->quantity,
                     ]);
                     $product->quantity -= $item->quantity;
@@ -240,16 +243,17 @@ class OrderController extends Controller
 
                     $product->save();
                 } else {
-                    $price = $item['discount_price'];
+                    $price = $this->calculateFinalPrice($item['id'], $item['qty']);
                     $product = Product::find($item['id']);
+                    $discountAmount = $this->calculateDiscountAmount($item['id'], $item['qty']);
 
-                    // Guest cart (array)
                     OrderItem::create([
                         'order_id'   => $order->id,
                         'product_id' => $item['id'],
                         'quantity'   => $item['qty'],
                         'price'      => $price,
                         'discount_percent' => $item['discount_percent'],
+                        'discount_amount' => $discountAmount,
                         'total'      => $price * $item['qty'],
                     ]);
 
@@ -304,33 +308,75 @@ class OrderController extends Controller
         $total = 0;
 
         foreach ($items as $item) {
+
             if ($customerId) {
                 $qty = $item->quantity ?? 1;
-                $product = $item->product;
-
-                if ($product) {
-                    $discount = ($product->discount_percent > 0) ? ($product->sale_price * $product->discount_percent) / 100 : 0;
-                    $price = $product->sale_price - $discount;
-                } else {
-                    $price = 0;
-                }
+                $productId = $item->product_id;
             } else {
                 $qty = $item['qty'] ?? 1;
-
-                $product = Product::find($item['id']);
-                if ($product) {
-                    $discount = ($product->discount_percent > 0) ? ($product->sale_price * $product->discount_percent) / 100 : 0;
-                    $price = $product->sale_price - $discount;
-                } else {
-                    $price = 0;
-                }
+                $productId = $item['id'];
             }
+
+            $price = $this->calculateFinalPrice($productId, $qty);
 
             $total += $price * $qty;
         }
 
         return round($total, 2);
     }
+
+    private function calculateFinalPrice($productId, $qty)
+    {
+        $product = Product::find($productId);
+        if (!$product) return 0;
+
+        $basePrice = $product->sale_price;
+
+        if ($product->discount_percent > 0) {
+            return $basePrice - ($basePrice * $product->discount_percent / 100);
+        }
+
+        $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
+
+        if ($offer && $qty >= $offer->min_qty) {
+            if ($offer->discount_type == 'percent') {
+                return $basePrice - ($basePrice * $offer->discount_value / 100);
+            } else {
+                return $basePrice - $offer->discount_value;
+            }
+        }
+
+        return $basePrice;
+    }
+
+    private function calculateDiscountAmount($productId, $qty)
+    {
+        $product = Product::find($productId);
+        if (!$product) return 0;
+
+        $basePrice = $product->sale_price;
+        $discount = 0;
+        // print_r($discount);
+        if ($product->discount_percent > 0) {
+            $discount = $basePrice * $product->discount_percent / 100;
+        }
+
+        
+
+        $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
+
+        if ($offer && $qty >= $offer->min_qty) {
+            if ($offer->discount_type == 'percent') {
+                $discount = $basePrice * $offer->discount_value / 100;
+            } else {
+                $discount = $offer->discount_value;
+            }
+        }
+        // print_r($discount);
+        // die();
+        return round($discount, 2);
+    }
+
 
     public function orderSuccess(){
         $breadcrumbs = [
