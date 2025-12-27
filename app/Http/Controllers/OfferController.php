@@ -23,7 +23,7 @@ class OfferController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required',
+            'product_id' => 'required|unique:offers,product_id',
             'min_qty' => 'required|integer|min:1',
             'discount_type' => 'required|in:percent,fixed',
             'discount_value' => 'required|numeric|min:0',
@@ -43,7 +43,7 @@ class OfferController extends Controller
     public function update(Request $request, Offer $offer)
     {
         $request->validate([
-            'product_id' => 'required',
+            'product_id' => 'required|unique:offers,product_id,' . $offer->id,
             'min_qty' => 'required|integer|min:1',
             'discount_type' => 'required|in:percent,fixed',
             'discount_value' => 'required|numeric|min:0',
