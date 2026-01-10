@@ -6,7 +6,7 @@
                     <div class="grid-items">
                         <div class="grid-item grid-item-column-left-1-1-1">
                             <div id="flyout-menu-68a47950ef24c" class="flyout-menu flyout-menu-7">
-                                <ul class="j-menu">
+                                <ul class="rd-menu">
                                     @foreach($menuCategories as $category)
                                         @if($category->children->count())
                                             <li class="menu-item flyout-menu-item flyout-menu-item-{{ $loop->iteration }} multi-level dropdown">
@@ -23,7 +23,7 @@
                                                 </a>
 
                                                 <div class="dropdown-menu j-dropdown" id="collapse-{{ $category->id }}">
-                                                    <ul class="j-menu">
+                                                    <ul class="rd-menu">
                                                         @foreach($category->children as $sub)
                                                             <li class="menu-item menu-item-c{{ $sub->id }}">
                                                                 <a href="{{ route('category.sub.show', [$category->slug, $sub->slug]) }}">

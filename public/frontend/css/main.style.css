@@ -321,7 +321,7 @@ footer {
     right: 0;
     top: 0; }
 
-.info-block-content {
+.radio-footer-info-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -330,7 +330,7 @@ footer {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center; }
-.info-block-content-icon{
+.radio-footer-info-content-icon{
     width: 55px;
     height: 55px;
     float: left;
@@ -343,10 +343,10 @@ footer {
     padding: 0 10px;
 }          
 
-.info-block-content-icon path{
+.radio-footer-info-content-icon path{
   fill: rgba(235, 102, 38, 1);
 }
-.info-block-content-icon-box path{
+.radio-footer-info-content-icon-box path{
   fill: white !important;
 }
 /******************************
@@ -1746,7 +1746,7 @@ Link Resets
 .refine-item a,
 .compare-btn,
 .search-result a,
-.j-menu > li > a,
+.rd-menu > li > a,
 .dropdown-toggle > a,
 .menu-item > a,
 .account-list a,
@@ -1769,7 +1769,7 @@ Link Resets
   .refine-item a:hover,
   .compare-btn:hover,
   .search-result a:hover,
-  .j-menu > li > a:hover,
+  .rd-menu > li > a:hover,
   .dropdown-toggle > a:hover,
   .menu-item > a:hover,
   .account-list a:hover,
@@ -3616,18 +3616,18 @@ https://www.journal-theme.com/
 /******************************
  Quick Checkout
 *******************************/
-.quick-checkout-wrapper > div {
+.quick-checkout-section > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
-  .quick-checkout-wrapper > div > div {
+  .quick-checkout-section > div > div {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
     max-width: 100%; }
-  .quick-checkout-wrapper > div .right {
+  .quick-checkout-section > div .right {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3635,13 +3635,13 @@ https://www.journal-theme.com/
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column; }
-    .quick-checkout-wrapper > div .right .checkout-section:last-child {
+    .quick-checkout-section > div .right .checkout-section:last-child {
       -webkit-box-ordinal-group: 1001;
           -ms-flex-order: 1000;
               order: 1000;
       margin-bottom: 0; }
 
-.quick-checkout-wrapper .section-body {
+.quick-checkout-section .section-body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3649,19 +3649,19 @@ https://www.journal-theme.com/
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column; }
-  .quick-checkout-wrapper .section-body .form-group {
+  .quick-checkout-section .section-body .form-group {
     -webkit-box-ordinal-group: 101;
         -ms-flex-order: 100;
             order: 100; }
-  .quick-checkout-wrapper .section-body > .radio + div {
+  .quick-checkout-section .section-body > .radio + div {
     margin: 5px 0; }
-  .quick-checkout-wrapper .section-body .radio, .quick-checkout-wrapper .section-body .checkbox {
+  .quick-checkout-section .section-body .radio, .quick-checkout-section .section-body .checkbox {
     -webkit-box-align: initial;
         -ms-flex-align: initial;
             align-items: initial; }
 
-.quick-checkout-wrapper .payment-address .section-body > div:not(.checkbox),
-.quick-checkout-wrapper .shipping-address .section-body > div:not(.checkbox) {
+.quick-checkout-section .payment-address .section-body > div:not(.checkbox),
+.quick-checkout-section .shipping-address .section-body > div:not(.checkbox) {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3670,13 +3670,13 @@ https://www.journal-theme.com/
       -ms-flex-direction: column;
           flex-direction: column; }
 
-.quick-checkout-wrapper #input-cc-cvv2 {
+.quick-checkout-section #input-cc-cvv2 {
   max-width: 111px; }
 
-.quick-checkout-wrapper .payment-address .checkbox {
+.quick-checkout-section .payment-address .checkbox {
   margin-top: 15px; }
 
-.quick-checkout-wrapper .well {
+.quick-checkout-section .well {
   margin-bottom: 0;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -3684,69 +3684,69 @@ https://www.journal-theme.com/
   padding: 0;
   background: transparent; }
 
-.quick-checkout-wrapper .checkout-section .login-options {
+.quick-checkout-section .checkout-section .login-options {
   margin-bottom: 0;
   -webkit-box-ordinal-group: 0;
       -ms-flex-order: -1;
           order: -1; }
-  .quick-checkout-wrapper .checkout-section .login-options .radio {
+  .quick-checkout-section .checkout-section .login-options .radio {
     width: auto; }
 
-.quick-checkout-wrapper .checkout-section .login-form {
+.quick-checkout-section .checkout-section .login-form {
   margin-top: 10px; }
-  .quick-checkout-wrapper .checkout-section .login-form > div:first-of-type {
+  .quick-checkout-section .checkout-section .login-form > div:first-of-type {
     margin-top: 10px; }
 
-.quick-checkout-wrapper .shipping-payment {
+.quick-checkout-section .shipping-payment {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
-  .quick-checkout-wrapper .shipping-payment .section-payment {
+  .quick-checkout-section .shipping-payment .section-payment {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1; }
-  .quick-checkout-wrapper .shipping-payment .section-body > div {
+  .quick-checkout-section .shipping-payment .section-body > div {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
-    .quick-checkout-wrapper .shipping-payment .section-body > div::before {
+    .quick-checkout-section .shipping-payment .section-body > div::before {
       line-height: 1;
       min-width: 30px;
       text-align: center;
       font-size: 22px; }
-  .quick-checkout-wrapper .shipping-payment .section-body .alert {
+  .quick-checkout-section .shipping-payment .section-body .alert {
     display: block; }
-    .quick-checkout-wrapper .shipping-payment .section-body .alert::before {
+    .quick-checkout-section .shipping-payment .section-body .alert::before {
       display: none; }
-  .quick-checkout-wrapper .shipping-payment .shippings p {
+  .quick-checkout-section .shipping-payment .shippings p {
     margin-bottom: 0; }
 
-.quick-checkout-wrapper .section-cvr .form-group .control-label {
+.quick-checkout-section .section-cvr .form-group .control-label {
   max-width: 250px; }
-  .quick-checkout-wrapper .section-cvr .form-group .control-label + div {
+  .quick-checkout-section .section-cvr .form-group .control-label + div {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end; }
 
-.quick-checkout-wrapper .cart-section table {
+.quick-checkout-section .cart-section table {
   margin-bottom: 0 !important; }
 
-.quick-checkout-wrapper .cart-section .table-responsive + table {
+.quick-checkout-section .cart-section .table-responsive + table {
   border-top-width: 0 !important;
   margin-top: 10px; }
-  .quick-checkout-wrapper .cart-section .table-responsive + table tfoot td + td {
+  .quick-checkout-section .cart-section .table-responsive + table tfoot td + td {
     width: 20%; }
 
-.quick-checkout-wrapper .confirm-section textarea {
+.quick-checkout-section .confirm-section textarea {
   margin-bottom: 10px; }
 
-.quick-checkout-wrapper .login-active .checkout-section:not(.section-login) {
+.quick-checkout-section .login-active .checkout-section:not(.section-login) {
   opacity: .4;
   pointer-events: none; }
 
-.quick-checkout-wrapper .quick-checkout-spinner {
+.quick-checkout-section .quick-checkout-spinner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3754,27 +3754,27 @@ https://www.journal-theme.com/
       -ms-flex-pack: center;
           justify-content: center; }
 
-.quick-checkout-wrapper .payment-pagseguro,
-.quick-checkout-wrapper .payment-skrill,
-.quick-checkout-wrapper .payment-cod,
-.quick-checkout-wrapper .payment-payza,
-.quick-checkout-wrapper .payment-paypal,
-.quick-checkout-wrapper .payment-pp_standard,
-.quick-checkout-wrapper .payment-pp_express,
-.quick-checkout-wrapper .payment-coinbase,
-.quick-checkout-wrapper .payment-stripe,
-.quick-checkout-wrapper .payment-instamojo,
-.quick-checkout-wrapper .payment-twocheckout {
+.quick-checkout-section .payment-pagseguro,
+.quick-checkout-section .payment-skrill,
+.quick-checkout-section .payment-cod,
+.quick-checkout-section .payment-payza,
+.quick-checkout-section .payment-paypal,
+.quick-checkout-section .payment-pp_standard,
+.quick-checkout-section .payment-pp_express,
+.quick-checkout-section .payment-coinbase,
+.quick-checkout-section .payment-stripe,
+.quick-checkout-section .payment-instamojo,
+.quick-checkout-section .payment-twocheckout {
   display: none !important; }
 
-.quick-checkout-wrapper #payment > legend {
+.quick-checkout-section #payment > legend {
   display: none; }
 
-.quick-checkout-wrapper .quick-checkout-payment {
+.quick-checkout-section .quick-checkout-payment {
   position: relative; }
 
-.quick-checkout-wrapper .quick-checkout-payment .buttons,
-.quick-checkout-wrapper .payment-pp_braintree #submit-new {
+.quick-checkout-section .quick-checkout-payment .buttons,
+.quick-checkout-section .payment-pp_braintree #submit-new {
   display: none !important; }
 
 #checkout-checkout #input-password + a {
@@ -3793,20 +3793,20 @@ https://www.journal-theme.com/
         -ms-flex: 1 1 300px;
             flex: 1 1 300px; }
 
-.quick-checkout-wrapper .confirm-section .checkbox {
+.quick-checkout-section .confirm-section .checkbox {
   display: block !important;
   margin: 0; }
 
-.quick-checkout-wrapper .confirm-section label {
+.quick-checkout-section .confirm-section label {
   display: block; }
-  .quick-checkout-wrapper .confirm-section label input {
+  .quick-checkout-section .confirm-section label input {
     top: 2px; }
 
 @media only screen and (max-width: 760px) {
   .confirm-section .radio label, .confirm-section .checkbox label {
     display: block; } }
 
-.quick-checkout-wrapper label {
+.quick-checkout-section label {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   display: -webkit-box;
@@ -4552,7 +4552,7 @@ https://www.journal-theme.com/
 /******************************
  Journal Menu
 *******************************/
-.j-menu {
+.rd-menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4565,9 +4565,9 @@ https://www.journal-theme.com/
   list-style: none;
   margin: 0;
   padding: 0; }
-  .j-menu > li {
+  .rd-menu > li {
     position: relative; }
-    .j-menu > li > a {
+    .rd-menu > li > a {
       padding: 3px 6px;
       width: 100%;
       height: 100%;
@@ -4583,24 +4583,24 @@ https://www.journal-theme.com/
       cursor: pointer;
       -webkit-transition: color 0.1s ease-out, background-color 0.1s ease-out;
       transition: color 0.1s ease-out, background-color 0.1s ease-out; }
-      .j-menu > li > a:not([href]) {
+      .rd-menu > li > a:not([href]) {
         cursor: default; }
-      .j-menu > li > a::before {
+      .rd-menu > li > a::before {
         line-height: 1;
         font-size: 16px; }
-    .j-menu > li:first-child > a {
+    .rd-menu > li:first-child > a {
       border-width: 0; }
-    .j-menu > li.icon-only > a {
+    .rd-menu > li.icon-only > a {
       min-width: 10px; }
-  .j-menu .links-text {
+  .rd-menu .links-text {
     display: inline-block;
     color: inherit; }
-    .j-menu .links-text s {
+    .rd-menu .links-text s {
       display: block; }
-  .j-menu .mega-menu {
+  .rd-menu .mega-menu {
     position: static; }
 
-.ios .j-menu > li > a {
+.ios .rd-menu > li > a {
   cursor: pointer !important; }
 
 /******************************
@@ -4666,16 +4666,16 @@ https://www.journal-theme.com/
     transition: opacity 0.1s ease-out, visibility 0.1s ease-out, -webkit-transform 0.1s ease-out;
     transition: transform 0.1s ease-out, opacity 0.1s ease-out, visibility 0.1s ease-out;
     transition: transform 0.1s ease-out, opacity 0.1s ease-out, visibility 0.1s ease-out, -webkit-transform 0.1s ease-out; }
-  .j-dropdown > .j-menu > li:first-child {
+  .j-dropdown > .rd-menu > li:first-child {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit; }
-    .j-dropdown > .j-menu > li:first-child > a {
+    .j-dropdown > .rd-menu > li:first-child > a {
       border-width: 0;
       border-radius: inherit; }
-  .j-dropdown > .j-menu > li:last-child {
+  .j-dropdown > .rd-menu > li:last-child {
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit; }
-    .j-dropdown > .j-menu > li:last-child > a {
+    .j-dropdown > .rd-menu > li:last-child > a {
       border-radius: inherit; }
 
 .multi-level .j-dropdown .j-dropdown {
@@ -4701,7 +4701,7 @@ https://www.journal-theme.com/
     padding: 0 3px;
     margin-left: auto; }
 
-.dropdown .j-menu > li > a::before {
+.dropdown .rd-menu > li > a::before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4825,14 +4825,14 @@ https://www.journal-theme.com/
   .accordion-menu .menu-item.flyout > a + .in {
     border-top-width: 0; }
 
-.accordion-menu .j-menu {
+.accordion-menu .rd-menu {
   height: auto;
   overflow: hidden; }
-  .accordion-menu .j-menu > li {
+  .accordion-menu .rd-menu > li {
     width: 100%; }
-    .accordion-menu .j-menu > li > a .links-text {
+    .accordion-menu .rd-menu > li > a .links-text {
       white-space: normal; }
-    .accordion-menu .j-menu > li > a::before {
+    .accordion-menu .rd-menu > li > a::before {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -4842,10 +4842,10 @@ https://www.journal-theme.com/
       -webkit-box-pack: center;
           -ms-flex-pack: center;
               justify-content: center; }
-    .accordion-menu .j-menu > li + li {
+    .accordion-menu .rd-menu > li + li {
       margin-left: 0 !important;
       margin-right: 0 !important; }
-  .accordion-menu .j-menu .j-menu {
+  .accordion-menu .rd-menu .rd-menu {
     -webkit-box-shadow: none;
             box-shadow: none; }
 
@@ -7083,7 +7083,7 @@ header {
     width: 250px; }
   .desktop-header-active .header-default .desktop-main-menu-wrapper {
     position: static; }
-    .desktop-header-active .header-default .desktop-main-menu-wrapper .main-menu > .j-menu, .desktop-header-active .header-default .desktop-main-menu-wrapper .main-menu-item {
+    .desktop-header-active .header-default .desktop-main-menu-wrapper .main-menu > .rd-menu, .desktop-header-active .header-default .desktop-main-menu-wrapper .main-menu-item {
       -webkit-box-flex: 1;
           -ms-flex-positive: 1;
               flex-grow: 1; }
@@ -7184,7 +7184,7 @@ header {
       .desktop-header-active .header-classic .mid-bar .top-menu {
         height: auto;
         margin: 0 10px; }
-        .desktop-header-active .header-classic .mid-bar .top-menu > .j-menu {
+        .desktop-header-active .header-classic .mid-bar .top-menu > .rd-menu {
           -ms-flex-wrap: nowrap;
               flex-wrap: nowrap; }
       .desktop-header-active .header-classic .mid-bar .secondary-menu {
@@ -7377,10 +7377,10 @@ header {
       .desktop-header-active .header-compact .desktop-main-menu-wrapper .main-menu {
         -ms-flex-wrap: nowrap;
             flex-wrap: nowrap; }
-        .desktop-header-active .header-compact .desktop-main-menu-wrapper .main-menu > .j-menu > .menu-item > a {
+        .desktop-header-active .header-compact .desktop-main-menu-wrapper .main-menu > .rd-menu > .menu-item > a {
           position: relative;
           z-index: 2; }
-        .desktop-header-active .header-compact .desktop-main-menu-wrapper .main-menu > .j-menu > .menu-item > .dropdown-menu {
+        .desktop-header-active .header-compact .desktop-main-menu-wrapper .main-menu > .rd-menu > .menu-item > .dropdown-menu {
           z-index: 1; }
     .desktop-header-active .header-compact .header-cart-group {
       display: -webkit-box;
@@ -7869,11 +7869,11 @@ https://www.journal-theme.com/
         -webkit-transform: rotate(90deg);
                 transform: rotate(90deg);
         margin: 0 5px; }
-    .desktop-main-menu-wrapper .main-menu > .j-menu {
+    .desktop-main-menu-wrapper .main-menu > .rd-menu {
       border-radius: inherit;
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap; }
-      .desktop-main-menu-wrapper .main-menu > .j-menu > li > a .links-text {
+      .desktop-main-menu-wrapper .main-menu > .rd-menu > li > a .links-text {
         width: 100%; }
   .desktop-main-menu-wrapper.menu-stretch .main-menu {
     width: 100%;
@@ -7906,7 +7906,7 @@ html[dir='rtl'] .desktop-main-menu-wrapper .main-menu .main-menu-item > a {
 html[dir='rtl'] .desktop-main-menu-wrapper .main-menu .main-menu-item:first-of-type > a {
   border-right-width: 0; }
 
-html[dir='rtl'] .desktop-main-menu-wrapper .main-menu > .j-menu > .first-dropdown::before {
+html[dir='rtl'] .desktop-main-menu-wrapper .main-menu > .rd-menu > .first-dropdown::before {
   display: none !important; }
 
 /******************************
@@ -7965,7 +7965,7 @@ html[dir='rtl'] .desktop-main-menu-wrapper .main-menu > .j-menu > .first-dropdow
   to {
     opacity: 1; } }
 
-.desktop-main-menu-wrapper .main-menu > .j-menu > .first-dropdown::before {
+.desktop-main-menu-wrapper .main-menu > .rd-menu > .first-dropdown::before {
   z-index: 0;
   position: absolute;
   width: 150vw;
@@ -7982,21 +7982,21 @@ html[dir='rtl'] .desktop-main-menu-wrapper .main-menu > .j-menu > .first-dropdow
   content: "";
   display: none; }
 
-.desktop-main-menu-wrapper.boxed-layout .main-menu > .j-menu > .first-dropdown::before {
+.desktop-main-menu-wrapper.boxed-layout .main-menu > .rd-menu > .first-dropdown::before {
   display: none !important; }
 
-.desktop-main-menu-wrapper .main-menu > .j-menu > .first-dropdown.mega-custom::before {
+.desktop-main-menu-wrapper .main-menu > .rd-menu > .first-dropdown.mega-custom::before {
   width: 200vw; }
 
-.header-sm .desktop-main-menu-wrapper .main-menu > .j-menu > .first-dropdown::before {
+.header-sm .desktop-main-menu-wrapper .main-menu > .rd-menu > .first-dropdown::before {
   width: 150vw; }
 
-.desktop-header-active .menu-open .main-menu > .j-menu > .first-dropdown::before {
+.desktop-header-active .menu-open .main-menu > .rd-menu > .first-dropdown::before {
   opacity: 1;
   visibility: visible;
   display: block; }
 
-.desktop-header-active .menu-hover .main-menu > .j-menu > .first-dropdown::before {
+.desktop-header-active .menu-hover .main-menu > .rd-menu > .first-dropdown::before {
   opacity: 0;
   visibility: hidden;
   display: none; }
@@ -8327,7 +8327,7 @@ html[dir='rtl'] .mobile-custom-menu .count-badge {
   left: 0;
   right: auto; }
 
-.mobile-main-menu-wrapper .main-menu.accordion-menu .j-menu .j-menu .dropdown > a::after {
+.mobile-main-menu-wrapper .main-menu.accordion-menu .rd-menu .rd-menu .dropdown > a::after {
   display: none !important; }
 
 html[dir="rtl"] .mobile-header .language-currency.top-menu > div:last-child .dropdown.drop-menu.animating > .j-dropdown {
@@ -8538,7 +8538,7 @@ html[dir='rtl'].mobile-header-active #cart > a > i::after {
 /******************************
  Top Menu Edge Dropdown
 *******************************/
-.mobile-header .mobile-top-menu-wrapper .top-menu > .j-menu > li:first-child > .j-dropdown {
+.mobile-header .mobile-top-menu-wrapper .top-menu > .rd-menu > li:first-child > .j-dropdown {
   left: 0;
   right: auto;
   -webkit-transform: translate3d(0, -5px, 0);
@@ -8546,12 +8546,12 @@ html[dir='rtl'].mobile-header-active #cart > a > i::after {
   -webkit-transition: all 0.075s ease-out;
   transition: all 0.075s ease-out; }
 
-.mobile-header .mobile-top-menu-wrapper .top-menu > .j-menu > li:first-child.animating > .j-dropdown {
+.mobile-header .mobile-top-menu-wrapper .top-menu > .rd-menu > li:first-child.animating > .j-dropdown {
   left: 0;
   right: auto;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0); }
-  .mobile-header .mobile-top-menu-wrapper .top-menu > .j-menu > li:first-child.animating > .j-dropdown::before {
+  .mobile-header .mobile-top-menu-wrapper .top-menu > .rd-menu > li:first-child.animating > .j-dropdown::before {
     display: block !important;
     content: "" !important;
     -webkit-transform: translateX(0);
@@ -8604,7 +8604,7 @@ https://www.journal-theme.com/
 /******************************
  Mobile Wrapper
 *******************************/
-.mobile-container {
+.radio-container {
   display: none;
   position: fixed;
   z-index: 50000;
@@ -8617,7 +8617,7 @@ https://www.journal-theme.com/
   -webkit-transition: all .35s ease-in-out;
   transition: all .35s ease-in-out;
   background-color: white; }
-  .mobile-container.mobile-cart-content-container {
+  .radio-container.mobile-cart-content-container {
     -webkit-transform: translate3d(100%, 0, 0);
             transform: translate3d(100%, 0, 0);
     left: auto;
@@ -8802,7 +8802,7 @@ https://www.journal-theme.com/
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch; }
-    .mobile-main-menu-wrapper .main-menu .j-menu > * {
+    .mobile-main-menu-wrapper .main-menu .rd-menu > * {
       -webkit-box-shadow: none !important;
               box-shadow: none !important; }
     .mobile-main-menu-wrapper .main-menu .dropdown::after {
@@ -8880,7 +8880,7 @@ https://www.journal-theme.com/
       border-top-width: 0; }
     .mobile-main-menu-wrapper .main-menu > .main-menu > div:last-of-type {
       border-bottom-width: 1px; }
-    .mobile-main-menu-wrapper .main-menu .j-menu {
+    .mobile-main-menu-wrapper .main-menu .rd-menu {
       border-style: none !important; }
 
 /******************************
@@ -9063,11 +9063,11 @@ html[dir='rtl'] .mobile-header:not(.mobile-2) .language-currency.top-menu > div:
 /******************************
  Mobile Wrapper
 *******************************/
-html[dir='rtl'] .mobile-container {
+html[dir='rtl'] .radio-container {
   -webkit-transform: translate3d(100%, 0, 0);
           transform: translate3d(100%, 0, 0);
   right: 0; }
-  html[dir='rtl'] .mobile-container.mobile-cart-content-container {
+  html[dir='rtl'] .radio-container.mobile-cart-content-container {
     -webkit-transform: translate3d(-100%, 0, 0);
             transform: translate3d(-100%, 0, 0);
     left: 0;
@@ -9379,7 +9379,7 @@ html[dir='rtl'] .popup-close {
 .mobile-test .module-newsletter .input-group + .checkbox label {
   margin-top: 14px; }
 
-.mobile-test .accordion-menu.accordion-menu .j-menu > li > a {
+.mobile-test .accordion-menu.accordion-menu .rd-menu > li > a {
   padding: 8px; }
 
 .mobile-test.mobile-header-active #cart > a > i {
@@ -9393,7 +9393,7 @@ html[dir='rtl'] .popup-close {
   min-height: 48px; }
 
 /*# sourceMappingURL=style.css.map */
-.accordion-menu-126>.j-menu>li>a::before {
+.accordion-menu-126>.rd-menu>li>a::before {
   content: '\f105' !important;
   font-family: icomoon !important;
   padding-right: 7px;

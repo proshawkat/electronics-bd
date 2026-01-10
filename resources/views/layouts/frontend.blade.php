@@ -37,7 +37,7 @@
     @endif
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/main.style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/master.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/mobile-container.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/radio-container.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/header.css') }}">
     @include('frontend.partials.top_script')
@@ -49,7 +49,7 @@
     <title>Radio Electric BD</title>
   </head>
   <body>
-    <div class="mobile-container mobile-main-menu-container">
+    <div class="radio-container mobile-main-menu-container">
 		<div class="mobile-wrapper-header">
 			<span>Menu</span>
 			<a class="x"></a>
@@ -57,12 +57,12 @@
 		<div class="mobile-main-menu-wrapper"></div>
 	</div>
 
-	<div class="mobile-container mobile-filter-container">
+	<div class="radio-container mobile-filter-container">
 		<div class="mobile-wrapper-header"></div>
 		<div class="mobile-filter-wrapper"></div>
 	</div>
 
-	<div class="mobile-container mobile-cart-content-container">
+	<div class="radio-container mobile-cart-content-container">
 		<div class="mobile-wrapper-header">
 			<span>Your Cart</span>
 			<a class="x"></a>

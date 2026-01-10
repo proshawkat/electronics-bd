@@ -57,7 +57,19 @@
                                                                                     alt="{{ $product->name }}" title="{{ $product->name }}"
                                                                                     class="img-responsive img-first" />
 
-                                                                                <img src="{{ asset('public/'.$product->second_image_url) }}" srcset="{{ asset('public/'.$product->second_image_url) }}" width="250" height="250" alt="{{ $product->name }}" title="{{ $product->name }}" class="img-responsive img-second" />
+                                                                                @if(!empty($product->second_image_url))
+                                                                                    <img src="{{ asset('public/'.$product->second_image_url) }}"
+                                                                                        width="250" height="250"
+                                                                                        alt="{{ $product->name }}"
+                                                                                        title="{{ $product->name }}"
+                                                                                        class="img-responsive img-second" />
+                                                                                @else
+                                                                                    <img src="{{ asset('public/'.$product->first_image_url) }}"
+                                                                                        width="250" height="250"
+                                                                                        alt="{{ $product->name }}"
+                                                                                        title="{{ $product->name }}"
+                                                                                        class="img-responsive img-second" />
+                                                                                @endif
                                                                             </div>
                                                                         </a>
                                                                     </div>

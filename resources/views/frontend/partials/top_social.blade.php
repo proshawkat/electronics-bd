@@ -1,6 +1,6 @@
 <div class="grid-row grid-row-content-top-2 secondary-menu">
     <div class="top-menu top-menu-14">
-        <ul class="j-menu">
+        <ul class="rd-menu">
             <li class="menu-item top-menu-item top-menu-item-1">
                 <a href="{{ $generalSettings->facebook }}">
                     <span class="links-text">Facebook <s>follow us </s></span>

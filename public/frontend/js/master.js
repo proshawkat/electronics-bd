@@ -1003,19 +1003,19 @@ jQuery(function ($) {
 	});
 
 	// Main Menu Hover Site Overlay
-	$('.desktop-main-menu-wrapper #main-menu > .j-menu > .main-menu-item').first().addClass('first-dropdown');
+	$('.desktop-main-menu-wrapper #main-menu > .rd-menu > .main-menu-item').first().addClass('first-dropdown');
 
 	var $desktop_main_menu_wrapper = $('.desktop-main-menu-wrapper');
 
-	$desktop_main_menu_wrapper.delegate('.main-menu > .j-menu > .menu-item:not(.dropdown)', 'mouseover', function () {
+	$desktop_main_menu_wrapper.delegate('.main-menu > .rd-menu > .menu-item:not(.dropdown)', 'mouseover', function () {
 		$body.addClass('menu-hover');
 	});
 
-	$desktop_main_menu_wrapper.delegate('.main-menu > .j-menu > .menu-item:not(.dropdown)', 'mouseleave', function () {
+	$desktop_main_menu_wrapper.delegate('.main-menu > .rd-menu > .menu-item:not(.dropdown)', 'mouseleave', function () {
 		$body.removeClass('menu-hover');
 	});
 
-	$desktop_main_menu_wrapper.delegate('.main-menu > .j-menu > .dropdown', 'mouseover', function () {
+	$desktop_main_menu_wrapper.delegate('.main-menu > .rd-menu > .dropdown', 'mouseover', function () {
 		$body.addClass('menu-open');
 	});
 
@@ -1023,11 +1023,11 @@ jQuery(function ($) {
 		$body.removeClass('menu-open');
 	});
 
-	// $desktop_main_menu_wrapper.delegate('.main-menu > .j-menu > .mega-menu', 'mouseover', function () {
+	// $desktop_main_menu_wrapper.delegate('.main-menu > .rd-menu > .mega-menu', 'mouseover', function () {
 	// 	$(this).addClass('animation-delay');
 	// });
 	//
-	// $desktop_main_menu_wrapper.delegate('.main-menu > .j-menu > .mega-menu', 'mouseleave', function () {
+	// $desktop_main_menu_wrapper.delegate('.main-menu > .rd-menu > .mega-menu', 'mouseleave', function () {
 	// 	var $this = $(this);
 	// 	setTimeout(function () {
 	// 		$this.removeClass('animation-delay');
@@ -1363,7 +1363,7 @@ $(window).on('load', function () {
 
 	//Focus mini search on click
 	if (Journal['isDesktop'] && (Journal['headerMiniSearchDisplay'] === 'page')) {
-		$('.search-trigger, .desktop .search-categories .j-menu > li > a').click(function () {
+		$('.search-trigger, .desktop .search-categories .rd-menu > li > a').click(function () {
 			$('.header-search input').focus();
 		});
 	}

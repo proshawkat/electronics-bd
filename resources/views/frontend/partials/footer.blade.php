@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="grid-item grid-item-1">
-                        <div class="icons-menu icons-menu-61">
+                        <div class="icons-menu radio-icons-menu-1">
                             <ul>
                                 <li class="menu-item icons-menu-item icons-menu-item-1 icon-menu-icon">
                                     <a data-toggle="tooltip" data-tooltip-class="icons-menu-tooltip-61" data-placement="top" title="" href="{{ $generalSettings->facebook }}" target="_blank" data-original-title="Facebook">
@@ -88,11 +88,11 @@
                             </div>
                         </div>
                         <div class="grid-item grid-item-2">
-                            <div class="module module-info_blocks module-info_blocks-305">
+                            <div class="module module-info_blocks radio-footer-info-wrapper">
                                 <div class="module-body">
                                     <div class="module-item module-item-1 info-blocks info-blocks-icon">
                                         <a href="tel:{{ $generalSettings->phone }}" class="info-block">
-                                            <div class="info-block-content">
+                                            <div class="radio-footer-info-content">
                                                 <div class="info-block-title">9am - 12pm</div>
                                                 <div class="info-block-text">{{ $generalSettings->phone }}</div>
                                             </div>
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="module-item module-item-2 info-blocks info-blocks-icon">
                                         <a href="mailto:{{ $generalSettings->email }}" class="info-block">
-                                            <div class="info-block-content">
+                                            <div class="radio-footer-info-content">
                                                 <div class="info-block-title">E-mail Us:</div>
                                                 <div class="info-block-text">{{ $generalSettings->email }}</div>
                                             </div>
@@ -114,35 +114,35 @@
                 <div class="col-sm-6">
                     <div class="grid-items">
                         <div class="grid-item grid-item-1">
-                            <div class="links-menu links-menu-72">
+                            <div class="links-menu radio-links-menu-1">
                                 <h3 class="title module-title closed">Quick Links</h3>
                                 <ul class="module-body">
-                                    <li class="menu-item links-menu-item links-menu-item-1">
+                                    <li class="menu-item links-menu-item">
                                         <a href="#">
                                             <span class="links-text">About Us</span>
                                         </a>
                                     </li>
 
 
-                                    <li class="menu-item links-menu-item links-menu-item-3">
+                                    <li class="menu-item links-menu-item">
                                         <a href="{{ route('contact.index'); }}">
                                             <span class="links-text">Contact</span>
                                         </a>
                                     </li>
 
-                                    <li class="menu-item links-menu-item links-menu-item-6">
+                                    <li class="menu-item links-menu-item">
                                         <a href="{{ route('customer.dashboard') }}">
                                             <span class="links-text">My Accounts</span>
                                         </a>
                                     </li>
 
-                                    <li class="menu-item links-menu-item links-menu-item-7">
+                                    <li class="menu-item links-menu-item">
                                         <a href="#">
                                             <span class="links-text">Privacy Policy</span>
                                         </a>
                                     </li>
 
-                                    <li class="menu-item links-menu-item links-menu-item-8">
+                                    <li class="menu-item links-menu-item ">
                                         <a href="#">
                                             <span class="links-text">Terms and Conditions</span>
                                         </a>

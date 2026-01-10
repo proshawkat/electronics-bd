@@ -23,7 +23,7 @@
             </div>
             <div class="top-menu secondary-menu">
                 <div class="top-menu top-menu-14">
-                    <ul class="j-menu">
+                    <ul class="rd-menu">
                         <li class="menu-item top-menu-item top-menu-item-1">
                             <a href="{{ $generalSettings->facebook }}">
                                 <span class="links-text">Facebook <s>follow us </s></span>
@@ -53,12 +53,12 @@
         </div>
         <div class="desktop-main-menu-wrapper menu-default has-menu-2 navbar-nav">
             <div class="menu-trigger menu-item main-menu-item">
-                <ul class="j-menu">
+                <ul class="rd-menu">
                     <li><a>Menu</a></li>
                 </ul>
             </div>
             <div id="main-menu" class="main-menu main-menu-219">
-                <ul class="j-menu">
+                <ul class="rd-menu">
                     <li class="menu-item main-menu-item main-menu-item-1 dropdown flyout drop-menu first-dropdown" data-is-open="">
                         <a class="dropdown-toggle" data-toggle="" aria-expanded="false">
                             <span class="links-text">Browse by Category</span>
@@ -66,7 +66,7 @@
                         </a>
                         <div class="dropdown-menu j-dropdown" id="collapse-68a48eab918cb">
                             <div id="flyout-menu-68a47950ef24c" class="flyout-menu flyout-menu-7">
-                                <ul class="j-menu">
+                                <ul class="rd-menu">
                                     @foreach($menuCategories as $category)
                                         @if($category->children->count())                                    
                                             <li class="menu-item flyout-menu-item flyout-menu-item-{{ $category->id }} multi-level dropdown">
@@ -80,7 +80,7 @@
                                                     <span class="open-menu collapsed" data-toggle="collapse" data-target="#collapse-{{ $category->id }}"><i class="fa fa-plus"></i></span>
                                                 </a>
                                                 <div class="dropdown-menu j-dropdown" id="collapse-{{ $category->id }}">
-                                                    <ul class="j-menu">
+                                                    <ul class="rd-menu">
                                                         @foreach($category->children as $sub)
                                                             <li class="menu-item menu-item-c278">
                                                                 <a href="{{ route('category.sub.show', [$category->slug, $sub->slug]) }}"><span class="links-text">{{ $sub->name }}</span></a>
@@ -133,14 +133,14 @@
                 </div>
             </div>
             <div id="main-menu-2" class="main-menu main-menu-3">
-                <ul class="j-menu">
+                <ul class="rd-menu">
                     <li class="menu-item main-menu-item main-menu-item-1 multi-level dropdown drop-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="links-text"></span>
                             <span class="open-menu collapsed" data-toggle="collapse" data-target="#collapse-68a48eab91cc5"><i class="fa fa-plus"></i></span>
                         </a>
                         <div class="dropdown-menu j-dropdown" id="collapse-68a48eab91cc5">
-                            <ul class="j-menu">
+                            <ul class="rd-menu">
                                 @if(Auth::guard('customer')->check())
                                     <li class="menu-item main-menu-item-2 drop-menu">
                                         <a href="{{ route('customer.dashboard') }}">Dashboard</a>
@@ -231,7 +231,7 @@
         <div class="mobile-top-bar">
             <div class="mobile-top-menu-wrapper">
                 <div class="top-menu top-menu-13">
-                    <ul class="j-menu">
+                    <ul class="rd-menu">
                         @if(Auth::guard('customer')->check())
                             <li class="menu-item top-menu-item top-menu-item-1">
                                 <a href="{{ route('customer.dashboard') }}">Dashboard</a>

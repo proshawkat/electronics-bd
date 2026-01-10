@@ -7,7 +7,7 @@
                         <div class="grid-item grid-item-column-right-1-1-1">
                             <div class="accordion-menu accordion-menu-126">
                                 <h3 class="title module-title">Account Menu</h3>
-                                <ul class="j-menu">
+                                <ul class="rd-menu">
                                     <li class="menu-item accordion-menu-item accordion-menu-item-1">
                                         <a href="{{ route('customer.dashboard') }}">
                                             <span class="links-text">My Account</span>

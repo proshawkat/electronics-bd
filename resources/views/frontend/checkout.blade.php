@@ -9,7 +9,7 @@
         <div id="content">
             <form method="post" action="{{ route('placeorder') }}">
                 @csrf
-                <div class="quick-checkout-wrapper">
+                <div class="quick-checkout-section">
                     <div class="" id="if_login_user">
                         <div class="left">
                             @if(Auth::guard('customer')->check())
@@ -19,7 +19,7 @@
 
                                         @if($customerAddresses->count() > 0)
                                             <div class="radio">
-                                                <label><input type="radio" name="address_option" value="existing" checked /> I want to use an existing address</label>
+                                                <label><input type="radio" name="address_option" value="existing" checked /> Select an existing address</label>
                                             </div>
                                             <div id="payment-existing">
                                                 <select name="billing_address_id" id="input-payment-address" class="form-control">
@@ -33,7 +33,7 @@
                                         @endif
 
                                         <div class="radio">
-                                            <label><input type="radio" name="address_option" value="new" /> I want to use a new address</label>
+                                            <label><input type="radio" name="address_option" value="new" /> I want to enter a new address</label>
                                         </div>
 
                                         <div class="checkout-section new-payment-address hide">
@@ -173,7 +173,7 @@
                             <div class="checkout-section payment-address" style="padding-top: 0;">
                                 <div class="section-body">
                                     <div class="checkbox checkout-same-address" style="margin-top: 0;">
-                                        <label><input type="checkbox" name="same_billing_address" checked /> My delivery and billing addresses are the same.</label>
+                                        <label><input type="checkbox" name="same_billing_address" checked /> Use the same address for billing and delivery.</label>
                                     </div>
                                 </div>
                             </div>

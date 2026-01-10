@@ -126,17 +126,17 @@
 
 <div id="bottom" class="bottom top-row">
     <div class="grid-rows">
-        <div class="grid-row grid-row-bottom-1">
+        <div class="grid-row grid-related-bottom">
             <div class="grid-cols">
                 <div class="grid-col grid-col-bottom-1-2">
                     <div class="grid-items">
                         <div class="grid-item grid-item-bottom-1-2-1">
-                            <div class="module module-products module-products-262 module-products-grid carousel-mode">
+                            <div class="module module-products cart-module-products-1 module-products-grid carousel-mode">
                                 <div class="module-body">
                                         <div id="responsiveCarousel" class="carousel slide" data-ride="carousel">
                                             <ul class="nav nav-tabs">
                                                 <li class="tab-1 active">
-                                                        <a href="#products-68a923c5b8c63-tab-1" data-toggle="tab">Purchased together</a>
+                                                        <a href="#products-68a923c5b8c63-tab-1" data-toggle="tab">Popular Combos</a>
                                                     </li>
                                             </ul>
                                             <div class="carousel-inner product-grid">
@@ -198,7 +198,7 @@
                                                                                     </a>
 
                                                                                     <a class="btn btn-compare" data-id="{{ $product->id }}" data-toggle="tooltip"
-                                                                                        data-tooltip-class="module-products-262 module-products-grid compare-tooltip"
+                                                                                        data-tooltip-class="cart-module-products-1 module-products-grid compare-tooltip"
                                                                                         data-placement="top" 
                                                                                         onclick="addCompareList({{ $product->id }})"
                                                                                         data-original-title="Compare this Product" >

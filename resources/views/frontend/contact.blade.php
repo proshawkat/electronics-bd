@@ -36,7 +36,7 @@
 									<div class="module-body">
 										<div class="module-item module-item-1 info-blocks info-blocks-icon">
 											<div class="info-block">
-												<div class="info-block-content">
+												<div class="radio-footer-info-content">
 													<div class="info-block-title">Store Address</div>
 													<div class="info-block-text">{{ $generalSettings->address }}</div>
 												</div>
@@ -44,7 +44,7 @@
 										</div>
 										<div class="module-item module-item-2 info-blocks info-blocks-icon">
 											<a href="tel:{{ $generalSettings->phone }}" class="info-block">
-												<div class="info-block-content">
+												<div class="radio-footer-info-content">
 													<div class="info-block-title">Call Us</div>
 													<div class="info-block-text">Tel: {{ $generalSettings->phone }}</div>
 												</div>
@@ -52,7 +52,7 @@
 										</div>
 										<div class="module-item module-item-3 info-blocks info-blocks-icon">
 											<a href="mailto:{{ $generalSettings->email }}" class="info-block">
-												<div class="info-block-content">
+												<div class="radio-footer-info-content">
 													<div class="info-block-title">Email</div>
 													<div class="info-block-text">{{ $generalSettings->email }}</div>
 												</div>
