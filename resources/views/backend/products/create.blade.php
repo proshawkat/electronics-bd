@@ -119,11 +119,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 mb-3">
-                                    <label for="first_image_url" class="form-label">First Image<span class="text-danger">*</span></label>
+                                    <label for="first_image_url" class="form-label">First Image<span class="text-danger">*</span>(550x500)</label>
                                     <input type="file" class="form-control" id="first_image_url" name="first_image_url" value="{{ old('first_image_url') }}" required/>
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <label for="second_image_url" class="form-label">Second Image</label>
+                                    <label for="second_image_url" class="form-label">Second Image(550x500)</label>
                                     <input type="file" class="form-control" id="second_image_url" name="second_image_url" value="{{ old('second_image_url') }}" />
                                 </div>
                             </div> 

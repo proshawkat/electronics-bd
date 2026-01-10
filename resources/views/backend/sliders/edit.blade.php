@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <form method="post" action="{{ route('admin.sliders.update', $slider->id) }}">
+                    <form method="post" action="{{ route('admin.sliders.update', $slider->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
