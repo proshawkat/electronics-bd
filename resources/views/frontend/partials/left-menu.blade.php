@@ -67,8 +67,7 @@
                                                     <div class="side-product">
                                                         <div class="image">
                                                             <a href="{{ url('product/'.$product->slug) }}" class="product-img">
-                                                                <img
-                                                                    src="{{ asset('public/'.$product->first_image_url) }}"
+                                                                <img src="{{ asset('public/'.$product->first_image_url) }}"
                                                                     srcset="{{ asset('public/'.$product->first_image_url) }}" width="60" height="60" alt=""
                                                                     title=""
                                                                     class="img-first"
