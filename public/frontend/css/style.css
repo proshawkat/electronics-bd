@@ -724,11 +724,9 @@ div.cart-content .cart-buttons .btn {
     }
 }
 
-/* Product Image Uniform Height Fix */
 .product-thumb .product-img img {
     height: 160px !important;
     width: 100% !important;
     object-fit: contain !important;
     background-color: #f9f9f9;
-    /* Optional: adds a light background to fill empty space */
 }
