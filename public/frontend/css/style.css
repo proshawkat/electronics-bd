@@ -800,10 +800,18 @@ div.cart-content .cart-buttons .btn {
 }
 
 /* ===== New Footer Styles ===== */
+
+/* Override master.css: footer>div uses rgba(8,67,135,1) blue — fix it */
+footer>div {
+    background: #FFB300 !important;
+}
+
 .new-footer {
-    background: #FFB300;
-    margin-top: 30px;
+    background: #FFB300 !important;
+    margin-top: 0;
     font-family: 'IBM Plex Sans', sans-serif;
+    /* Blue top border like in the image */
+    border-top: 5px solid rgba(8, 67, 135, 1);
 }
 
 .new-footer-main {
@@ -826,7 +834,6 @@ div.cart-content .cart-buttons .btn {
     text-transform: capitalize;
     margin: 0 0 10px 0;
     padding-bottom: 4px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.15);
 }
 
 /* Address text */
