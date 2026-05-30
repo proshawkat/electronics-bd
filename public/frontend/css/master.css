@@ -7313,7 +7313,7 @@ select.form-control:active {
     display: flex;
     padding-right: 15px;
     padding-left: 15px;
-    color: rgba(255, 255, 255, 1);
+    color: #000;
     order: 0
 }
 
@@ -11209,12 +11209,12 @@ div.main-menu.main-menu-3>.rd-menu .menu-item.main-menu-item-1>a::before {
     content: '\f007' !important;
     font-family: icomoon !important;
     font-size: 24px;
-    color: rgba(255, 255, 255, 1);
+    color: #000;
     margin-right: 10px
 }
 
 div.main-menu.main-menu-3>.rd-menu li.main-menu-item-1>a {
-    color: rgba(255, 255, 255, 1) !important;
+    color: #000 !important;
     font-weight: 400 !important;
     text-transform: capitalize !important
 }

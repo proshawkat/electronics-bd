@@ -60,11 +60,6 @@
                                 <span class="links-text">OFFER <s>ZONE</s></span>
                             </a>
                         </li>
-                        <li class="menu-item top-menu-item top-menu-item-4">
-                            <a href="{{ route('offer.zone') }}">
-                                <span class="links-text">OFFER <s>ZONE</s></span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
