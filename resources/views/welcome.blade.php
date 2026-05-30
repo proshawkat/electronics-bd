@@ -291,7 +291,7 @@
                                                                 <div class="tb-price-row">
                                                                     <span class="tb-price-label">Price</span>
                                                                     @if(!$product->no_sale_price)
-                                                                        <span class="tb-price-badge">৳ {{ $product->sale_price }}</span>
+                                                                        <span class="tb-price-badge">৳: {{ $product->sale_price }}</span>
                                                                     @else
                                                                         <button class="tb-call-btn" data-toggle="modal" data-target="#whatsappModal" data-product="{{ $product->name }}">
                                                                             <svg width="13" height="13" viewBox="0 0 32 32" fill="#fff" style="vertical-align:middle;margin-right:4px;"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732.737 5.291 2.022 7.491l-2.147 7.839 8.031-2.107a14.86 14.86 0 0 0 7.107 1.81h.006c8.209 0 14.862-6.656 14.862-14.865 0-4.103-1.662-7.817-4.505-10.679z"/></svg>

@@ -2038,7 +2038,7 @@ select.form-control:active {
 }
 
 .notification-cart .notification-view-cart.btn:hover {
-    background: rgba(53, 66, 174, 1) !important
+    background: #F0A800 !important
 }
 
 .notification-cart .notification-view-cart.btn.btn.disabled::after {
@@ -5173,6 +5173,7 @@ select.form-control:active {
 .product-view-page:not(.popup) .product-info .button-group-page .btn-cart {
     flex-grow: initial;
     height: 40px;
+    line-height: 30px;
     margin-right: 15px;
     margin-left: 15px
 }
@@ -6175,7 +6176,8 @@ select.form-control:active {
 }
 
 .main-products.product-grid .product-thumb .btn-cart {
-    height: 36px
+    height: 36px;
+    line-height: 22px;
 }
 
 .main-products.product-grid .product-thumb .btn-wishlist {
@@ -7383,7 +7385,7 @@ div.cart-content .btn-cart.btn {
 }
 
 div.cart-content .btn-cart.btn:hover {
-    background: rgba(53, 66, 174, 1) !important
+    background: #F0A800 !important
 }
 
 div.cart-content .btn-cart.btn.btn.disabled::after {
