@@ -740,16 +740,17 @@ div.cart-content .cart-buttons .btn {
     position: relative;
     display: flex;
     align-items: center;
-    background: transparent;
+    /* Lighter yellow — full-width background bar */
+    background: #FFB300;
     margin-bottom: 12px;
     padding: 0;
     height: 36px;
-    border-bottom: 2px solid #F0A800;
 }
 
 .section-arrow-header .section-arrow-text {
     display: inline-block;
-    background: #F0A800;
+    /* Darker yellow — text block with arrow shape */
+    background: #ebb445;
     color: #1a1a1a;
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 700;
@@ -764,7 +765,6 @@ div.cart-content .cart-buttons .btn {
     clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
 }
 
-/* Disable old pseudo-element approach */
 .section-arrow-header .section-arrow-text::after {
     display: none;
 }
