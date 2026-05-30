@@ -1164,6 +1164,30 @@ footer>div {
     .tb-img {
         max-height: 140px;
     }
+
+    /* Center action buttons in mobile view */
+    .product-layout .button-group {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    .product-layout .button-group .cart-group {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin-bottom: 8px !important;
+    }
+
+    .product-layout .button-group .wish-group {
+        display: flex !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+
 }
 
 /* ===== Global Button Overrides (Match Trusted Brands design) ===== */
