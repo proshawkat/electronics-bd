@@ -170,6 +170,10 @@ a.truncate-text {
     margin-top: 15px;
 }
 
+.secondary-menu .top-menu .rd-menu {
+    justify-content: flex-end !important;
+}
+
 .accordion-menu-126.accordion-menu .rd-menu>li>a {
     font-size: 13px;
     color: rgba(109, 118, 125, 1);
