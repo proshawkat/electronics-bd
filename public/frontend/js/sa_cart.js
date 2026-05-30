@@ -1,6 +1,6 @@
 var baseUrl = "{{ rtrim(url('/'), '/') }}";
 
-$(document).ready(function() {
+$(document).ready(function () {
     updateCartDropdown();
 });
 
@@ -21,29 +21,29 @@ function addCompareList(productId, source = null) {
 }
 
 
-function handleAction(click_type, productId, source_type=null) {
-    console.log("Action:", source_type, "ProductId:", productId, 'Qty: ', $(".model-content #product-quantity-"+productId).val());
+function handleAction(click_type, productId, source_type = null) {
+    console.log("Action:", source_type, "ProductId:", productId, 'Qty: ', $(".model-content #product-quantity-" + productId).val());
     let cart_quantity = 1
-    
-    if(source_type == 'modal'){
-        cart_quantity = $("#modalContent #product-quantity-"+productId).val()
-    }else if(source_type == null){
-        cart_quantity = $(".model-content #product-quantity-"+productId).val()
+
+    if (source_type == 'modal') {
+        cart_quantity = $("#modalContent #product-quantity-" + productId).val()
+    } else if (source_type == null) {
+        cart_quantity = $(".model-content #product-quantity-" + productId).val()
     }
 
     $.ajax({
-        url: baseUrl +'/action',
+        url: baseUrl + '/action',
         type: 'POST',
         data: {
             action_type: click_type,
             product_id: productId,
             quantity: cart_quantity
         },
-        success: function(response) {
+        success: function (response) {
             console.log('success', response)
             if (response.status == 'success') {
                 console.log('success type: ', click_type)
-                if(click_type === 'buy_now'){
+                if (click_type === 'buy_now') {
                     console.log("Redirecting to checkout...");
                     window.location.href = baseUrl + '/cart/checkout';
                     return;
@@ -52,15 +52,15 @@ function handleAction(click_type, productId, source_type=null) {
                 showNotification(response.product, click_type);
                 updateCartDropdown();
 
-                if(window.location.pathname.includes('/cart/view') && click_type == 'cart') {
+                if (window.location.pathname.includes('/cart/view') && click_type == 'cart') {
                     window.location.href = baseUrl + '/cart/view';
                 }
-                
-            }else{
+
+            } else {
                 alert(response.message);
             }
         },
-        error: function() {
+        error: function () {
             alert(click_type + " failed!");
         }
     });
@@ -69,15 +69,17 @@ function handleAction(click_type, productId, source_type=null) {
 function updateCartDropdown() {
     console.log('cart dowon');
 
-    $.get(baseUrl+'/cart/items', function(res){
-        $('#cart-total').text(res.totalQty + ' item(s) - ' + res.totalPrice + '৳');
+    $.get(baseUrl + '/cart/items', function (res) {
+        let formattedTotalPrice = parseFloat(res.totalPrice).toFixed(2);
+        $('#cart-total').text(res.totalQty + ' item(s) - ' + formattedTotalPrice + '৳');
         $('#cart-items').text(res.totalQty);
 
         let html = '';
-        if(res.items.length>0){
+        if (res.items.length > 0) {
             $('.cart-empty-ul').hide();
             $(".cart-full-ul").show();
-            res.items.forEach(item=>{
+            res.items.forEach(item => {
+                let formattedSubtotal = parseFloat(item.subtotal).toFixed(2);
                 html += `<tr>
                     <td class="text-center td-image">
                         <a href="${item.url}"><img src="${item.image}" alt="${item.name}" width="50" /></a>
@@ -86,7 +88,7 @@ function updateCartDropdown() {
                         <a href="${item.url}">${item.name}</a>
                     </td>
                     <td class="text-right td-qty">x ${item.qty}</td>
-                    <td class="text-right td-total">${item.subtotal}৳</td>
+                    <td class="text-right td-total">${formattedSubtotal}৳</td>
                     <td class="text-center td-remove">
                         <button type="button" onclick="removeFromCart(${item.id})" class="cart-remove"><i class="fa fa-times-circle"></i></button>
                     </td>
@@ -98,16 +100,16 @@ function updateCartDropdown() {
         }
 
         $('.cart-products .table tbody').html(html);
-        $('.cart-totals .td-total-text').eq(0).text(res.totalPrice+'৳');
-        $('.cart-totals .td-total-text').eq(1).text(res.totalPrice+'৳');
+        $('.cart-totals .td-total-text').eq(0).text(formattedTotalPrice + '৳');
+        $('.cart-totals .td-total-text').eq(1).text(formattedTotalPrice + '৳');
     });
 }
 
 
 function removeFromCart(productId) {
-    $.post(baseUrl + '/cart/remove', { product_id: productId }, function(res) {
-        if(res.status == 'success'){
-            if(window.location.pathname.includes('/cart/view')) {
+    $.post(baseUrl + '/cart/remove', { product_id: productId }, function (res) {
+        if (res.status == 'success') {
+            if (window.location.pathname.includes('/cart/view')) {
                 window.location.href = baseUrl + '/cart/view';
             }
             updateCartDropdown();
@@ -119,17 +121,17 @@ function showNotification(product, type) {
     let viewUrl = '';
     let checkoutUrl = '';
 
-    if(type == 'cart') {
-        viewUrl = baseUrl+'/cart/view';
-        checkoutUrl = baseUrl+'/cart/checkout';
-    } else if(type === 'wishlist') {
-        viewUrl = baseUrl+'/wishlist';
+    if (type == 'cart') {
+        viewUrl = baseUrl + '/cart/view';
+        checkoutUrl = baseUrl + '/cart/checkout';
+    } else if (type === 'wishlist') {
+        viewUrl = baseUrl + '/wishlist';
         checkoutUrl = '#';
-    } else if(type === 'compare') {
-        viewUrl = baseUrl+'/compare';
+    } else if (type === 'compare') {
+        viewUrl = baseUrl + '/compare';
         checkoutUrl = '#';
     }
-    
+
     let html = `
     <div class="notification-wrapper notification-wrapper-tr">
         <div class="notification notification-cart">
@@ -137,7 +139,7 @@ function showNotification(product, type) {
             <div class="notification-content">
                 <div class="row">
                     <div class="col-sm-3">
-                        <img class="img-responsive" src="${baseUrl+'/'+product.image}" />
+                        <img class="img-responsive" src="${baseUrl + '/' + product.image}" />
                     </div>
                     <div class="col-sm-9">
                         <div class="notification-title">${product.name}</div>
@@ -160,21 +162,21 @@ function showNotification(product, type) {
 
     $("body").append(html);
 
-    $(".notification-close").on("click", function() {
-        $(this).closest(".notification-wrapper").fadeOut(300, function() { $(this).remove(); });
+    $(".notification-close").on("click", function () {
+        $(this).closest(".notification-wrapper").fadeOut(300, function () { $(this).remove(); });
     });
 
-    if(type === 'cart') {
+    if (type === 'cart') {
         $(".notification-buttons").show();
     } else {
         $(".notification-buttons").hide();
     }
 
-    setTimeout(function() {
-        $(".notification-wrapper").fadeOut(300, function() { $(this).remove(); });
+    setTimeout(function () {
+        $(".notification-wrapper").fadeOut(300, function () { $(this).remove(); });
     }, 30000000);
 }
 
-$(document).on("click", ".mobile-wrapper-header .x", function() {
+$(document).on("click", ".mobile-wrapper-header .x", function () {
     $("html").removeClass("mobile-cart-content-container-open mobile-overlay mobile-main-menu-container-open");
 });
