@@ -734,3 +734,55 @@ div.cart-content .cart-buttons .btn {
     object-fit: contain !important;
     background-color: #f9f9f9;
 }
+
+/* ===== Arrow/Chevron Section Header (like NEW ARRIVAL style) ===== */
+.section-arrow-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    margin-bottom: 12px;
+    padding: 0;
+    height: 36px;
+    border-bottom: 2px solid #F0A800;
+}
+
+.section-arrow-header .section-arrow-text {
+    display: inline-block;
+    background: #F0A800;
+    color: #1a1a1a;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 0 36px 0 12px;
+    line-height: 36px;
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+    /* Arrow/chevron shape — right side is pointed */
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+}
+
+/* Disable old pseudo-element approach */
+.section-arrow-header .section-arrow-text::after {
+    display: none;
+}
+
+.section-arrow-header::after {
+    display: none;
+}
+
+/* Override module-products-302 title styles for the new header */
+.module-products-302 .title.module-title {
+    background: transparent !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    text-align: left !important;
+    overflow: visible !important;
+    white-space: normal !important;
+}
+
+.module-products-302 .title.module-title::after {
+    display: none !important;
+}

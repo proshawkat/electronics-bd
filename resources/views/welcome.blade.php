@@ -37,7 +37,11 @@
                                     <div class="module module-products module-products-302 module-products-grid">
                                         <div class="module-body">
                                             <div class="module-item module-item-1">
-                                                <h3 class="title module-title">Top Accessories Picks</h3>
+                                                <h3 class="title module-title">
+                                                    <div class="section-arrow-header">
+                                                        <span class="section-arrow-text">Top Accessories Picks</span>
+                                                    </div>
+                                                </h3>
                                                 <div class="row product-grid main-products model-content">
                                                     @foreach($homeProducts as $product)
                                                         <div class="col-xs-6 col-sm-6 col-md-3">
