@@ -52,7 +52,7 @@ a.truncate-text {
 }
 
 .main-products {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .filter-price .range-slider {
@@ -1000,9 +1000,10 @@ footer>div {
 
 .tb-img {
     width: 100%;
-    max-height: 180px;
+    height: 180px;
     object-fit: contain;
     border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
 /* Product name */
@@ -1039,7 +1040,8 @@ footer>div {
     background: #FFB300;
     padding: 4px 20px 4px 12px;
     border-radius: 20px 0 0 20px;
-    margin-right: -12px; /* Pulls the right badge over it */
+    margin-right: -12px;
+    /* Pulls the right badge over it */
     z-index: 1;
 }
 
@@ -1052,7 +1054,7 @@ footer>div {
     border-radius: 20px;
     z-index: 2;
     position: relative;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .tb-call-btn {
@@ -1068,7 +1070,7 @@ footer>div {
     cursor: pointer;
     z-index: 2;
     position: relative;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     transition: background 0.2s;
 }
 
@@ -1162,7 +1164,7 @@ footer>div {
     }
 
     .tb-img {
-        max-height: 140px;
+        height: 140px;
     }
 
     /* Center action buttons in mobile view */
@@ -1234,4 +1236,133 @@ footer>div {
 .btn-wishlist::before,
 .btn-compare::before {
     color: #1a1a1a !important;
+}
+
+/* Make site-wrapper 100% on laptops, but 1280px on very large screens */
+@media (max-width: 1536px) {
+
+    /* Keep max-width 100% grouped for convenience */
+    .wrapper,
+    .mega-menu-content,
+    .site-wrapper>.container,
+    .grid-cols,
+    .desktop-header-active .is-sticky .header .desktop-main-menu-wrapper,
+    .desktop-header-active .is-sticky .sticky-fullwidth-bg,
+    .boxed-layout .site-wrapper,
+    .breadcrumb,
+    .title-wrapper,
+    .page-title>span,
+    .desktop-header-active .header .top-bar,
+    .desktop-header-active .header .mid-bar,
+    .desktop-main-menu-wrapper,
+    .layout-1 .wrapper,
+    .layout-1 .mega-menu-content,
+    .layout-1 .site-wrapper>.container,
+    .layout-1 .grid-cols,
+    .layout-1.desktop-header-active .is-sticky .header .desktop-main-menu-wrapper,
+    .layout-1.desktop-header-active .is-sticky .sticky-fullwidth-bg,
+    .layout-1.boxed-layout .site-wrapper,
+    .layout-1 .breadcrumb,
+    .layout-1 .title-wrapper,
+    .layout-1 .page-title>span,
+    .layout-1.desktop-header-active .header .top-bar,
+    .layout-1.desktop-header-active .header .mid-bar,
+    .layout-1 .desktop-main-menu-wrapper {
+        max-width: 100% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1536px) {
+
+    /* Individual paddings so you can easily comment out or remove specific ones */
+    .wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .mega-menu-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .desktop-header-active .is-sticky .sticky-fullwidth-bg {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .boxed-layout .site-wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .breadcrumb {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .title-wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .page-title>span {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .desktop-header-active .header .top-bar {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1 .wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1 .mega-menu-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1.desktop-header-active .is-sticky .header .desktop-main-menu-wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1.desktop-header-active .is-sticky .sticky-fullwidth-bg {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1.boxed-layout .site-wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1 .breadcrumb {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1 .title-wrapper {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1 .page-title>span {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-1.desktop-header-active .header .top-bar {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}
+
+.top-menu-14 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
 }

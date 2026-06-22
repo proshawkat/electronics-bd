@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="only-mobile-view mb-2">
+                <div class="only-mobile-view mb-1">
                     @include('frontend.partials.top_social')
                 </div>   
                 <div class="grid-row grid-row-content-top-2">
@@ -154,7 +154,7 @@
                                             <div class="module-item module-item-1">
                                                 <h3 class="title module-title">
                                                     <div class="section-arrow-header">
-                                                        <span class="section-arrow-text">Popular Products</span>
+                                                        <span class="section-arrow-text">Featured Products</span>
                                                     </div>
                                                 </h3>
                                                 <div class="row product-grid main-products model-content">
@@ -264,61 +264,6 @@
                                                 </div>
                                             </div>
                                             <!-- end New Arrival -->
-                                             <!-- Start trusted brands -->
-                                             <div class="module-item module-item-1">
-                                                <h3 class="title module-title">
-                                                    <div class="section-arrow-header">
-                                                        <span class="section-arrow-text">Trusted Brands</span>
-                                                    </div>
-                                                </h3>
-                                                <div class="row tb-product-grid">
-                                                    @foreach($homeProducts as $product)
-                                                        <div class="col-xs-12 col-sm-6 col-md-6 tb-col">
-                                                            <div class="tb-card">
-                                                                {{-- Product Image --}}
-                                                                <a href="{{ url('product/'.$product->slug) }}" class="tb-img-wrap">
-                                                                    <img src="{{ asset('public/'.$product->first_image_url) }}"
-                                                                         alt="{{ $product->name }}"
-                                                                         class="tb-img" />
-                                                                </a>
-
-                                                                {{-- Product Name --}}
-                                                                <div class="tb-name">
-                                                                    <a href="{{ url('product/'.$product->slug) }}">{{ $product->name }}</a>
-                                                                </div>
-
-                                                                {{-- Price Row --}}
-                                                                <div class="tb-price-row">
-                                                                    <span class="tb-price-label">Price</span>
-                                                                    @if(!$product->no_sale_price)
-                                                                        <span class="tb-price-badge">৳: {{ $product->sale_price }}</span>
-                                                                    @else
-                                                                        <button class="tb-call-btn" data-toggle="modal" data-target="#whatsappModal" data-product="{{ $product->name }}">
-                                                                            <svg width="13" height="13" viewBox="0 0 32 32" fill="#fff" style="vertical-align:middle;margin-right:4px;"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732.737 5.291 2.022 7.491l-2.147 7.839 8.031-2.107a14.86 14.86 0 0 0 7.107 1.81h.006c8.209 0 14.862-6.656 14.862-14.865 0-4.103-1.662-7.817-4.505-10.679z"/></svg>
-                                                                            Please call us
-                                                                        </button>
-                                                                    @endif
-                                                                </div>
-
-                                                                {{-- Action Buttons --}}
-                                                                <div class="tb-actions">
-                                                                    @if(!$product->no_sale_price)
-                                                                        <a class="tb-btn-cart" onclick="addToCart({{ $product->id }})">Add to Cart</a>
-                                                                        <a class="tb-btn-buy" href="{{ url('product/'.$product->slug) }}">Buy Now</a>
-                                                                    @endif
-                                                                    <a class="tb-btn-icon tb-btn-wish" onclick="addTowishlist({{ $product->id }})" title="Wishlist">
-                                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                                                    </a>
-                                                                    <a class="tb-btn-icon tb-btn-wa" data-toggle="modal" data-target="#whatsappModal" data-product="{{ $product->name }}" title="WhatsApp">
-                                                                        <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor"><path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732.737 5.291 2.022 7.491l-2.147 7.839 8.031-2.107a14.86 14.86 0 0 0 7.107 1.81h.006c8.209 0 14.862-6.656 14.862-14.865 0-4.103-1.662-7.817-4.505-10.679z"/></svg>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <!-- end trusted brands -->
 
                                         </div>
                                     </div>

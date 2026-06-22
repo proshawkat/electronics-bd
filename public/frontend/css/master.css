@@ -9045,7 +9045,8 @@ div.cart-content .cart-buttons .btn {
 
 .grid-row-content-top-1 {
     border-style: none;
-    margin-bottom: 20px
+    margin-bottom: -4px;
+    margin-top: 4px;
 }
 
 .grid-row-content-top-1 .wave-top {

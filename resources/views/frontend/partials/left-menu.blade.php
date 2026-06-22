@@ -51,62 +51,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
-                        <div class="grid-item grid-item-column-left-1-1-4">
-                            <div class="module module-button module-button-310">
-                                <a class="btn">Featured Products</a>
-                            </div>
-                        </div>
-                        <div class="grid-item grid-item-column-left-1-1-5">
-                            <div class="module module-side_products module-side_products-151">
-                                <div class="module-body side-products-blocks">
-                                    <div class="module-item module-item-1">
-                                        <div class="side-products">
-                                            @foreach($featuredProducts as $product)
-                                                <div class="product-layout">
-                                                    <div class="side-product">
-                                                        <div class="image">
-                                                            <a href="{{ url('product/'.$product->slug) }}" class="product-img">
-                                                                <img src="{{ asset('public/'.$product->first_image_url) }}"
-                                                                    srcset="{{ asset('public/'.$product->first_image_url) }}" width="60" height="60" alt=""
-                                                                    title=""
-                                                                    class="img-first"
-                                                                />
-                                                            </a>
-
-                                                            <div class="quickview-button">
-                                                                <a class="btn btn-quickview" title="Quickview" data-original-title="Quickview" data-placement="top" data-toggle="modal"  data-target="#quickViewModal" data-id="{{ $product->id }}">
-                                                                    <span class="btn-text">Quickview</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="caption">
-                                                            <div class="name">
-                                                                <a href="{{ url('product/'.$product->slug) }}">
-                                                                    {{ $product->name }}
-                                                                </a>
-                                                            </div>
-                                                            @if(!$product->no_sale_price)
-                                                                <div class="price">
-                                                                    <span class="price-normal">{{ $product->sale_price }}৳</span>
-                                                                </div>
-                                                            @else
-                                                                <div class="price">
-                                                                    <div>
-                                                                        <span class="price-normal">Price on Request</span>
-                                                                    </div>
-                                                                </div>
-                                                            @endif        
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
                     </div>
                 </div>
             </div>

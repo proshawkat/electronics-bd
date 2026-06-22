@@ -6,7 +6,7 @@
             </div>
             <div class="third-menu"></div>
         </div>
-        <div class="mid-bar navbar-nav" style="min-height:115px;">
+        <div class="mid-bar navbar-nav">
             <div class="desktop-logo-wrapper">
                 <div id="logo">
                     <a href="{{ route('home') }}">
@@ -36,19 +36,6 @@
                             </a>
                         </li>
 
-                        <li class="menu-item top-menu-item top-menu-item-3">
-                            <a href="{{ route('clearance.outlet') }}">
-                                <span class="links-text">CLEARENCE <s>OUTLET</s></span>
-                            </a>
-                        </li>
-                        
-                        <li class="menu-item top-menu-item top-menu-item-4">
-                            <a href="{{ route('offer.zone') }}">
-                                <span class="links-text">OFFER <s>ZONE</s></span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="rd-menu" style="margin-top: 10px;">
                         <li class="menu-item top-menu-item top-menu-item-3">
                             <a href="{{ route('clearance.outlet') }}">
                                 <span class="links-text">CLEARENCE <s>OUTLET</s></span>
