@@ -1893,3 +1893,24 @@ footer>div {
 .product-view-page:not(.popup) .product-info .button-group-page .stepper-group {
     width: 100% !important;
 }
+
+/* Related Products Section Title */
+.related-products-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
+    position: relative;
+}
+
+.related-products-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: #084387;
+}
