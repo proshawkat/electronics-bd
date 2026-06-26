@@ -27,6 +27,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Backend\AdminUserController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
+Route::get('/all-categories', [WelcomeController::class, 'allCategories'])->name('all-categories');
 Route::get('/single-product/{id}', [WelcomeController::class, 'singleProduct'])->name('single-product');
 Route::get('/product/{slug}', [WelcomeController::class, 'slugWiseroduct'])->name('slug-product');
 Route::get('/clearance-outlet', [WelcomeController::class, 'clearanceOutlet'])->name('clearance.outlet');

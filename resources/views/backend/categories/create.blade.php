@@ -20,7 +20,7 @@
                             @include('backend.includes.back-button')
                         </div>
                     </div>
-                    <form method="post" action="{{ route('admin.categories.store'); }}">
+                    <form method="post" action="{{ route('admin.categories.store'); }}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="mb-3">
@@ -35,6 +35,10 @@
                                         <option value="{{ $id }}" {{ old('parent_id') == $id ? 'selected' : '' }}>{{ $parentName }}</option>
                                     @endforeach    
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="image" name="image" />
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">

@@ -30,22 +30,31 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'title' => 'string|max:255',
             'image_url' => 'required|image|max:2048',
         ]);
 
-        $imageUrl = $this->uploadImage($request->file('image_url'));
+        try {
+            $imageUrl = $this->uploadImage($request->file('image_url'));
 
-        Slider::create([
-            'title' => $request->title,
-            'link' => $request->link,
-            'image_url' => $imageUrl,
-            'status' => $request->status ?? 1,
-        ]);
+            Slider::create([
+                'title' => $request->title,
+                'link' => $request->link,
+                'image_url' => $imageUrl,
+                'status' => $request->status ?? 1,
+            ]);
 
-        return redirect()->route('admin.sliders.index')->with('success', 'Slider created successfully!');
+            return redirect()->route('admin.sliders.index')->with('success', 'Slider created successfully!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1] ?? null;
+            if($errorCode == 1062){
+                return redirect()->back()->withInput()->with('error', 'Slider with this title already exists.');
+            }
+            return redirect()->back()->withInput()->with('error', 'Database Error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -77,22 +86,32 @@ class SliderController extends Controller
             'image_url' => 'nullable|image|max:2048',
         ]);
 
-        $imageUrl = $slider->image_url;
-        if ($request->hasFile('image_url')) {
-            if (file_exists(public_path($slider->image_url))) {
-                unlink(public_path($slider->image_url));
+        try {
+            $imageUrl = $slider->image_url;
+            if ($request->hasFile('image_url')) {
+                if (file_exists(public_path($slider->image_url))) {
+                    @unlink(public_path($slider->image_url));
+                }
+                $imageUrl = $this->uploadImage($request->file('image_url'));
             }
-            $imageUrl = $this->uploadImage($request->file('image_url'));
+
+            $slider->update([
+                'title' => $request->title,
+                'link' => $request->link,
+                'image_url' => $imageUrl,
+                'status' => $request->status ?? 1,
+            ]);
+
+            return redirect()->route('admin.sliders.index')->with('success', 'Slider updated successfully!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1] ?? null;
+            if($errorCode == 1062){
+                return redirect()->back()->withInput()->with('error', 'Slider with this title already exists.');
+            }
+            return redirect()->back()->withInput()->with('error', 'Database Error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
         }
-
-        $slider->update([
-            'title' => $request->title,
-            'link' => $request->link,
-            'image_url' => $imageUrl,
-            'status' => $request->status ?? 1,
-        ]);
-
-        return redirect()->route('admin.sliders.index')->with('success', 'Slider updated successfully!');
     }
 
     /**

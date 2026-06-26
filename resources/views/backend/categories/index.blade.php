@@ -25,6 +25,7 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Parent</th>
                                     <th>Status</th>
@@ -35,6 +36,13 @@
                                     @foreach($categories as  $category)
                                         <tr class="align-middle">
                                             <td>{{ ($categories->currentPage() - 1) * $categories->perPage() + $loop->iteration }}</td>
+                                            <td>
+                                                @if($category->image)
+                                                    <img src="{{ asset('public/'.$category->image) }}" alt="{{ $category->name }}" width="50" height="50" style="object-fit: cover;">
+                                                @else
+                                                    <span class="text-muted">No Image</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $category->name }}</td>
                                             <td>
                                                 {{ $category->parent?->name ?? '---' }}

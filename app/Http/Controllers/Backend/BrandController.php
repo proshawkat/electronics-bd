@@ -28,14 +28,24 @@ class BrandController extends Controller
             'name' => 'required|string|max:191',
         ]);
 
-        Brand::create([
-            'name'       => $request->name,
-            'slug'       => Str::slug($request->name),
-            'status'     => $request->status ?? false,
-            'created_by' => Auth::id(),
-        ]);
+        try {
+            Brand::create([
+                'name'       => $request->name,
+                'slug'       => Str::slug($request->name),
+                'status'     => $request->status ?? false,
+                'created_by' => Auth::id(),
+            ]);
 
-        return redirect()->route('admin.brands.index')->with('success', 'Brand created successfully.');
+            return redirect()->route('admin.brands.index')->with('success', 'Brand created successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1] ?? null;
+            if($errorCode == 1062){
+                return redirect()->back()->withInput()->with('error', 'Brand with this name already exists.');
+            }
+            return redirect()->back()->withInput()->with('error', 'Database Error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     public function edit(Brand $brand)
@@ -49,13 +59,23 @@ class BrandController extends Controller
             'name' => 'required|string|max:191',
         ]);
 
-        $brand->update([
-            'name'   => $request->name,
-            'slug'   => Str::slug($request->name),
-            'status' => $request->status ?? false,
-        ]);
+        try {
+            $brand->update([
+                'name'   => $request->name,
+                'slug'   => Str::slug($request->name),
+                'status' => $request->status ?? false,
+            ]);
 
-        return redirect()->route('admin.brands.index')->with('success', 'Brand updated successfully.');
+            return redirect()->route('admin.brands.index')->with('success', 'Brand updated successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1] ?? null;
+            if($errorCode == 1062){
+                return redirect()->back()->withInput()->with('error', 'Brand with this name already exists.');
+            }
+            return redirect()->back()->withInput()->with('error', 'Database Error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     public function destroy(Brand $brand)

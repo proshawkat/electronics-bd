@@ -133,7 +133,7 @@
     @unless($NotLeftMenuRoute)
 		<div id="common-home" class="container">
 			<div class="row">
-              @include('frontend.partials.left-menu', ['featuredProducts' => $featuredProducts])
+              @include('frontend.partials.left-menu')
     @endunless          
           @yield('content')
     @unless($NotLeftMenuRoute)   

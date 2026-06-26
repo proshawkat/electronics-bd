@@ -26,9 +26,61 @@
                         </div>
                     </div>
                 </div>
+                <div class="marquee-container">
+                    <div class="promo">
+                        <div class="download-app-chat left">
+                            <div class="d-app-box">
+                                <span class="app-name"> <i class="fa fa-bolt" style="font-family: 'Font Awesome 6 Free', FontAwesome, sans-serif !important; font-weight: 900;"></i> &nbsp;&nbsp;Latest Products</span>
+                            </div>
+                        </div>
+                        <div class="search left">
+                            <marquee behavior="scroll" direction="left" id="scrolling-text" onmouseover="this.stop()" onmouseout="this.start()">
+                                <ul class="slidingtext-list">
+                                    @foreach($homeProducts as $product)
+                                        <li>
+                                            <i class="fa fa-star" style="color: #FFB300; font-family: 'Font Awesome 6 Free', FontAwesome, sans-serif !important; font-weight: 900;"></i> 
+                                            <span style="color: #555;">New Arrival:</span> 
+                                            <a href="{{ url('product/'.$product->slug) }}" style="color: #333; font-weight: 500;">{{ $product->name }}</a> 
+                                            <span style="color: #eb6626; font-weight: bold; margin-left: 5px;">
+                                                @if($product->sale_price > 0)
+                                                    ৳{{ $product->sale_price }}
+                                                @endif
+                                            </span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </marquee>
+                        </div>
+                    </div>
+                </div>
                 <div class="only-mobile-view mb-1">
                     @include('frontend.partials.top_social')
-                </div>   
+                </div> 
+                <div class="featured-category-showcase">
+                    <h2 class="featured-category-heading">Featured Category</h2>
+                    <p class="featured-category-sub_heading">Get Your Desired Product from Featured Category!</p>
+                    <div class="grid-row">
+                        @foreach($featureCategories as $category)
+                        <div class="col-md-2">
+                            <div class="category-item-box">
+                                <a href="{{ route('category.show', $category->slug) }}">
+                                    <img
+                                        src="{{ asset('public/'.$category->image) }}"
+                                        alt="{{ $category->name }}"
+                                        title="{{ $category->name }}"
+                                        class="img-responsive category-icon"
+                                    />
+                                    <h4 class="category-name">{{ $category->name }}</h4>
+                                </a>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div style="text-align: right; margin-top: 7px; padding-right: 0px;">
+                        <a href="{{ route('all-categories') }}" style="text-decoration: none; font-weight: normal; color: #000;font-size:14px;">View All Categories &raquo;</a>
+                    </div>
+                </div>
+  
                 <div class="grid-row grid-row-content-top-2">
                     <div class="grid-cols">
                         <div class="grid-col grid-col-content-top-2-1">
@@ -158,7 +210,7 @@
                                                     </div>
                                                 </h3>
                                                 <div class="row product-grid main-products model-content">
-                                                    @foreach($homeProducts as $product)
+                                                    @foreach($featuredProducts as $product)
                                                         <div class="col-xs-6 col-sm-6 col-md-3">
                                                             <div class="product-layout has-extra-button">
                                                                 <div class="product-thumb">

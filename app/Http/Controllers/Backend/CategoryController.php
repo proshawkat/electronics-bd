@@ -29,18 +29,35 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:191',
             'parent_id' => 'nullable|exists:categories,id',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        Category::create([
-            'name'       => $request->name,
-            'slug'       => Str::slug($request->name),
-            'status'     => $request->status ?? false,
-            'parent_id'  => $request->parent_id,
-            'created_by' => Auth::id(),
-        ]);
-        Cache::forget('menu_categories');
+        try {
+            $imageUrl = null;
+            if ($request->hasFile('image')) {
+                $imageUrl = $this->uploadImage($request->file('image'));
+            }
 
-        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+            Category::create([
+                'name'       => $request->name,
+                'slug'       => Str::slug($request->name),
+                'image'      => $imageUrl,
+                'status'     => $request->status ?? false,
+                'parent_id'  => $request->parent_id,
+                'created_by' => Auth::id(),
+            ]);
+            Cache::forget('menu_categories');
+
+            return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1] ?? null;
+            if($errorCode == 1062){
+                return redirect()->back()->withInput()->with('error', 'Category with this name already exists.');
+            }
+            return redirect()->back()->withInput()->with('error', 'Database Error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     public function edit(Category $category)
@@ -54,17 +71,34 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:191',
             'parent_id' => 'nullable|exists:categories,id',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        $category->update([
-            'name'       => $request->name,
-            'slug'       => Str::slug($request->name),
-            'status'     => $request->status ?? false,
-            'parent_id'  => $request->parent_id,
-        ]);
-        Cache::forget('menu_categories');
+        try {
+            $imageUrl = $category->image;
+            if ($request->hasFile('image')) {
+                $imageUrl = $this->uploadImage($request->file('image'));
+            }
 
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+            $category->update([
+                'name'       => $request->name,
+                'slug'       => Str::slug($request->name),
+                'image'      => $imageUrl,
+                'status'     => $request->status ?? false,
+                'parent_id'  => $request->parent_id,
+            ]);
+            Cache::forget('menu_categories');
+
+            return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1] ?? null;
+            if($errorCode == 1062){
+                return redirect()->back()->withInput()->with('error', 'Category with this name already exists.');
+            }
+            return redirect()->back()->withInput()->with('error', 'Database Error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     public function destroy(Category $category)
@@ -84,5 +118,13 @@ class CategoryController extends Controller
         $subcategories = Category::where('parent_id', $category_id)->pluck('name', 'id');
 
         return response()->json($subcategories);
+    }
+
+    private function uploadImage($file, $folder = 'categories')
+    {
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/' . $folder), $filename);
+
+        return 'uploads/' . $folder . '/' . $filename;
     }
 }

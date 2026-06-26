@@ -1305,7 +1305,7 @@ html:not(.popup) .page-title.page-title>span::after {
 }
 
 body a {
-    color: rgba(39, 124, 217, 1);
+    color: rgba(0, 0, 0, 1);
     display: inline-block
 }
 
@@ -7285,7 +7285,8 @@ select.form-control:active {
     }
 
     .main-products.product-grid {
-        margin: 0px
+        margin: 0px;
+        margin-bottom: 7px;
     }
 }
 
@@ -9060,7 +9061,8 @@ div.cart-content .cart-buttons .btn {
 .grid-col-content-top-1-1 {
     width: 100%;
     background: rgba(255, 255, 255, 1);
-    padding: 5px
+    padding: 5px;
+    padding-left: 0;
 }
 
 .grid-col-content-top-1-1 .grid-item {
@@ -10124,7 +10126,7 @@ div.flyout-menu.flyout-menu-7 .rd-menu a .count-badge {
     font-size: 16px;
     color: #fff;
     text-transform: capitalize;
-    background: #F0A800;
+    background: transparent;
     padding: 5px;
     white-space: nowrap;
     overflow: hidden;

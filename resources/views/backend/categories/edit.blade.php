@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <form method="post" action="{{ route('admin.categories.update', $category->id) }}">
+                    <form method="post" action="{{ route('admin.categories.update', $category->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -46,6 +46,20 @@
                                     @endforeach    
                                 </select>
                                 @error('parent_id')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            {{-- Image --}}
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" />
+                                @if($category->image)
+                                    <div class="mt-2">
+                                        <img src="{{ asset('public/'.$category->image) }}" alt="Category Image" width="100">
+                                    </div>
+                                @endif
+                                @error('image')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>

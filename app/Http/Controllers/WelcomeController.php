@@ -7,14 +7,29 @@ use App\Models\Product;
 use App\Models\Slider;
 use App\Models\Brand;
 use App\Models\Tag;
+use App\Models\Category;
 
 class WelcomeController extends Controller
 {
     public function index(){
-        $homeProducts = Product::where('status', 1)->where('is_clearance_outlet', '!=', 1)->take(20)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url', 'no_sale_price']);
+        $homeProducts = Product::where('status', 1)->where('is_clearance_outlet', '!=', 1)->latest()->take(5)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url', 'no_sale_price']);
         $featuredProducts = Product::where('is_featured', 1)->where('status', 1)->where('is_clearance_outlet', '!=', 1)->take(5)->get(['id', 'name', 'slug', 'sale_price', 'first_image_url', 'second_image_url', 'no_sale_price']);
         $sliders = Slider::where('status', 1)->get(['link', 'image_url']);
-        return view('welcome', compact('featuredProducts', 'homeProducts', 'sliders'));
+        $featureCategories = Category::where(function($query) {
+            $query->whereNull('parent_id')->orWhere('parent_id', 0);
+        })->where('status', 1)->latest()->take(16)->get();
+        return view('welcome', compact('featuredProducts', 'homeProducts', 'sliders', 'featureCategories'));
+    }
+
+    public function allCategories()
+    {
+        $categories = Category::where(function($query) {
+            $query->whereNull('parent_id')->orWhere('parent_id', 0);
+        })->where('status', 1)->with(['children' => function($query) {
+            $query->where('status', 1);
+        }])->get();
+
+        return view('frontend.all-categories', compact('categories'));
     }
 
     public function singleProduct($id){
