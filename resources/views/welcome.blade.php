@@ -145,37 +145,6 @@
                                                                                         <span class="price-normal">{{ $product->sale_price }}৳</span>
                                                                                     </div>
                                                                                 </div>
-
-                                                                                <div class="buttons-wrapper">
-                                                                                    <div class="button-group">
-                                                                                        <div class="cart-group">
-                                                                                            <div class="stepper">
-                                                                                                <input type="text" name="quantity" value="1" id="product-quantity-{{ $product->id }}" data-minimum="1" class="form-control" />
-                                                                                                <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                                                                                                <span>
-                                                                                                    <i class="fa fa-angle-up"></i>
-                                                                                                    <i class="fa fa-angle-down"></i>
-                                                                                                </span>
-                                                                                            </div>
-
-                                                                                            <div>
-                                                                                                <a class="btn btn-cart" data-id="{{ $product->id }}" onclick="addToCart({{ $product->id }})">
-                                                                                                    <span class="btn-text">Add to Cart</span>
-                                                                                                </a>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="wish-group">
-                                                                                            <a class="btn btn-wishlist" data-id="{{ $product->id }}" onclick="addTowishlist({{ $product->id }})" data-original-title="Add to Wish List">
-                                                                                                <span class="btn-text">Add to Wish List</span>
-                                                                                            </a>
-
-                                                                                            <a class="btn btn-compare" data-id="{{ $product->id }}" data-toggle="tooltip" data-tooltip-class="product-grid compare-tooltip" data-placement="top" title="" onclick="addCompareList({{ $product->id }})">
-                                                                                                <span class="btn-text">Compare this Product</span>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
                                                                             @else
                                                                                 <div class="price">
                                                                                     <div>

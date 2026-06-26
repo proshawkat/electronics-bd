@@ -1659,3 +1659,237 @@ footer>div {
     max-width: 100% !important;
     height: auto !important;
 }
+
+/* Delivery Info 3-Column Layout */
+@media (min-width: 992px) {
+    .product-info.has-delivery {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .product-info.has-delivery .product-left {
+        width: 40%;
+    }
+
+    .product-info.has-delivery .product-right {
+        width: 35%;
+        padding-right: 15px;
+    }
+
+    .product-info.has-delivery .product-delivery {
+        width: 25%;
+    }
+}
+
+@media (max-width: 991px) {
+    .product-info.has-delivery .product-delivery {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+/* Custom Delivery Info CSS */
+.delivery-box {
+    background-color: #f3f4f6;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
+
+.delivery-header {
+    color: #6b7280;
+    font-size: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+.delivery-item {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    align-items: flex-start;
+}
+
+.delivery-item.delivery-link {
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.delivery-item.delivery-link:hover {
+    color: #277cd9;
+}
+
+.delivery-border-b {
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.delivery-icon {
+    color: #9ca3af;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.delivery-link .delivery-icon {
+    margin-top: 0;
+}
+
+.delivery-icon.icon-lg {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.delivery-text {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.4;
+}
+
+.delivery-fw-semibold {
+    font-weight: 600;
+}
+
+.delivery-mt-2 {
+    margin-top: 0.5rem;
+}
+
+.delivery-link.text-gray {
+    color: #4b5563;
+}
+
+.delivery-link.text-whatsapp {
+    color: #22c55e;
+}
+
+.delivery-link.text-blue {
+    color: #3b82f6;
+}
+
+.delivery-phone {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.delivery-text small {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+@media (max-width: 767px) {
+    .product-info .wishlist-compare {
+        display: none !important;
+    }
+}
+
+/* Custom Product Buttons Layout */
+.stepper-group.cart-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.stepper-group.cart-group .stepper {
+    flex: 0 0 auto;
+    margin: 0 !important;
+}
+
+.stepper-group.cart-group .btn-cart {
+    flex: 1;
+    margin: 0 !important;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stepper-group.cart-group .extra-group {
+    width: 100%;
+    margin-top: 2px;
+}
+
+.stepper-group.cart-group .btn-extra {
+    display: flex;
+    width: 100%;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+    background: #ff6a00;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.stepper-group.cart-group .btn-extra:hover {
+    background: #e65c00;
+}
+
+.product-info .wishlist-compare {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px !important;
+}
+
+}
+@media (max-width: 767px) {
+    .product-info .wishlist-compare {
+        display: none !important;
+    }
+}
+
+/* Custom Product Buttons Layout */
+.stepper-group.cart-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.stepper-group.cart-group .stepper {
+    flex: 0 0 auto;
+    margin: 0 !important;
+}
+
+.stepper-group.cart-group .btn-cart {
+    flex: 1;
+    margin: 0 !important;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stepper-group.cart-group .extra-group {
+    width: 100%;
+    margin-top: 2px;
+}
+
+.stepper-group.cart-group .btn-extra {
+    display: flex;
+    width: 100%;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+    background: #ff6a00;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.stepper-group.cart-group .btn-extra:hover {
+    background: #e65c00;
+}
+
+.product-view-page:not(.popup) .product-info .button-group-page .stepper-group {
+    width: 100% !important;
+}

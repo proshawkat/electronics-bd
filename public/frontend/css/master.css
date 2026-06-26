@@ -808,11 +808,11 @@ html:not(.popup) .page-title {
     text-align: left;
     text-transform: uppercase;
     border-width: 0;
-    border-bottom-width: 1px;
+    border-bottom-width: 0px;
     border-style: solid;
     border-color: rgba(221, 221, 221, 1);
     border-radius: 0px;
-    padding: 20px;
+    padding: 5px;
     margin: 0px;
     white-space: normal;
     overflow: visible;
@@ -2274,7 +2274,7 @@ select.form-control:active {
 
 .product-view-page.popup-quickview .product-info .product-right {
     width: calc(100% - 50%);
-    padding-left: 20px
+    padding-left: 15px
 }
 
 .product-view-page.popup-quickview h1.page-title {
@@ -4390,11 +4390,11 @@ select.form-control:active {
 
 .product-info .product-right {
     width: calc(100% - 40%);
-    padding-left: 30px
+    padding-left: 15px
 }
 
 .product-view-page:not(.popup) .product-info .product-left {
-    padding-top: 20px
+    padding-top: 0px;
 }
 
 .product-view-page:not(.popup) h1.page-title {
@@ -4402,7 +4402,10 @@ select.form-control:active {
 }
 
 .product-view-page:not(.popup) .product-info div.page-title {
-    display: block
+    display: block;
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
 }
 
 .product-view-page #content .page-title {
@@ -4645,10 +4648,6 @@ select.form-control:active {
 
 .additional-images img:hover {
     border-color: rgba(235, 102, 38, 1)
-}
-
-.product-info .product-details>div {
-    margin-bottom: 15px
 }
 
 .product-view-page:not(.popup) .product-info .product-details .product-stats {
@@ -5302,7 +5301,7 @@ select.form-control:active {
 .product-view-page:not(.popup) .product-info .button-group-page .btn-wishlist {
     display: inline-flex;
     margin-right: 10px;
-    margin-left: 15px;
+    margin-left: 0px;
     border-radius: 2px !important
 }
 
@@ -7114,7 +7113,8 @@ select.form-control:active {
     }
 
     .product-info .product-left {
-        width: 100%
+        width: 100%;
+        padding-top: 0 !important;
     }
 
     .product-info .product-right {
@@ -7185,7 +7185,8 @@ select.form-control:active {
     }
 
     html:not(.popup) .page-title {
-        font-size: 22px
+        font-size: 22px;
+        padding-left: 10px !important;
     }
 
     .breadcrumb {
