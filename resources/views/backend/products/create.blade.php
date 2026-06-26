@@ -54,6 +54,12 @@
                                         <label class="form-check-label" for="no_sale_price">No Sale Price</label>
                                     </div>
                                 </div>
+                                <div class="col-sm-2 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="cash_on_delivery" name="cash_on_delivery" value="1" />
+                                        <label class="form-check-label" for="cash_on_delivery">Cash On Delivery</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4 mb-3">
