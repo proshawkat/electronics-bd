@@ -75,7 +75,9 @@ class CartController extends Controller
                 'image' => 'public/'.$product->first_image_url, 
                 'url'   => url('/product/'.$product->slug),
                 'qty'   => $quantity
-            ]
+            ],
+            'cash_on_delivery' => (bool) $product->cash_on_delivery,
+            'cod_unavailable_message' => $product->cod_unavailable_message,
         ]);
     }
 
@@ -116,7 +118,9 @@ class CartController extends Controller
             'status' => 'success',
             'message' => 'Proceed to checkout',
             'product_id' => $request->product_id,
-            'quantity' => $request->quantity ?? 1
+            'quantity' => $request->quantity ?? 1,
+            'cash_on_delivery' => (bool) $product->cash_on_delivery,
+            'cod_unavailable_message' => $product->cod_unavailable_message,
         ]);
     }
 

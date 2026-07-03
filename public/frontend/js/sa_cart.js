@@ -42,6 +42,12 @@ function handleAction(click_type, productId, source_type = null) {
         success: function (response) {
             console.log('success', response)
             if (response.status == 'success') {
+                // Show COD unavailable warning for cart and buy_now
+                if ((click_type === 'cart' || click_type === 'buy_now') && response.cash_on_delivery === false) {
+                    var codMsg = response.cod_unavailable_message || 'This product does not support Cash on Delivery.';
+                    showCodWarning(codMsg);
+                }
+
                 console.log('success type: ', click_type)
                 if (click_type === 'buy_now') {
                     console.log("Redirecting to checkout...");
@@ -64,6 +70,34 @@ function handleAction(click_type, productId, source_type = null) {
             alert(click_type + " failed!");
         }
     });
+}
+
+function showCodWarning(message) {
+    var html = `
+    <div class="notification-wrapper notification-wrapper-tr" id="cod-warning-notification" style="z-index: 99999;">
+        <div class="notification notification-cart" style="border-left: 4px solid #e74c3c;">
+            <button class="btn notification-close" onclick="this.closest('.notification-wrapper').remove()"></button>
+            <div class="notification-content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="notification-title" style="color: #e74c3c;">
+                            <i class="fa fa-exclamation-triangle"></i> Cash on Delivery Unavailable
+                        </div>
+                        <div class="notification-text" style="margin-top: 8px;">
+                            ${message}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    $("#cod-warning-notification").remove();
+    $("body").append(html);
+
+    setTimeout(function () {
+        $("#cod-warning-notification").fadeOut(300, function () { $(this).remove(); });
+    }, 8000);
 }
 
 function updateCartDropdown() {

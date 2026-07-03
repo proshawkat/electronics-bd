@@ -93,6 +93,8 @@ class ProductController extends Controller
             'is_featured' => $request->has('is_featured') ? 1 : 0,
             'is_clearance_outlet' => $request->has('is_clearance_outlet') ? 1 : 0,
             'no_sale_price' => $request->has('no_sale_price') ? 1 : 0,
+            'cash_on_delivery' => $request->has('cash_on_delivery') ? 1 : 0,
+            'cod_unavailable_message' => !$request->has('cash_on_delivery') ? $request->cod_unavailable_message : null,
         ]);
 
         // Gallery Images
@@ -124,7 +126,6 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|unique:products,slug,' . $product->id,
-            'product_code' => 'required|unique:products,product_code,' . $product->id,
             'description' => 'required',
             'first_image_url' => 'nullable|image|max:2048',
             'second_image_url' => 'nullable|image|max:2048',
@@ -175,6 +176,8 @@ class ProductController extends Controller
             'is_featured' => $request->has('is_featured') ? 1 : 0,
             'is_clearance_outlet' => $request->has('is_clearance_outlet') ? 1 : 0,
             'no_sale_price' => $request->has('no_sale_price') ? 1 : 0,
+            'cash_on_delivery' => $request->has('cash_on_delivery') ? 1 : 0,
+            'cod_unavailable_message' => !$request->has('cash_on_delivery') ? $request->cod_unavailable_message : null,
         ]);
 
         // Gallery Images Add

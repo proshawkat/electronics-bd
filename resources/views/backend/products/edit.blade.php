@@ -8,56 +8,24 @@
 <div class="app-content">
     <!--begin::Container-->
     <div class="container-fluid">
-        <!--begin::Row-->
-        <div class="row g-4">
-            <!--begin::Col-->
-            <div class="col-md-12">
-                <div class="card card-primary card-outline mb-4">
-                    <!--begin::Header-->
-                    <div class="card-header">
-                        <div class="card-title">Product</div>
-                        <div class="card-tools">
-                            @include('backend.includes.back-button')
-                        </div>
-                    </div>
-                    <form method="post" action="{{ route('admin.products.update',  $product->id); }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" id="selected_category" value="{{ $product->category_id }}">
-                        <input type="hidden" id="selected_sub_category" value="{{ $product->sub_category_id }}">
-                        <div class="card-body">                            
-                            <div class="row">
-                                <div class="col-sm-2 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="status" name="status" value="1" {{ $product->status ? 'checked' : '' }} />
-                                        <label class="form-check-label" for="status">Active</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="stock_status" name="stock_status" value="1" {{ $product->stock_status ? 'checked' : '' }} />
-                                        <label class="form-check-label" for="stock_status">Stock status</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" {{ $product->is_featured ? 'checked' : '' }}  />
-                                        <label class="form-check-label" for="is_featured">Is Featured</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="is_clearance_outlet" name="is_clearance_outlet" value="1" {{ $product->is_clearance_outlet ? 'checked' : '' }}/>
-                                        <label class="form-check-label" for="is_clearance_outlet">Clearance Outlet</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="no_sale_price" name="no_sale_price" value="1" {{ $product->no_sale_price ? 'checked' : '' }}/>
-                                        <label class="form-check-label" for="no_sale_price">No Sale Price</label>
-                                    </div>
-                                </div>
+        <form method="post" action="{{ route('admin.products.update',  $product->id); }}" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <input type="hidden" id="selected_category" value="{{ $product->category_id }}">
+            <input type="hidden" id="selected_sub_category" value="{{ $product->sub_category_id }}">
+            <!--begin::Row-->
+            <div class="row g-4">
+                <!--begin::Left Col (Main Form)-->
+                <div class="col-md-8">
+                    <div class="card card-primary card-outline mb-4">
+                        <!--begin::Header-->
+                        <div class="card-header">
+                            <div class="card-title">Product</div>
+                            <div class="card-tools">
+                                @include('backend.includes.back-button')
                             </div>
+                        </div>
+                        <div class="card-body">                            
                             <div class="row">
                                 <div class="col-sm-4 mb-3">
                                     <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
@@ -95,7 +63,7 @@
                                     <label for="sub_category_id" class="form-label">Sub Category</label>
                                     <select class="form-select" id="sub_category_id" name="sub_category_id">
                                         @foreach($subCategories as $sub)
-                                            <option value="{{ $sub->id }}" {{ $product->sub_category_id == $sub->id ? 'selected' : '' }}>Choose...</option>  
+                                            <option value="{{ $sub->id }}" {{ $product->sub_category_id == $sub->id ? 'selected' : '' }}>{{ $sub->name }}</option>  
                                         @endforeach    
                                     </select>
                                 </div>
@@ -151,10 +119,78 @@
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>    
-        </div> 
+
+                <!--begin::Right Col (Settings Card)-->
+                <div class="col-md-4">
+                    <div class="card card-primary card-outline mb-4">
+                        <div class="card-header">
+                            <div class="card-title">Settings</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="status" name="status" value="1" {{ $product->status ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="status">Active</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="stock_status" name="stock_status" value="1" {{ $product->stock_status ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="stock_status">Stock Status</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" {{ $product->is_featured ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="is_featured">Featured</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="is_clearance_outlet" name="is_clearance_outlet" value="1" {{ $product->is_clearance_outlet ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="is_clearance_outlet">Clearance Outlet</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="no_sale_price" name="no_sale_price" value="1" {{ $product->no_sale_price ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="no_sale_price">No Sale Price</label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cash_on_delivery" name="cash_on_delivery" value="1" {{ $product->cash_on_delivery ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="cash_on_delivery">Cash On Delivery</label>
+                                </div>
+                            </div>
+                            <div class="mb-3" id="cod_message_wrapper" style="display: none;">
+                                <label for="cod_unavailable_message" class="form-label">COD Unavailable Message</label>
+                                <textarea class="form-control" id="cod_unavailable_message" name="cod_unavailable_message" rows="3" placeholder="এই প্রোডাক্টে ক্যাশ অন ডেলিভারি পাওয়া যাবে না...">{{ $product->cod_unavailable_message }}</textarea>
+                                <small class="text-muted">এই message টি frontend এ customer দেখবে।</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Right Col-->
+            </div> 
+        </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const codCheckbox = document.getElementById('cash_on_delivery');
+        const codMessageWrapper = document.getElementById('cod_message_wrapper');
+
+        function toggleCodMessage() {
+            codMessageWrapper.style.display = codCheckbox.checked ? 'none' : 'block';
+        }
+
+        codCheckbox.addEventListener('change', toggleCodMessage);
+        toggleCodMessage();
+    });
+</script>
 @endsection

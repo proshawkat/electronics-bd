@@ -29,6 +29,8 @@ class Product extends Model
         'discount_percent',
         'is_clearance_outlet',
         'no_sale_price', 
+        'cash_on_delivery',
+        'cod_unavailable_message',
     ];
 
     protected $casts = [
