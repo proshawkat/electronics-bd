@@ -156,8 +156,7 @@
                             </div>
                             <div class="mb-3" id="cod_message_wrapper" style="display: none;">
                                 <label for="cod_unavailable_message" class="form-label">COD Unavailable Message</label>
-                                <textarea class="form-control" id="cod_unavailable_message" name="cod_unavailable_message" rows="3" placeholder="এই প্রোডাক্টে ক্যাশ অন ডেলিভারি পাওয়া যাবে না...">{{ old('cod_unavailable_message') }}</textarea>
-                                <small class="text-muted">এই message টি frontend এ customer দেখবে।</small>
+                                <textarea class="form-control" id="cod_unavailable_message" name="cod_unavailable_message" rows="3" placeholder="This product is not available for cash on delivery...">{{ old('cod_unavailable_message') }}</textarea>
                             </div>
                         </div>
                     </div>

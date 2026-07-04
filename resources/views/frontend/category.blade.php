@@ -13,41 +13,6 @@
                                     <div class="module module-filter module-filter-36">
                                         <div class="module-body">
                                             <div class="panel-group">
-                                                <div class="module-item module-item-p panel panel-active">
-                                                    <div class="panel-heading">
-                                                        <div class="panel-title">
-                                                            <a href="#filter-68a7fbe21c954-collapse-1" class="accordion-toggle" data-toggle="collapse" aria-expanded="true" data-filter="p">
-                                                                Price
-                                                                <i class="fa fa-caret-down"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="panel-collapse collapse in" id="filter-68a7fbe21c954-collapse-1">
-                                                        <div class="panel-body">
-                                                            @php
-                                                                $minPrice = request()->get('min_price', 0);
-                                                                $maxPrice = request()->get('max_price', 25000);
-                                                            @endphp
-                                                            <div class="filter-price" id="filter-filter-68a7fbe21c954-1">
-                                                                <div class="range-slider">
-                                                                    <div class="slider-track" id="slider-track"></div>
-                                                                    <input type="range" id="minRange" min="0" max="50000" value="{{ $minPrice }}" step="1">
-                                                                    <input type="range" id="maxRange" min="0" max="50000" value="{{ $maxPrice }}" step="1">
-                                                                </div>
-                                                                <div class="inputs">
-                                                                    <div class="input-wrapper">
-                                                                        <span>৳</span>
-                                                                        <input type="number" id="minInput" value="{{ $minPrice }}">
-                                                                    </div>
-                                                                    <div class="input-wrapper">
-                                                                        <span>৳</span>
-                                                                        <input type="number" id="maxInput" value="{{ $maxPrice }}">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 
                                                 <div class="module-item module-item-c text-only panel panel-active">
                                                     <div class="panel-heading">

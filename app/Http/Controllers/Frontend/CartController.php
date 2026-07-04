@@ -45,6 +45,15 @@ class CartController extends Controller
             ]);
         }
 
+        if (!$product->cash_on_delivery) {
+            return response()->json([
+                'status'  => 'error',
+                'is_cod_error' => true,
+                'cod_unavailable_message' => $product->cod_unavailable_message,
+                'message' => $product->cod_unavailable_message ?: 'This product does not support Cash on Delivery.',
+            ]);
+        }
+
         if (Auth::guard('customer')->check()) {
             $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
             $cartItem = CartItem::where('cart_id', $cart->id)->where('product_id', $productId)->first();
@@ -91,6 +100,15 @@ class CartController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => 'This product is out of stock.',
+            ]);
+        }
+
+        if (!$product->cash_on_delivery) {
+            return response()->json([
+                'status'  => 'error',
+                'is_cod_error' => true,
+                'cod_unavailable_message' => $product->cod_unavailable_message,
+                'message' => $product->cod_unavailable_message ?: 'This product does not support Cash on Delivery.',
             ]);
         }
 
