@@ -71,10 +71,6 @@
         <div id="content">
             <div class="main-products-wrapper">
                 <div class="products-filter">
-                    <div class="grid-list">
-                        <h3>Components</h3>
-                        <h3></h3>
-                    </div>
                     <div class="select-group">
                         <div class="input-group input-group-sm sort-by">
                             <label class="input-group-addon" for="input-sort">Sort By:</label>
@@ -105,86 +101,97 @@
 
                 </div>
                 <div class="row main-products product-grid model-content">
-                    @forelse($products as $product)
-                        <div class="col-xs-6 col-sm-6 col-md-3">
-                            <div class="product-layout has-extra-button">
-                                <div class="product-thumb">
-                                    <div class="image">
-                                        <div class="quickview-button">
-                                            <a class="btn btn-quickview" data-toggle="tooltip" data-tooltip-class="product-grid quickview-tooltip" data-placement="top" title="" onclick="quickview('2099')" data-original-title="Quickview">
-                                                <span class="btn-text">Quickview</span>
-                                            </a>
-                                        </div>
-
-                                        <a href="{{ url('product/'.$product->slug) }}" class="product-img">
-                                            <div>
-                                                <img src="{{ asset('public/'. $product->first_image_url) }}"
-                                                    srcset="{{ asset('public/'. $product->first_image_url) }}"
-                                                    width="250"
-                                                    height="250"
-                                                    alt="{{ $product->name }}"
-                                                    title="{{ $product->name }}"
-                                                    class="img-responsive img-first"
-                                                />
-                                            </div>
-                                        </a>
+                    @forelse($products->groupBy(function($item) { return $item->brand->name ?? 'Other'; }) as $brandName => $brandProducts)
+                        <div class="col-xs-12">
+                            <div class="module-products-302">
+                                <h3 class="title module-title" style="margin-top: 20px;">
+                                    <div class="section-arrow-header">
+                                        <span class="section-arrow-text">{{ $brandName }}</span>
                                     </div>
-
-                                    <div class="caption">
-                                        <div class="stats">
-                                            <span class="stat-1"><span class="stats-label">Stock:</span> <span>{{ $product->stock_status }}</span></span>
-                                            <span class="stat-2"><span class="stats-label">Model:</span> <span>{{ $product->model }}</span></span>
-                                        </div>
-
-                                        <div class="name"><a href="{{ url('product/'.$product->slug) }}">{{ $product->name }}</a></div>
-
-                                        <div>
-                                            <div class="price">
-                                                <div>
-                                                    <span class="price-normal">{{ $product->sale_price }}৳</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="buttons-wrapper">
-                                                <div class="button-group">
-                                                    <div class="cart-group">
-                                                        <div class="stepper">
-                                                            <input type="text" name="quantity" value="1" id="product-quantity-{{ $product->id }}" data-minimum="1" class="form-control" />
-                                                            <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                                                            <span>
-                                                                <i class="fa fa-angle-up"></i>
-                                                                <i class="fa fa-angle-down"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <div>
-                                                            <a class="btn btn-cart" data-id="{{ $product->id }}" onclick="addToCart({{ $product->id }})">
-                                                                <span class="btn-text">Add to Cart</span>
+                                </h3>
+                            </div>  
+                        </div>
+                        @foreach($brandProducts as $product)
+                                        <div class="col-xs-6 col-sm-6 col-md-3">
+                                            <div class="product-layout has-extra-button">
+                                                <div class="product-thumb">
+                                                    <div class="image">
+                                                        <div class="quickview-button">
+                                                            <a class="btn btn-quickview" data-toggle="tooltip" data-tooltip-class="product-grid quickview-tooltip" data-placement="top" title="" onclick="quickview('2099')" data-original-title="Quickview">
+                                                                <span class="btn-text">Quickview</span>
                                                             </a>
                                                         </div>
+
+                                                        <a href="{{ url('product/'.$product->slug) }}" class="product-img">
+                                                            <div>
+                                                                <img src="{{ asset('public/'. $product->first_image_url) }}"
+                                                                    srcset="{{ asset('public/'. $product->first_image_url) }}"
+                                                                    width="250"
+                                                                    height="250"
+                                                                    alt="{{ $product->name }}"
+                                                                    title="{{ $product->name }}"
+                                                                    class="img-responsive img-first"
+                                                                />
+                                                            </div>
+                                                        </a>
                                                     </div>
 
-                                                    <div class="wish-group">
-                                                        <a class="btn btn-wishlist" data-id="{{ $product->id }}" data-toggle="tooltip"
-                                                            data-tooltip-class="product-grid wishlist-tooltip"
-                                                            data-placement="top" title="" onclick="addTowishlist({{ $product->id }})" data-original-title="Add to Wish List">
-                                                            <span class="btn-text">Add to Wish List</span>
-                                                        </a>
+                                                    <div class="caption">
+                                                        <div class="stats">
+                                                            <span class="stat-1"><span class="stats-label">Stock:</span> <span>{{ $product->stock_status }}</span></span>
+                                                            <span class="stat-2"><span class="stats-label">Model:</span> <span>{{ $product->model }}</span></span>
+                                                        </div>
 
-                                                        <a class="btn btn-compare" data-id="{{ $product->id }}" data-toggle="tooltip"
-                                                            data-tooltip-class="product-grid compare-tooltip"
-                                                            data-placement="top" title="" onclick="addCompareList({{ $product->id }})" data-original-title="Compare this Product" >
-                                                            <span class="btn-text">Compare this Product</span>
-                                                        </a>
+                                                        <div class="name"><a href="{{ url('product/'.$product->slug) }}">{{ $product->name }}</a></div>
+
+                                                        <div>
+                                                            <div class="price">
+                                                                <div>
+                                                                    <span class="price-normal">{{ $product->sale_price }}৳</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="buttons-wrapper">
+                                                                <div class="button-group">
+                                                                    <div class="cart-group">
+                                                                        <div class="stepper">
+                                                                            <input type="text" name="quantity" value="1" id="product-quantity-{{ $product->id }}" data-minimum="1" class="form-control" />
+                                                                            <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                                                                            <span>
+                                                                                <i class="fa fa-angle-up"></i>
+                                                                                <i class="fa fa-angle-down"></i>
+                                                                            </span>
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <a class="btn btn-cart" data-id="{{ $product->id }}" onclick="addToCart({{ $product->id }})">
+                                                                                <span class="btn-text">Add to Cart</span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="wish-group">
+                                                                        <a class="btn btn-wishlist" data-id="{{ $product->id }}" data-toggle="tooltip"
+                                                                            data-tooltip-class="product-grid wishlist-tooltip"
+                                                                            data-placement="top" title="" onclick="addTowishlist({{ $product->id }})" data-original-title="Add to Wish List">
+                                                                            <span class="btn-text">Add to Wish List</span>
+                                                                        </a>
+
+                                                                        <a class="btn btn-compare" data-id="{{ $product->id }}" data-toggle="tooltip"
+                                                                            data-tooltip-class="product-grid compare-tooltip"
+                                                                            data-placement="top" title="" onclick="addCompareList({{ $product->id }})" data-original-title="Compare this Product" >
+                                                                            <span class="btn-text">Compare this Product</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
+                                    @endforeach
                     @empty
                         <div class="col-md-12 text-center">
                             <p class="text-danger text-center">No products found in this category.</p>

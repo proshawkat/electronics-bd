@@ -99,10 +99,6 @@
         <div id="content">
             <div class="main-products-wrapper">
                 <div class="products-filter">
-                    <div class="grid-list">
-                        <h3>Components</h3>
-                        <h3></h3>
-                    </div>
                     <div class="select-group">
                         <div class="input-group input-group-sm sort-by">
                             <label class="input-group-addon" for="input-sort">Sort By:</label>
@@ -131,9 +127,18 @@
                         </div>
                     </div>
 
-                </div>
-                <div class="row main-products product-grid model-content">
-                    @forelse($products as $product)
+                    <div class="row main-products product-grid model-content">
+                    @forelse($products->groupBy(function($item) { return $item->brand->name ?? 'Other'; }) as $brandName => $brandProducts)
+                        <div class="col-xs-12">
+                            <div class="module-products-302">
+                                <h3 class="title module-title" style="margin-top: 20px;">
+                                    <div class="section-arrow-header">
+                                        <span class="section-arrow-text">{{ $brandName }}</span>
+                                    </div>
+                                </h3>
+                            </div>  
+                        </div>
+                        @foreach($brandProducts as $product)
                         <div class="col-xs-6 col-sm-6 col-md-3">
                             <div class="product-layout has-extra-button">
                                 <div class="product-thumb">
@@ -221,11 +226,13 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     @empty
                         <div class="col-md-12 text-center">
                             <p class="text-danger text-center">No products found in this category.</p>
                         </div>
                     @endforelse
+                    </div>
                 </div>
                 <div class="row pagination-results">
                     <div class="col-sm-6 text-left">

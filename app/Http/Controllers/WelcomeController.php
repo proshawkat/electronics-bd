@@ -77,7 +77,7 @@ class WelcomeController extends Controller
         $tags = Tag::get(['id', 'name']);
 
 
-        $products = Product::where('discount_percent', '>', 0)->where('is_clearance_outlet', 1)->where('status', 1);
+        $products = Product::with('brand')->where('discount_percent', '>', 0)->where('is_clearance_outlet', 1)->where('status', 1);
 
         if ($sort == 'pd.name') {
             $products = $products->orderBy('name', $order);
