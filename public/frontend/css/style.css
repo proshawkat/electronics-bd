@@ -1351,8 +1351,8 @@ footer>div {
     }
 
     .layout-1 .breadcrumb {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
     .layout-1 .title-wrapper {
@@ -1777,6 +1777,7 @@ footer>div {
     font-size: 0.75rem;
     color: #6b7280;
 }
+
 @media (max-width: 767px) {
     .product-info .wishlist-compare {
         display: none !important;
@@ -1837,6 +1838,7 @@ footer>div {
 }
 
 }
+
 @media (max-width: 767px) {
     .product-info .wishlist-compare {
         display: none !important;

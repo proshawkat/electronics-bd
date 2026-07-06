@@ -41,44 +41,22 @@
                                         <div class="module-body">
                                             <div class="panel-group">
                                                                                                 
-                                                <div class="module-item module-item-m text-only panel panel-collapsed">
+                                                <div class="module-item module-item-m text-only panel panel-active">
                                                     <div class="panel-heading">
                                                         <div class="panel-title">
-                                                            <a href="#filter-68a7fbe21c954-collapse-3" class="accordion-toggle collapsed" data-toggle="collapse" aria-expanded="false" data-filter="m">
+                                                            <a href="#filter-68a7fbe21c954-collapse-3" class="accordion-toggle" data-toggle="collapse" aria-expanded="false" data-filter="m">
                                                                 Brands
                                                                 <i class="fa fa-caret-down"></i>
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    <div class="panel-collapse collapse" id="filter-68a7fbe21c954-collapse-3" aria-expanded="false" style="height: 0px;">
+                                                    <div class="panel-collapse collapse in" id="filter-68a7fbe21c954-collapse-3" aria-expanded="false" style="height: 0px;">
                                                         <div class="panel-body">
                                                             <div class="filter-checkbox">
                                                                 @foreach($brands as $brand)
                                                                     <label>
                                                                         <input type="checkbox" data-filter-trigger="" name="m" value="{{ $brand->id }}" {{ in_array($brand->id, explode(',', request('m'))) ? 'checked' : '' }} />
                                                                         <span class="links-text">{{ $brand->name }}</span>
-                                                                    </label>
-                                                                @endforeach    
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="module-item module-item-t panel panel-active">
-                                                    <div class="panel-heading">
-                                                        <div class="panel-title">
-                                                            <a href="#filter-68a7fbe21c954-collapse-4" class="accordion-toggle" data-toggle="collapse" aria-expanded="true" data-filter="t">
-                                                                Tags
-                                                                <i class="fa fa-caret-down"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="panel-collapse collapse in" id="filter-68a7fbe21c954-collapse-4" aria-expanded="true" style="">
-                                                        <div class="panel-body">
-                                                            <div class="filter-checkbox">
-                                                                @foreach($tags as $tag)
-                                                                    <label>
-                                                                        <input type="checkbox" data-filter-trigger="" name="tags" value="{{ $tag->id }}" {{ in_array($tag->id, explode(',', request('tags'))) ? 'checked' : '' }} />
-                                                                        <span class="links-text">{{ $tag->name }}</span>
                                                                     </label>
                                                                 @endforeach    
                                                             </div>
@@ -124,10 +102,11 @@
                                 <option value="{{ request()->fullUrlWithQuery(['limit'=>75]) }}" {{ request('limit')==75 ? 'selected' : '' }}>75</option>
                                 <option value="{{ request()->fullUrlWithQuery(['limit'=>100]) }}" {{ request('limit')==100 ? 'selected' : '' }}>100</option>
                             </select>
-                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="row main-products product-grid model-content">
+            <div class="row main-products product-grid model-content">
                     @forelse($products->groupBy(function($item) { return $item->brand->name ?? 'Other'; }) as $brandName => $brandProducts)
                         <div class="col-xs-12">
                             <div class="module-products-302">
@@ -233,7 +212,6 @@
                         </div>
                     @endforelse
                     </div>
-                </div>
                 <div class="row pagination-results">
                     <div class="col-sm-6 text-left">
                         {{ $products->links('vendor.pagination.custom') }}

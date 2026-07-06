@@ -61,28 +61,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="module-item module-item-t panel panel-active">
-                                                    <div class="panel-heading">
-                                                        <div class="panel-title">
-                                                            <a href="#filter-68a7fbe21c954-collapse-4" class="accordion-toggle" data-toggle="collapse" aria-expanded="true" data-filter="t">
-                                                                Tags
-                                                                <i class="fa fa-caret-down"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="panel-collapse collapse in" id="filter-68a7fbe21c954-collapse-4" aria-expanded="true" style="">
-                                                        <div class="panel-body">
-                                                            <div class="filter-checkbox">
-                                                                @foreach($tags as $tag)
-                                                                    <label>
-                                                                        <input type="checkbox" data-filter-trigger="" name="tags" value="{{ $tag->id }}" {{ in_array($tag->id, explode(',', request('tags'))) ? 'checked' : '' }} />
-                                                                        <span class="links-text">{{ $tag->name }}</span>
-                                                                    </label>
-                                                                @endforeach    
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

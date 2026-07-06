@@ -1640,8 +1640,8 @@ select.form-control:active {
     color: rgba(48, 56, 65, 1);
     letter-spacing: 1px;
     background: rgba(255, 255, 255, 1);
-    margin-top: 20px;
-    padding: 10px;
+    margin-top: 0px;
+    padding: 10px 0 0;
     justify-content: center
 }
 
@@ -3590,7 +3590,7 @@ select.form-control:active {
 }
 
 .refine-categories .refine-item:not(.swiper-slide) {
-    padding: 5px;
+    padding: 0 1px;
     width: calc(100% / 16 - 0.01px)
 }
 
@@ -5646,8 +5646,8 @@ select.form-control:active {
 
 .products-filter {
     background: rgba(255, 255, 255, 1);
-    margin-bottom: 20px;
-    padding: 12px;
+    margin-bottom: 0px;
+    padding: 0px;
     border-radius: 2px
 }
 
