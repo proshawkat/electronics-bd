@@ -87,7 +87,7 @@ class Product extends Model
             return null;
         }
 
-        return $this->offers()
+        return \App\Models\Offer::where('product_id', $this->id)
             ->where('status', 1)
             ->where('min_qty', '<=', $qty)
             ->orderBy('min_qty', 'desc')
