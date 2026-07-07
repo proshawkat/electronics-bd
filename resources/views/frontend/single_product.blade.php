@@ -134,9 +134,17 @@
                                 </a>
                             </div>
                         </div>
-                        @if($product->offer)
-                            <div class="pt-2 pb-2 text-center pr-color">
-                                <p>* Minimum Quantity: {{ $product->offer->min_qty }}. Enjoy the offer.</p>
+                        @if($product->offers && $product->offers->where('status', 1)->count() > 0)
+                            <div class="pt-2 pb-2 text-center pr-color" style="border: 1px dashed var(--secondary-color, #e0e0e0); border-radius: 8px; background: rgba(0,0,0,0.02); margin-top: 15px; padding: 10px;">
+                                <h5 class="fw-bold text-success mb-2" style="display: flex; align-items: center; justify-content: center; gap: 6px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle;"><path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H1v-2a1 1 0 0 1 1-1h2.038c-.038-.224-.038-.424-.038-.494zm4.768 4.908A8 8 0 0 0 8 7.5c.075 0 .152.001.23.003l-.002-.008zM13 7.5a1 1 0 0 1 1 1v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5a1 1 0 0 1 1-1h4v10h1V7.5z"/></svg> Volume Discount Offers:</h5>
+                                @foreach($product->offers->where('status', 1) as $o)
+                                    <p class="mb-1" style="font-size: 14px; color: #555;">
+                                        Buy <strong>{{ $o->min_qty }}+ units</strong> and get 
+                                        <span class="badge bg-success" style="font-size: 13px; font-weight: bold; background-color: #28a745; color: white; padding: 3px 8px; border-radius: 4px; display: inline-block;">
+                                            {{ $o->discount_type == 'percent' ? intval($o->discount_value) . '%' : intval($o->discount_value) . '৳' }}
+                                        </span> discount!
+                                    </p>
+                                @endforeach
                             </div>
                         @endif    
                     </div>

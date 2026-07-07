@@ -22,13 +22,20 @@ function addCompareList(productId, source = null) {
 
 
 function handleAction(click_type, productId, source_type = null) {
-    console.log("Action:", source_type, "ProductId:", productId, 'Qty: ', $(".model-content #product-quantity-" + productId).val());
-    let cart_quantity = 1
+    console.log("Action:", source_type, "ProductId:", productId);
+    let cart_quantity = 1;
 
-    if (source_type == 'modal') {
-        cart_quantity = $("#modalContent #product-quantity-" + productId).val()
-    } else if (source_type == null) {
-        cart_quantity = $(".model-content #product-quantity-" + productId).val()
+    let inputSelector = "#product-quantity-" + productId;
+    let inputEl = null;
+
+    if ($("#quickViewModal").is(":visible") && $("#quickViewModal " + inputSelector).length) {
+        inputEl = $("#quickViewModal " + inputSelector);
+    } else {
+        inputEl = $(inputSelector);
+    }
+
+    if (inputEl && inputEl.length) {
+        cart_quantity = parseInt(inputEl.val()) || 1;
     }
 
     $.ajax({

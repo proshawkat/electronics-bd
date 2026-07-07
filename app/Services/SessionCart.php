@@ -12,28 +12,6 @@ class SessionCart
         $product = Product::find($productId);
         if(!$product) return;
 
-        $discountPercent = $product->discount_percent ?? 0;
-        $discountedPrice = $product->sale_price;
-        $isOfferApplied   = false;
-        if ($discountPercent > 0) {
-            $discountedPrice = $product->sale_price - ($product->sale_price * $discountPercent / 100);
-        }else {
-            $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
-
-            if ($offer && $quantity >= $offer->min_qty) {
-                $isOfferApplied = true;
-                if ($offer->discount_type === 'percent') {
-                    $discountedPrice = 
-                        $product->sale_price - ($product->sale_price * $offer->discount_value / 100);
-                } else {
-                    $discountedPrice = 
-                        $product->sale_price - $offer->discount_value;
-                }
-            }
-        }
-
-        $discountedPrice = max(0, $discountedPrice);
-
         if(isset($this->items[$productId])) {
             $this->items[$productId]['qty'] += $quantity;
         } else {
@@ -42,14 +20,18 @@ class SessionCart
                 'name'  => $product->name,
                 'image' => asset('public/'.$product->first_image_url),
                 'price' => $product->sale_price,
-                'discount_price' => $discountedPrice,
-                'discount_percent' => intval($discountPercent),
-                'offer_applied'     => $isOfferApplied,
+                'discount_price' => $product->sale_price,
+                'discount_percent' => intval($product->discount_percent ?? 0),
+                'offer_applied'     => false,
                 'model' => $product->model,
                 'slug'  => $product->slug,
                 'qty'   => $quantity
             ];
         }
+
+        $totalQty = $this->items[$productId]['qty'];
+        $this->items[$productId]['discount_price'] = $product->getPriceForQuantity($totalQty);
+        $this->items[$productId]['offer_applied'] = ($product->discount_percent <= 0 && $product->getApplicableOffer($totalQty) !== null);
     }
 
     public function remove($productId) {
@@ -66,7 +48,13 @@ class SessionCart
         $productId = (string) $productId;
         $quantity = (int) $quantity;
         if (isset($this->items[$productId])) {
-            $this->items[$productId]['qty'] = max(1, (int)$quantity);
+            $product = Product::find($productId);
+            $qty = max(1, $quantity);
+            $this->items[$productId]['qty'] = $qty;
+            if ($product) {
+                $this->items[$productId]['discount_price'] = $product->getPriceForQuantity($qty);
+                $this->items[$productId]['offer_applied'] = ($product->discount_percent <= 0 && $product->getApplicableOffer($qty) !== null);
+            }
         }
     }
 }

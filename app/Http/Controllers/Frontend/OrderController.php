@@ -330,23 +330,7 @@ class OrderController extends Controller
         $product = Product::find($productId);
         if (!$product) return 0;
 
-        $basePrice = $product->sale_price;
-
-        if ($product->discount_percent > 0) {
-            return $basePrice - ($basePrice * $product->discount_percent / 100);
-        }
-
-        $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
-
-        if ($offer && $qty >= $offer->min_qty) {
-            if ($offer->discount_type == 'percent') {
-                return $basePrice - ($basePrice * $offer->discount_value / 100);
-            } else {
-                return $basePrice - $offer->discount_value;
-            }
-        }
-
-        return $basePrice;
+        return $product->getPriceForQuantity($qty);
     }
 
     private function calculateDiscountAmount($productId, $qty)
@@ -355,26 +339,9 @@ class OrderController extends Controller
         if (!$product) return 0;
 
         $basePrice = $product->sale_price;
-        $discount = 0;
-        // print_r($discount);
-        if ($product->discount_percent > 0) {
-            $discount = $basePrice * $product->discount_percent / 100;
-        }
+        $discountedPrice = $product->getPriceForQuantity($qty);
 
-        
-
-        $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
-
-        if ($offer && $qty >= $offer->min_qty) {
-            if ($offer->discount_type == 'percent') {
-                $discount = $basePrice * $offer->discount_value / 100;
-            } else {
-                $discount = $offer->discount_value;
-            }
-        }
-        // print_r($discount);
-        // die();
-        return round($discount, 2);
+        return round(max(0, $basePrice - $discountedPrice), 2);
     }
 
 

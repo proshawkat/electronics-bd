@@ -202,7 +202,6 @@ class CartController extends Controller
         $cartItems = [];
         $totalPrice = 0;
         $totalQty = 0;
-
         if (Auth::guard('customer')->check()) {
             $cart = Cart::firstOrCreate(['customer_id' => auth('customer')->id()]);
             $items = CartItem::where('cart_id', $cart->id)->with('product')->get();
@@ -213,24 +212,8 @@ class CartController extends Controller
 
                 $discountPercent = $product->discount_percent ?? 0;
                 $basePrice = $product->sale_price;
-                $discountedPrice = $basePrice;
-                $isOfferApplicable = false;
-
-                if ($discountPercent > 0) {
-                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
-                } else {
-                    $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
-
-                    if ($offer && $qty >= $offer->min_qty) {
-                        $isOfferApplicable = true;
-
-                        if ($offer->discount_type == 'percent') {
-                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
-                        } else {
-                            $discountedPrice = $basePrice - $offer->discount_value;
-                        }
-                    }
-                }
+                $discountedPrice = $product->getPriceForQuantity($qty);
+                $isOfferApplicable = ($discountPercent <= 0 && $product->getApplicableOffer($qty) !== null);
 
                 $discountedPrice = max(0, $discountedPrice);                
                 $subtotal = $qty * $discountedPrice;
@@ -256,25 +239,16 @@ class CartController extends Controller
             foreach ($items as $item) {
                 $qty = $item['qty'];
                 $productId       = $item['id'];
+                $product         = Product::find($productId);
                 $basePrice       = $item['price'];
                 $discountPercent = $item['discount_percent'] ?? 0;
-                $discountedPrice = $basePrice;
-                $isOfferApplicable = false;
-
-                if ($discountPercent > 0) {
-                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
-                }else {
-                    $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
-
-                    if ($offer && $qty >= $offer->min_qty) {
-                        $isOfferApplicable = true;
-
-                        if ($offer->discount_type == 'percent') {
-                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
-                        } else {
-                            $discountedPrice = $basePrice - $offer->discount_value;
-                        }
-                    }
+                
+                if ($product) {
+                    $discountedPrice = $product->getPriceForQuantity($qty);
+                    $isOfferApplicable = ($discountPercent <= 0 && $product->getApplicableOffer($qty) !== null);
+                } else {
+                    $discountedPrice = $basePrice;
+                    $isOfferApplicable = false;
                 }
 
                 $discountedPrice = max(0, $discountedPrice);
@@ -293,9 +267,7 @@ class CartController extends Controller
                     'url' => url('/product/'.$item['slug']),
                 ];
             }
-        }
-
-        return response()->json([
+        }        return response()->json([
             'items' => $cartItems,
             'totalPrice' => $totalPrice,
             'totalQty' => $totalQty,
@@ -348,7 +320,6 @@ class CartController extends Controller
         $totalQty = 0;
         $totalDiscount = 0;
         $cartItems = [];
-
         foreach($items as $item){
             if(Auth::guard('customer')->check()){
                 $product = $item->product;
@@ -356,24 +327,8 @@ class CartController extends Controller
 
                 $discountPercent = $product->discount_percent ?? 0;
                 $basePrice = $product->sale_price;
-                $discountedPrice = $basePrice;
-                $isOfferApplicable = false;
-
-                if ($discountPercent > 0) {
-                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
-                } else {
-                    $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
-
-                    if ($offer && $qty >= $offer->min_qty) {
-                        $isOfferApplicable = true;
-
-                        if ($offer->discount_type == 'percent') {
-                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
-                        } else {
-                            $discountedPrice = $basePrice - $offer->discount_value;
-                        }
-                    }
-                }
+                $discountedPrice = $product->getPriceForQuantity($qty);
+                $isOfferApplicable = ($discountPercent <= 0 && $product->getApplicableOffer($qty) !== null);
 
                 $discountedPrice = max(0, $discountedPrice);                
                 $totalDiscount += ($basePrice - $discountedPrice) * $qty;
@@ -396,26 +351,16 @@ class CartController extends Controller
                 $qty = $item['qty'];
 
                 $productId       = $item['id'];
+                $product         = Product::find($productId);
                 $basePrice       = $item['price'];
                 $discountPercent = $item['discount_percent'] ?? 0;
-                $discountedPrice = $basePrice;
-                $isOfferApplicable = false;
-
                 
-                if ($discountPercent > 0) {
-                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
-                }else {
-                    $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
-
-                    if ($offer && $qty >= $offer->min_qty) {
-                        $isOfferApplicable = true;
-
-                        if ($offer->discount_type == 'percent') {
-                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
-                        } else {
-                            $discountedPrice = $basePrice - $offer->discount_value;
-                        }
-                    }
+                if ($product) {
+                    $discountedPrice = $product->getPriceForQuantity($qty);
+                    $isOfferApplicable = ($discountPercent <= 0 && $product->getApplicableOffer($qty) !== null);
+                } else {
+                    $discountedPrice = $basePrice;
+                    $isOfferApplicable = false;
                 }
 
                 $discountedPrice = max(0, $discountedPrice);
@@ -438,9 +383,7 @@ class CartController extends Controller
             }
             $totalPrice += $subtotal;
             $totalQty += $qty;
-        }
-
-        $relatedProducts = Product::inRandomOrder()->where('is_clearance_outlet', '!=', 1)->take(12)->get();
+        }        $relatedProducts = Product::inRandomOrder()->where('is_clearance_outlet', '!=', 1)->take(12)->get();
 
         return view('frontend.cart', compact('breadcrumbs','cartItems','totalPrice','totalQty', 'relatedProducts'));
     }
@@ -510,24 +453,8 @@ class CartController extends Controller
 
                 $discountPercent = $product->discount_percent ?? 0;
                 $basePrice = $product->sale_price;
-                $discountedPrice = $basePrice;
-                $isOfferApplicable = false;
-
-                if ($discountPercent > 0) {
-                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
-                } else {
-                    $offer = Offer::where('product_id', $product->id)->where('status', 1)->first();
-
-                    if ($offer && $qty >= $offer->min_qty) {
-                        $isOfferApplicable = true;
-
-                        if ($offer->discount_type == 'percent') {
-                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
-                        } else {
-                            $discountedPrice = $basePrice - $offer->discount_value;
-                        }
-                    }
-                }
+                $discountedPrice = $product->getPriceForQuantity($qty);
+                $isOfferApplicable = ($discountPercent <= 0 && $product->getApplicableOffer($qty) !== null);
 
                 $discountedPrice = max(0, $discountedPrice);
                 $subtotal = $qty * $discountedPrice;
@@ -549,26 +476,16 @@ class CartController extends Controller
                 $qty = $item['qty'];
 
                 $productId       = $item['id'];
+                $product         = Product::find($productId);
                 $basePrice       = $item['price'];
                 $discountPercent = $item['discount_percent'] ?? 0;
-                $discountedPrice = $basePrice;
-                $isOfferApplicable = false;
-
-                $discountPercent = $item['discount_percent'] ?? 0;
-                $discountedPrice = $item['price'];
-                if ($discountPercent > 0) {
-                    $discountedPrice = $basePrice - ($basePrice * $discountPercent / 100);
+                
+                if ($product) {
+                    $discountedPrice = $product->getPriceForQuantity($qty);
+                    $isOfferApplicable = ($discountPercent <= 0 && $product->getApplicableOffer($qty) !== null);
                 } else {
-                    $offer = Offer::where('product_id', $productId)->where('status', 1)->first();
-
-                    if ($offer && $qty >= $offer->min_qty) {
-                        $isOfferApplicable = true;
-                        if ($offer->discount_type == 'percent') {
-                            $discountedPrice = $basePrice - ($basePrice * $offer->discount_value / 100);
-                        } else {
-                            $discountedPrice = $basePrice - $offer->discount_value;
-                        }
-                    }
+                    $discountedPrice = $basePrice;
+                    $isOfferApplicable = false;
                 }
 
                 $discountedPrice = max(0, $discountedPrice);

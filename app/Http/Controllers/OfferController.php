@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Offer;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
 {
@@ -23,10 +24,19 @@ class OfferController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|unique:offers,product_id',
+            'product_id' => [
+                'required',
+                'exists:products,id',
+                Rule::unique('offers')->where(function ($query) use ($request) {
+                    return $query->where('product_id', $request->product_id)
+                                 ->where('min_qty', $request->min_qty);
+                }),
+            ],
             'min_qty' => 'required|integer|min:1',
             'discount_type' => 'required|in:percent,fixed',
             'discount_value' => 'required|numeric|min:0',
+        ], [
+            'product_id.unique' => 'An offer with the same minimum quantity already exists for this product.',
         ]);
 
         Offer::create($request->all());
@@ -43,10 +53,19 @@ class OfferController extends Controller
     public function update(Request $request, Offer $offer)
     {
         $request->validate([
-            'product_id' => 'required|unique:offers,product_id,' . $offer->id,
+            'product_id' => [
+                'required',
+                'exists:products,id',
+                Rule::unique('offers')->where(function ($query) use ($request) {
+                    return $query->where('product_id', $request->product_id)
+                                 ->where('min_qty', $request->min_qty);
+                })->ignore($offer->id),
+            ],
             'min_qty' => 'required|integer|min:1',
             'discount_type' => 'required|in:percent,fixed',
             'discount_value' => 'required|numeric|min:0',
+        ], [
+            'product_id.unique' => 'An offer with the same minimum quantity already exists for this product.',
         ]);
 
         $offer->update($request->all());

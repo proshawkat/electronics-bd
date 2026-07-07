@@ -44,7 +44,12 @@ class Product extends Model
 
     public function offer()
     {
-        return $this->hasOne(Offer::class);
+        return $this->hasOne(Offer::class)->orderBy('min_qty', 'asc');
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class)->orderBy('min_qty', 'asc');
     }
 
     public function subCategory()
@@ -76,27 +81,39 @@ class Product extends Model
         return $this->sale_price;
     }
 
-    public function getPriceForQuantity($qty)
+    public function getApplicableOffer($qty)
     {
-        // No offer OR offer inactive
-        if (!$this->offer || $this->offer->status == 0) {
-            return $this->sale_price;
+        if ($this->discount_percent > 0) {
+            return null;
         }
 
-        $offer = $this->offer;
+        return $this->offers()
+            ->where('status', 1)
+            ->where('min_qty', '<=', $qty)
+            ->orderBy('min_qty', 'desc')
+            ->first();
+    }
 
-        // Offer applicable only if qty >= min_qty
-        if ($qty < $offer->min_qty) {
+    public function getPriceForQuantity($qty)
+    {
+        if ($this->discount_percent > 0) {
+            $discount = ($this->sale_price * $this->discount_percent) / 100;
+            return round($this->sale_price - $discount, 2);
+        }
+
+        $applicableOffer = $this->getApplicableOffer($qty);
+
+        if (!$applicableOffer) {
             return $this->sale_price;
         }
 
         // Apply discount
-        if ($offer->discount_type === 'percent') {
-            return round($this->sale_price - ($this->sale_price * ($offer->discount_value / 100)), 2);
+        if ($applicableOffer->discount_type === 'percent') {
+            return round($this->sale_price - ($this->sale_price * ($applicableOffer->discount_value / 100)), 2);
         }
 
-        if ($offer->discount_type === 'fixed') {
-            return max(0, $this->sale_price - $offer->discount_value);
+        if ($applicableOffer->discount_type === 'fixed') {
+            return max(0, $this->sale_price - $applicableOffer->discount_value);
         }
 
         return $this->sale_price;
