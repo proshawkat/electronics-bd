@@ -7190,7 +7190,9 @@ select.form-control:active {
     }
 
     .breadcrumb {
-        white-space: normal
+        white-space: normal;
+        padding: 0;
+        padding-left: 20px;
     }
 
     .mobile .breadcrumb {
@@ -9533,6 +9535,10 @@ div.flyout-menu.flyout-menu-7 .rd-menu a .count-badge {
     .module-info_blocks-283 .radio-footer-info-content {
         display: flex
     }
+
+    .products-filter .select-group {
+        margin-top: 8px;
+    }
 }
 
 @media (max-width: 470px) {
@@ -10132,7 +10138,8 @@ div.flyout-menu.flyout-menu-7 .rd-menu a .count-badge {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center
+    text-align: center;
+    margin-top: 10px;
 }
 
 .module-products-302 .title.module-title::after {

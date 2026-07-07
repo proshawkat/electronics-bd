@@ -121,7 +121,7 @@
                         @endif
                     </li>
                 @endforeach
-                @if($onlyCategory)
+                @if($onlyCategory && isset($subcategories) && $subcategories->count() > 0)
                     @include('frontend.partials.sub-category', ['subcategories' => $subcategories, 'slug'=> $slug])
                 @endif
             </ul>

@@ -78,8 +78,7 @@
             <div class="main-products-wrapper">
                 <div class="products-filter">
                     <div class="grid-list">
-                        <h3>Components</h3>
-                        <h3></h3>
+                        <h3>Offer Zone</h3>
                     </div>
                     <div class="select-group">
                         <div class="input-group input-group-sm sort-by">
@@ -111,7 +110,17 @@
 
                 </div>
                 <div class="row main-products product-grid model-content">
-                    @forelse($products as $product)
+                @forelse($products->groupBy(function($item) { return $item->brand->name ?? 'Other'; }) as $brandName => $brandProducts)
+                        <div class="col-xs-12">
+                            <div class="module-products-302">
+                                <h3 class="title module-title">
+                                    <div class="section-arrow-header">
+                                        <span class="section-arrow-text">{{ $brandName }}</span>
+                                    </div>
+                                </h3>
+                            </div>  
+                        </div>
+                        @foreach($brandProducts as $product)
                         <div class="col-xs-6 col-sm-6 col-md-3">
                             <div class="product-layout has-extra-button">
                                 <div class="product-thumb">
@@ -138,7 +147,6 @@
                                             @php
                                                 $offer = $product->offer;
                                                 $offerPrice = $product->getPriceForQuantity($offer->min_qty);
-
                                                 $badgeText = $offer->discount_type == 'percent' ? intval($offer->discount_value) . '%' : intval($offer->discount_value) . '৳';
                                             @endphp
 
@@ -233,6 +241,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     @empty
                         <div class="col-md-12 text-center">
                             <p class="text-danger text-center">No products found in this category.</p>

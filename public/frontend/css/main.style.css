@@ -3116,6 +3116,26 @@ https://www.journal-theme.com/
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .products-filter {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .products-filter .grid-list {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .products-filter .select-group {
+    margin-left: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 6px;
+  }
+}
+
 .mac.webkit .select-group .input-group-addon {
   position: relative;
   z-index: 2;

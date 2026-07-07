@@ -75,6 +75,9 @@
         <div id="content">
             <div class="main-products-wrapper">
                 <div class="products-filter">
+                    <div class="grid-list">
+                        <h3>{{ $slug === 'all-products' ? 'All Products' : ucwords(str_replace('-', ' ', $slug)) }}</h3>
+                    </div>
                     <div class="select-group">
                         <div class="input-group input-group-sm sort-by">
                             <label class="input-group-addon" for="input-sort">Sort By:</label>
@@ -108,7 +111,7 @@
                     @forelse($products->groupBy(function($item) { return $item->brand->name ?? 'Other'; }) as $brandName => $brandProducts)
                         <div class="col-xs-12">
                             <div class="module-products-302">
-                                <h3 class="title module-title" style="margin-top: 20px;">
+                                <h3 class="title module-title">
                                     <div class="section-arrow-header">
                                         <span class="section-arrow-text">{{ $brandName }}</span>
                                     </div>
