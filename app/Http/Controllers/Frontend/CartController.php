@@ -460,17 +460,19 @@ class CartController extends Controller
                 $subtotal = $qty * $discountedPrice;
 
                 $cartItems[] = [
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'image'=> asset('public/'.$product->first_image_url),
-                    'price' => $basePrice,
-                    'discount_price' => $discountedPrice,
-                    'discount_percent' => intval($discountPercent),
-                    'offer_applied' => $isOfferApplicable,
-                    'model' => $product->model,
-                    'qty'=>$qty,
-                    'subtotal'=>$subtotal,
-                    'url'=>url('/product/'.$product->slug)
+                    'id'                => $product->id,
+                    'name'              => $product->name,
+                    'image'             => asset('public/'.$product->first_image_url),
+                    'price'             => $basePrice,
+                    'discount_price'    => $discountedPrice,
+                    'discount_percent'  => intval($discountPercent),
+                    'offer_applied'     => $isOfferApplicable,
+                    'model'             => $product->model,
+                    'qty'               => $qty,
+                    'subtotal'          => $subtotal,
+                    'url'               => url('/product/'.$product->slug),
+                    'cash_on_delivery'  => (bool) $product->cash_on_delivery,
+                    'cod_unavailable_message' => $product->cod_unavailable_message,
                 ];
             } else {
                 $qty = $item['qty'];
@@ -502,7 +504,9 @@ class CartController extends Controller
                     'model'             => $item['model'],
                     'qty'               => $qty,
                     'subtotal'          => $subtotal,
-                    'url'               => url('/product/'.$item['slug'])
+                    'url'               => url('/product/'.$item['slug']),
+                    'cash_on_delivery'  => $item['cash_on_delivery'] ?? true,
+                    'cod_unavailable_message' => $item['cod_unavailable_message'] ?? null,
                 ];
             }
             $totalPrice += $subtotal;
@@ -517,7 +521,10 @@ class CartController extends Controller
 
         $regions = Region::get(['name', 'id']);
 
-        return view('frontend.checkout', compact('breadcrumbs', 'cartItems','totalPrice','totalQty', 'customerAddresses', 'regions'));
+        // Check if ALL products in cart support Cash on Delivery
+        $hasCodProduct = collect($cartItems)->every(fn($item) => $item['cash_on_delivery'] ?? true);
+
+        return view('frontend.checkout', compact('breadcrumbs', 'cartItems','totalPrice','totalQty', 'customerAddresses', 'regions', 'hasCodProduct'));
     }
 
     public function getCompare()

@@ -15,6 +15,7 @@
 .contact-whatsapp-box a {
     font-size: 16px;
     text-decoration: none;
+    padding: 5px;
 }
 .contact-whatsapp-box a:hover {
     text-decoration: underline;
@@ -271,7 +272,7 @@
 </div>
 
 @if($relatedProducts->count() > 0)
-<div class="container" style="margin-top: 30px; margin-bottom: 30px;">
+<div class="container" style="margin-bottom: 30px;">
     <div class="row">
         <div class="col-sm-12">
             <div class="module module-products module-products-302 module-products-grid">

@@ -206,6 +206,26 @@ class OrderController extends Controller
 
             DB::beginTransaction();
             
+            // === Determine payment & shipping method based on cart COD eligibility ===
+            $allCod = true;
+            foreach ($cartItems as $item) {
+                if ($customerId) {
+                    $prod = Product::find($item->product_id);
+                    if ($prod && !$prod->cash_on_delivery) {
+                        $allCod = false;
+                        break;
+                    }
+                } else {
+                    if (!($item['cash_on_delivery'] ?? true)) {
+                        $allCod = false;
+                        break;
+                    }
+                }
+            }
+
+            $shippingMethod = $allCod ? 'Pickup From Store' : 'Home Delivery';
+            $paymentMethod  = $allCod ? 'Cash on Delivery' : 'Bank Transfer';
+
             // === Create Order ===
             $order = Order::create([
                 'customer_id'        => $customerId,
@@ -214,8 +234,8 @@ class OrderController extends Controller
                 'total'              => $this->calculateCartTotal($customerId),
                 'status'             => 'Pending',
                 'order_comment'     => $request->order_comment,
-                'shipping_method'   => 'Pickup From Store',            
-                'payment_method'     => 'Cash on Delivery'
+                'shipping_method'   => $shippingMethod,
+                'payment_method'     => $paymentMethod,
 
             ]);
 

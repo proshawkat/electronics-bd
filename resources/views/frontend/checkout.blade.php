@@ -218,6 +218,7 @@
                                                 <div class="shippings">
                                                     <div class="ship-wrapper">
                                                         <p>Pickup</p>
+                                                        @if($hasCodProduct)
                                                         <div class="radio">
                                                             <label>
                                                                 <input type="radio" name="shipping_method" value="pickup" checked /> 
@@ -225,6 +226,14 @@
                                                                 <!---->
                                                             </label>
                                                         </div>
+                                                        @else
+                                                        <div class="radio">
+                                                            <label>
+                                                                <input type="radio" name="shipping_method" value="delivery" checked /> 
+                                                                <span class="shipping-quote-title">Home Delivery</span>
+                                                            </label>
+                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -234,11 +243,18 @@
                                         <div class="title section-title">Payment Method</div>
                                         <div class="section-body">
                                             <!---->
+                                            @if($hasCodProduct)
                                             <div>
                                                 <div class="radio">
                                                     <label><input type="radio" name="payment_method" value="cod" checked/> <span>Cash On Delivery</span></label>
                                                 </div>
                                             </div>
+                                            @else
+                                            <div>
+                                                <p class="text-muted"><i class="fa fa-info-circle"></i> One or more products in your cart are not eligible for Cash on Delivery. Payment will be arranged separately.</p>
+                                                <input type="hidden" name="payment_method" value="bank_transfer" />
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
