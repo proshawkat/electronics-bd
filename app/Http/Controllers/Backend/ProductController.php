@@ -37,6 +37,10 @@ class ProductController extends Controller
             $query->where('is_clearance_outlet', 1);
         }
 
+        if ($request->filter == 'cash_on_delivery') {
+            $query->where('cash_on_delivery', 1);
+        }
+
         $products = $query->latest()->paginate(10);
 
         return view('backend.products.index', compact('products'));

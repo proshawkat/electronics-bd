@@ -20,6 +20,7 @@
                             <option value="">-- Filter --</option>
                             <option value="is_clearance_outlet" {{ request('filter')=='is_clearance_outlet' ? 'selected':'' }}>Clearance Outlet</option>
                             <option value="no_sale_price" {{ request('filter')=='no_sale_price' ? 'selected':'' }}>No Sale Price</option>
+                            <option value="cash_on_delivery" {{ request('filter')=='cash_on_delivery' ? 'selected':'' }}>Cash On Delivery</option>
                             <option value="out_of_stock" {{ request('filter')=='out_of_stock' ? 'selected':'' }}>Out Of Stock</option>
                             <option value="in_stock" {{ request('filter')=='in_stock' ? 'selected':'' }}>In Stock</option>
                         </select>
