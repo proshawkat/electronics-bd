@@ -1177,29 +1177,64 @@ footer>div {
         height: 140px;
     }
 
-    /* Center action buttons in mobile view */
+    /* Mobile: single row for all action buttons */
     .product-layout .button-group {
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
+        gap: 6px !important;
         width: 100% !important;
     }
 
     .product-layout .button-group .cart-group {
         display: flex !important;
         justify-content: center !important;
-        width: 100% !important;
-        margin-bottom: 8px !important;
+        align-items: center !important;
+        flex: 0 0 auto !important;
+    }
+
+    /* Hide stepper on mobile */
+    .product-layout .button-group .cart-group .stepper {
+        display: none !important;
+    }
+
+    /* Hide "Add to Cart" text on mobile, show only icon */
+    .product-layout .button-group .btn-cart .btn-text {
+        display: none !important;
+    }
+
+    /* Show cart icon on mobile */
+    .product-layout .button-group .btn-cart .btn-cart-icon {
+        display: inline-block !important;
+    }
+
+    /* Style cart icon button like wishlist/compare */
+    .product-layout .button-group .btn-cart {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        padding: 0 !important;
+        border-radius: 4px !important;
     }
 
     .product-layout .button-group .wish-group {
         display: flex !important;
         justify-content: center !important;
-        gap: 8px !important;
-        width: 100% !important;
+        align-items: center !important;
+        gap: 6px !important;
+        flex: 0 0 auto !important;
     }
 
+}
+
+
+/* Cart icon: hidden by default (desktop shows text only) */
+.btn-cart-icon {
+    display: none;
 }
 
 /* ===== Global Button Overrides (Match Trusted Brands design) ===== */
@@ -1469,14 +1504,14 @@ footer>div {
 
 @media (max-width: 767px) {
     .promo {
-        flex-direction: column;
         height: auto;
     }
 
     .promo .download-app-chat {
-        width: 100%;
-        height: 35px;
         justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
+        min-width: 145px;
     }
 
     .promo .download-app-chat::after {
@@ -1497,7 +1532,7 @@ footer>div {
 .featured-category-showcase {
     padding: 0;
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
 }
 
 .featured-category-heading {
