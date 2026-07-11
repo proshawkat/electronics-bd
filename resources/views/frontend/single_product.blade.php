@@ -273,7 +273,7 @@
 
 @if($relatedProducts->count() > 0)
 <div class="container" style="margin-bottom: 30px;">
-    <div class="row">
+    <div>
         <div class="col-sm-12">
             <div class="module module-products module-products-302 module-products-grid">
                 <div class="module-body">
