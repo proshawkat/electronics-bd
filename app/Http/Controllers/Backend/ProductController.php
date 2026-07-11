@@ -63,6 +63,7 @@ class ProductController extends Controller
             'first_image_url' => 'required|image|max:2048',
             'second_image_url' => 'nullable|image|max:2048',
             'gallery_images.*' => 'nullable|image|max:4096',
+            'position' => 'nullable|integer',
         ]);
 
         $slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
@@ -85,6 +86,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'stock_status' => $request->has('stock_status') ? 1 : 0,
             'quantity' => $request->quantity,
+            'position' => $request->position ?? 0,
             'discount_percent' => $request->discount_percent ?? 0,
             'sale_price' => $request->sale_price,
             'original_price' => $request->original_price,
@@ -134,6 +136,7 @@ class ProductController extends Controller
             'first_image_url' => 'nullable|image|max:2048',
             'second_image_url' => 'nullable|image|max:2048',
             'gallery_images.*' => 'nullable|image|max:2048',
+            'position' => 'nullable|integer',
         ]);
 
         $slug = $request->slug ? Str::slug($request->slug) : Str::slug($request->name);
@@ -164,7 +167,8 @@ class ProductController extends Controller
             'name' => $request->name,
             'slug' => $slug,
             'product_code' => $request->product_code,
-            'model' => $request->model,
+            'model' => $request->model,            
+            'position' => $request->position ?? 0,
             'description' => $request->description,
             'stock_status' => $request->has('stock_status') ? 1 : 0,
             'quantity' => $request->quantity,

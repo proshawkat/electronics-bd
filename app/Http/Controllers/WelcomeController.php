@@ -77,7 +77,7 @@ class WelcomeController extends Controller
         $tags = Tag::get(['id', 'name']);
 
 
-        $products = Product::with('brand')->where('discount_percent', '>', 0)->where('is_clearance_outlet', 1)->where('status', 1);
+        $products = Product::with('brand')->where('discount_percent', '>', 0)->where('is_clearance_outlet', 1)->where('status', 1)->orderBy('position', 'asc');
 
         if ($sort == 'pd.name') {
             $products = $products->orderBy('name', $order);
@@ -109,7 +109,7 @@ class WelcomeController extends Controller
         // Base query: only products that have an active offer
         $products = Product::whereHas('offer', function ($q) {
             $q->where('status', 1);
-        })->where('status', 1);
+        })->where('status', 1)->orderBy('position', 'asc');
 
         // Sorting
         if ($sort == 'pd.name') {

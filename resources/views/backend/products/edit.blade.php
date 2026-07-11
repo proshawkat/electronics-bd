@@ -129,6 +129,10 @@
                             <div class="card-title">Settings</div>
                         </div>
                         <div class="card-body">
+                            <div class="col-sm-12 mb-3">
+                                <label for="position" class="form-label">Position / Order</label>
+                                <input type="number" class="form-control" id="position" name="position" value="{{ old('position', 0) }}" />
+                            </div>
                             <div class="mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="status" name="status" value="1" {{ $product->status ? 'checked' : '' }} />

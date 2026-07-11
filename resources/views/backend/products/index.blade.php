@@ -56,6 +56,8 @@
                                         <th style="width: 10px">#</th>
                                         <th>Image</th>
                                         <th>Name</th>
+                                        <th>Brand</th>
+                                        <th>Position</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Stock Status</th>
@@ -69,7 +71,9 @@
                                         <tr class="align-middle">
                                             <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                                             <td><img src="{{ asset('public/'.$product->first_image_url) }}" width="60"></td>
-                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->name }}</td>  
+                                            <td>{{ $product->brand->name ?? 'N/A' }}</td>
+                                            <td>{{ $product->position }}</td>
                                             <td>{{ $product->quantity }}</td>
                                             <td>{{ $product->no_sale_price ? "No Sale Price" : $product->sale_price }}</td>
                                             <td>

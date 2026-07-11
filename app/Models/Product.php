@@ -31,6 +31,7 @@ class Product extends Model
         'no_sale_price', 
         'cash_on_delivery',
         'cod_unavailable_message',
+        'position',
     ];
 
     protected $casts = [
